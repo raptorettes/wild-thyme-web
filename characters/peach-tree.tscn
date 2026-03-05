@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://lwnns85sjm5s"]
+
+[ext_resource type="Texture2D" uid="uid://cl5ex584ybqfn" path="res://assets/Objects/Tree animations/tree peach sprites.png" id="1_b1bir"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b1bir"]
+
+[node name="StaticBody2D" type="StaticBody2D" unique_id=1808471176]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1888969552]
+texture = ExtResource("1_b1bir")
+hframes = 12
+vframes = 5
+frame = 24
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=500747090]
+visible = false
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_b1bir")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=746250666]
+root_node = NodePath("../Sprite2D")

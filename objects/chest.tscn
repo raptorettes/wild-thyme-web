@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://cfsfaeu0xjdgd"]
+
+[ext_resource type="Texture2D" uid="uid://df4aj1ijbkhlk" path="res://assets/Tilesets/Building parts/Chest.png" id="1_ld6i3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_36laa"]
+size = Vector2(16, 13)
+
+[node name="Chest" type="StaticBody2D" unique_id=1204285106]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=956750032]
+texture = ExtResource("1_ld6i3")
+hframes = 5
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1018754438]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_36laa")
