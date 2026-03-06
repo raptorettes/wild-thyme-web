@@ -19,6 +19,11 @@ config/icon="res://icon.svg"
 
 window/stretch/scale=3.0
 
+[global_group]
+
+cows=""
+player=""
+
 [input]
 
 ui_left={

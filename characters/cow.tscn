@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://duxpj77m1j6nd"]
 
-[ext_resource type="Script" uid="uid://djs4yruotx4p2" path="res://characters/cow.gd" id="1_5wucx"]
+[ext_resource type="Script" uid="uid://bc1h18fil04wu" path="res://characters/cow_graze.gd" id="1_5wucx"]
 [ext_resource type="Texture2D" uid="uid://b7qlnkfw2igj6" path="res://assets/Animals/Cow/Purple cow animation sprites.png" id="1_kfm0s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wucx"]
@@ -39,7 +39,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_t8fki"]
-resource_name = "graze"
+resource_name = "graze_right"
 length = 3.0
 loop_mode = 1
 tracks/0/type = "value"
@@ -127,12 +127,15 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_kfm0s"),
 &"chew": SubResource("Animation_0h17f"),
-&"graze": SubResource("Animation_t8fki"),
+&"graze_right": SubResource("Animation_t8fki"),
 &"idle": SubResource("Animation_5wucx"),
 &"idle_right": SubResource("Animation_t8qks"),
 &"love": SubResource("Animation_s32nw"),
 &"walk_right": SubResource("Animation_unut8")
 }
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t8qks"]
+animation = &"graze_right"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5wucx"]
 animation = &"idle_right"
@@ -147,14 +150,23 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0h17f"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_s32nw"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3j5tr"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_s32nw"]
+states/graze_right/node = SubResource("AnimationNodeAnimation_t8qks")
+states/graze_right/position = Vector2(628, 100)
 states/idle_right/node = SubResource("AnimationNodeAnimation_5wucx")
 states/idle_right/position = Vector2(326, 100)
 states/walk_right/node = SubResource("AnimationNodeAnimation_t8fki")
 states/walk_right/position = Vector2(480, 100)
-transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_t8qks"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_unut8"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_0h17f")]
+transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_t8qks"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_unut8"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_0h17f"), "walk_right", "graze_right", SubResource("AnimationNodeStateMachineTransition_s32nw"), "graze_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_3j5tr")]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=1245950768]
+[sub_resource type="CircleShape2D" id="CircleShape2D_5wucx"]
+radius = 24.0
+
+[node name="Cow" type="CharacterBody2D" unique_id=1245950768]
 script = ExtResource("1_5wucx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
@@ -163,7 +175,6 @@ hframes = 8
 vframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=235545710]
-visible = false
 position = Vector2(1, 7.5)
 shape = SubResource("RectangleShape2D_5wucx")
 
@@ -176,4 +187,12 @@ anim_player = NodePath("../AnimationPlayer")
 
 [node name="Timer" type="Timer" parent="." unique_id=2131740869]
 
+[node name="LoveArea" type="Area2D" parent="." unique_id=1886024902]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LoveArea" unique_id=2098283078]
+position = Vector2(1, 4)
+shape = SubResource("CircleShape2D_5wucx")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="LoveArea" to="." method="_on_love_area_body_entered"]

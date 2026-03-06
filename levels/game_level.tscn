@@ -25,10 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://duxpj77m1j6nd" path="res://characters/cow.tscn" id="22_2bx2d"]
 [ext_resource type="PackedScene" uid="uid://cfsfaeu0xjdgd" path="res://objects/chest.tscn" id="23_4edbn"]
 [ext_resource type="PackedScene" uid="uid://epvi6v6e0j6y" path="res://characters/bb_cow.tscn" id="25_vgcik"]
-[ext_resource type="PackedScene" uid="uid://dhs5rvhek7u36" path="res://characters/cow_pink.tscn" id="26_52gom"]
-[ext_resource type="PackedScene" uid="uid://ho4ven55vqug" path="res://characters/bb_cow_pink.tscn" id="26_dwws4"]
-[ext_resource type="PackedScene" uid="uid://bxsm54p01bv12" path="res://characters/bb_cow_light.tscn" id="28_0kbwn"]
-[ext_resource type="PackedScene" uid="uid://xgi8xa55adj2" path="res://characters/cow_light.tscn" id="28_smjyf"]
+[ext_resource type="AudioStream" uid="uid://c6ghm4k6olhai" path="res://assets/music/the_mountain-ambient-487008.mp3" id="26_dwws4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qmvb7"]
 texture = ExtResource("1_d65c1")
@@ -555,28 +552,40 @@ texture = ExtResource("13_876hk")
 20:0/0 = 0
 0:5/size_in_atlas = Vector2i(3, 3)
 0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 3:5/size_in_atlas = Vector2i(3, 3)
 3:5/0 = 0
+3:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 6:5/size_in_atlas = Vector2i(3, 3)
 6:5/0 = 0
+6:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 10:5/size_in_atlas = Vector2i(2, 3)
 10:5/0 = 0
+10:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 12:5/size_in_atlas = Vector2i(2, 3)
 12:5/0 = 0
+12:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 14:5/size_in_atlas = Vector2i(2, 3)
 14:5/0 = 0
+14:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 14:8/size_in_atlas = Vector2i(2, 3)
 14:8/0 = 0
+14:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 12:8/size_in_atlas = Vector2i(2, 3)
 12:8/0 = 0
+12:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 10:8/size_in_atlas = Vector2i(2, 3)
 10:8/0 = 0
+10:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 6:8/size_in_atlas = Vector2i(3, 3)
 6:8/0 = 0
+6:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 3:8/size_in_atlas = Vector2i(3, 3)
 3:8/0 = 0
+3:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 0:8/size_in_atlas = Vector2i(3, 3)
 0:8/0 = 0
+0:8/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.726862, -17.806013, 15.647709, -17.446297, 15.827568, 18.34559, -15.827568, 18.885168)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_643jo"]
 texture = ExtResource("14_vgcik")
@@ -763,7 +772,6 @@ tile_set = SubResource("TileSet_4edbn")
 
 [node name="fences" type="TileMapLayer" parent="map_objects" unique_id=1993394379]
 position = Vector2(-2, 2)
-tile_map_data = PackedByteArray("AAAGAOj/AAABAAAAAAAHAOj/AAACAAAAAAAIAOj/AAACAAAAAAAJAOj/AAACAAAAAAAKAOj/AAACAAAAAAA=")
 tile_set = SubResource("TileSet_ahv3r")
 
 [node name="plants" type="TileMapLayer" parent="map_objects" unique_id=744675795]
@@ -774,9 +782,6 @@ tile_set = SubResource("TileSet_x6325")
 tile_map_data = PackedByteArray("AAAKAA0AAgAAAAAAAAAKAA4AAgAAAAEAAAAKAA8AAgAAAAIAAAAUAAoAAgAAAAAAAAAUAAsAAgAAAAEAAAAUAAwAAgAAAAEAAAAUAA0AAgAAAAIAAAARAAAAAgACAAAAAAAUAAAAAgADAAEAAAASAAAAAgADAAAAAAATAAAAAgADAAAAAAD//wYAAQAAAAAAAAD//wcAAQAAAAEAAAD//wgAAQAAAAIAAAD//wkAAQABAAIAAAAAAAkAAQABAAMAAAABAAkAAQACAAEAAAABAAoAAQAAAAEAAAABAAsAAQABAAIAAAACAAsAAQACAAMAAAADAAsAAQACAAMAAAAEAAsAAQACAAMAAAAFAAsAAQACAAMAAAAGAAsAAQACAAMAAAAHAAsAAQACAAMAAAAIAAsAAQACAAMAAAAJAAsAAQACAAIAAAAJAAoAAQABAAEAAAAKAAoAAQACAAMAAAAKAAsAAQAAAAEAAAAKAAwAAQAAAAIAAAALAAoAAQACAAMAAAAMAAoAAQACAAMAAAANAAoAAQACAAIAAAANAAkAAQAAAAEAAAANAAgAAQAAAAAAAAAOAAkAAQACAAMAAAAPAAkAAQACAAMAAAAQAAkAAQACAAMAAAARAAkAAQACAAMAAAASAAkAAQACAAMAAAATAAkAAQACAAMAAAAUAAkAAQACAAEAAAAVAAAAAgAEAAEAAAAJAPj/AgAAAAAAAAAJAPn/AgAAAAEAAAAJAPr/AgAAAAEAAAAJAP3/AgAAAAEAAAAJAP7/AgAAAAIAAAAJAPv/AgAAAAEAAAAJAPz/AgAAAAEAAAAJAPf/AQAAAAIAAAAJAPb/AQAAAAIAAAAJAPX/AQACAAEAAAAIAPX/AQACAAMAAAAHAPX/AQACAAMAAAAGAPX/AQACAAMAAAAFAPX/AQABAAIAAAAFAPT/AQAAAAEAAAAFAPP/AQAAAAEAAAAFAPL/AQAAAAEAAAAFAPH/AQAAAAEAAAAFAPD/AQAAAAEAAAAFAO//AQACAAEAAAAEAO//AQACAAMAAAADAO//AQABAAIAAAADAO7/AQAAAAEAAAADAO3/AQAAAAEAAAADAOz/AQAAAAEAAAADAOv/AQABAAEAAAAEAOv/AQACAAMAAAAFAOv/AQACAAMAAAAGAOv/AQACAAMAAAAHAOv/AQACAAIAAAAHAOr/AQAAAAEAAAAHAOn/AQAAAAEAAAAHAOj/AQAAAAEAAAAHAOf/AQABAAEAAAAIAOf/AQACAAMAAAAJAOf/AQACAAMAAAAKAOf/AQACAAIAAAAKAOb/AQAAAAEAAAAKAOX/AQABAAEAAAALAOX/AQACAAMAAAAMAOX/AQACAAMAAAANAOX/AQACAAMAAAAOAOX/AQACAAMAAAAPAOX/AQACAAMAAAAQAOX/AQACAAEAAAAQAOb/AQAAAAEAAAAQAOf/AQAAAAEAAAAQAOj/AQABAAIAAAARAOj/AQACAAMAAAASAOj/AQACAAMAAAATAOj/AQACAAMAAAAUAOj/AQACAAEAAAAUAOn/AQAAAAEAAAAUAOr/AQAAAAEAAAAUAOv/AQABAAIAAAAVAOv/AQACAAMAAAAWAOv/AQACAAEAAAAWAOz/AQAAAAEAAAAWAO3/AQAAAAEAAAAWAO7/AQAAAAEAAAAWAO//AQAAAAEAAAAWAPD/AQAAAAEAAAAWAPH/AQACAAIAAAAVAPH/AQACAAMAAAAUAPH/AQABAAEAAAAUAPL/AQACAAIAAAATAPL/AQABAAEAAAATAPP/AQACAAIAAAASAPP/AQABAAEAAAASAPT/AQACAAIAAAARAPT/AQABAAEAAAARAPX/AQACAAIAAAAQAPX/AQACAAMAAAAPAPX/AQACAAMAAAAOAPX/AQABAAMAAAA=")
 tile_set = SubResource("TileSet_qmvb7")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1872238816]
-position = Vector2(15, 14)
-
 [node name="objects" type="Node2D" parent="." unique_id=1164560747]
 
 [node name="chest" parent="objects" unique_id=1204285106 instance=ExtResource("23_4edbn")]
@@ -785,62 +790,60 @@ position = Vector2(356, 284)
 [node name="chest2" parent="objects" unique_id=2025068130 instance=ExtResource("23_4edbn")]
 position = Vector2(197, 20)
 
-[node name="cows" type="Node2D" parent="." unique_id=759443815]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1872238816]
+position = Vector2(15, 14)
 
-[node name="cow1" parent="cows" unique_id=1245950768 instance=ExtResource("22_2bx2d")]
-position = Vector2(3, 109)
-
-[node name="cow2" parent="cows" unique_id=256172393 instance=ExtResource("22_2bx2d")]
-position = Vector2(71, 176)
-
-[node name="bb_cow1" parent="cows" unique_id=1786699154 instance=ExtResource("25_vgcik")]
-position = Vector2(165, 135)
-
-[node name="bb_cow2" parent="cows" unique_id=1973902505 instance=ExtResource("25_vgcik")]
-position = Vector2(119, 193)
-
-[node name="bb_cow_pink" parent="cows" unique_id=418154842 instance=ExtResource("26_dwws4")]
-position = Vector2(257, -308)
-
-[node name="bb_cow_pink2" parent="cows" unique_id=1059707360 instance=ExtResource("26_dwws4")]
-position = Vector2(149, -206)
-
-[node name="bb_cow_pink3" parent="cows" unique_id=1428358475 instance=ExtResource("26_dwws4")]
-position = Vector2(253, -204)
-
-[node name="cow_pink" parent="cows" unique_id=61138086 instance=ExtResource("26_52gom")]
-position = Vector2(216, -255)
-
-[node name="cow_pink2" parent="cows" unique_id=1491252347 instance=ExtResource("26_52gom")]
-position = Vector2(98, -305)
-
-[node name="cow_pink3" parent="cows" unique_id=448907738 instance=ExtResource("26_52gom")]
-position = Vector2(301, -335)
-
-[node name="cow_light" parent="cows" unique_id=1265158390 instance=ExtResource("28_smjyf")]
-position = Vector2(177, -275)
-
-[node name="cow_light2" parent="cows" unique_id=1812525123 instance=ExtResource("28_smjyf")]
-position = Vector2(58, -226)
-
-[node name="cow_light3" parent="cows" unique_id=2007894326 instance=ExtResource("28_smjyf")]
-position = Vector2(251, -363)
-
-[node name="cow_light4" parent="cows" unique_id=40898531 instance=ExtResource("28_smjyf")]
-position = Vector2(293, -406)
-
-[node name="bb_cow_light" parent="cows" unique_id=1938288265 instance=ExtResource("28_0kbwn")]
-position = Vector2(115, -252)
-
-[node name="bb_cow_light2" parent="cows" unique_id=77898382 instance=ExtResource("28_0kbwn")]
-position = Vector2(233, -334)
-
-[node name="bb_cow_light3" parent="cows" unique_id=1718528941 instance=ExtResource("28_0kbwn")]
-position = Vector2(87, -355)
-
-[node name="cat-thyme" parent="." unique_id=117357209 instance=ExtResource("1_qc6i3")]
+[node name="cat-thyme" parent="." unique_id=117357209 groups=["cows", "player"] instance=ExtResource("1_qc6i3")]
 position = Vector2(16, 12)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="cat-thyme" unique_id=508694820]
 position = Vector2(-1, 2)
 remote_path = NodePath("../../Camera2D")
+
+[node name="Cows" type="Node2D" parent="." unique_id=1459625005]
+
+[node name="Cow" parent="Cows" unique_id=1245950768 groups=["cows"] instance=ExtResource("22_2bx2d")]
+position = Vector2(-9, 117)
+
+[node name="Cow2" parent="Cows" unique_id=507985070 groups=["cows"] instance=ExtResource("22_2bx2d")]
+position = Vector2(58, 180)
+
+[node name="Cow3" parent="Cows" unique_id=620143291 groups=["cows"] instance=ExtResource("22_2bx2d")]
+position = Vector2(170, -279)
+
+[node name="Cow4" parent="Cows" unique_id=956069206 groups=["cows"] instance=ExtResource("22_2bx2d")]
+position = Vector2(253, -308)
+
+[node name="Cow5" parent="Cows" unique_id=576245560 groups=["cows"] instance=ExtResource("22_2bx2d")]
+position = Vector2(230, -157)
+
+[node name="Cow6" parent="Cows" unique_id=863489864 groups=["cows"] instance=ExtResource("22_2bx2d")]
+position = Vector2(270, -254)
+
+[node name="Cow7" parent="Cows" unique_id=1748162169 groups=["cows"] instance=ExtResource("22_2bx2d")]
+position = Vector2(103, -198)
+
+[node name="BB_cow" type="Node2D" parent="." unique_id=734356262]
+
+[node name="bb_cow" parent="BB_cow" unique_id=1848823565 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(159, -231)
+
+[node name="bb_cow2" parent="BB_cow" unique_id=1829969712 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(191, -218)
+
+[node name="bb_cow3" parent="BB_cow" unique_id=631024965 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(304, -315)
+
+[node name="bb_cow4" parent="BB_cow" unique_id=1902179276 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(53, -243)
+
+[node name="bb_cow5" parent="BB_cow" unique_id=1540015752 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(172, 135)
+
+[node name="bb_cow6" parent="BB_cow" unique_id=1299146989 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(232, 175)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=246935544]
+stream = ExtResource("26_dwws4")
+autoplay = true
+parameters/looping = true

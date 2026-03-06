@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://epvi6v6e0j6y"]
 
-[ext_resource type="Script" uid="uid://rr4ubsen2v05" path="res://characters/bb_cow.gd" id="1_jxnyl"]
+[ext_resource type="Script" uid="uid://c5aue6uernut" path="res://characters/bb_cow_chew.gd" id="1_jxnyl"]
 [ext_resource type="Texture2D" uid="uid://bkp4wkr1blkd0" path="res://assets/Animals/Cow_Baby/baby purple cow animations sprites.png" id="2_jxnyl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wucx"]
@@ -38,6 +38,40 @@ tracks/0/keys = {
 "values": [Vector2i(2, 3), Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3)]
 }
 
+[sub_resource type="Animation" id="Animation_dqo3j"]
+resource_name = "chew"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.19999999, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 7), Vector2i(1, 7), Vector2i(2, 7), Vector2i(3, 7)]
+}
+
+[sub_resource type="Animation" id="Animation_j3emm"]
+resource_name = "graze"
+length = 3.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 1.9999999, 2.1999998, 2.4, 2.6, 2.8, 2.9999998, 3.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6), Vector2i(3, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(4, 6), Vector2i(3, 6), Vector2i(4, 6), Vector2i(5, 6), Vector2i(6, 6), Vector2i(7, 6)]
+}
+
 [sub_resource type="Animation" id="Animation_ukr8t"]
 resource_name = "idle"
 length = 1.0333333
@@ -72,6 +106,23 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(0, 0), Vector2i(0, 0), Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1), Vector2i(3, 1), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_u57qv"]
+resource_name = "love"
+length = 3.4333334
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6012238, 1.8012239, 2, 2.2000003, 2.4, 2.6, 2.8, 2.9999073),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 6), Vector2i(0, 8), Vector2i(1, 8), Vector2i(2, 8), Vector2i(3, 8), Vector2i(4, 8), Vector2i(5, 8), Vector2i(2, 8), Vector2i(3, 8), Vector2i(4, 8), Vector2i(4, 8), Vector2i(3, 8), Vector2i(2, 8), Vector2i(4, 8), Vector2i(0, 8), Vector2i(0, 6)]
+}
+
 [sub_resource type="Animation" id="Animation_y4b66"]
 resource_name = "walk_right"
 length = 0.8
@@ -93,13 +144,28 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_jxnyl"),
 &"bounce": SubResource("Animation_iiw7o"),
+&"chew": SubResource("Animation_dqo3j"),
+&"graze": SubResource("Animation_j3emm"),
 &"idle": SubResource("Animation_ukr8t"),
 &"idle_right": SubResource("Animation_wbjck"),
+&"love": SubResource("Animation_u57qv"),
 &"walk_right": SubResource("Animation_y4b66")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_wbjck"]
+animation = &"bounce"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_iiw7o"]
+animation = &"chew"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y4b66"]
+animation = &"graze"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jxnyl"]
 animation = &"idle_right"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_u57qv"]
+animation = &"love"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ukr8t"]
 animation = &"walk_right"
@@ -111,13 +177,41 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_iiw7o"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u57qv"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dqo3j"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_j3emm"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ckrg4"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tgi6i"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_3iuhi"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_4ogfu"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_nkjo8"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_s32nw"]
+states/End/position = Vector2(1125, 86)
 states/Start/position = Vector2(202, 86)
+states/bounce/node = SubResource("AnimationNodeAnimation_wbjck")
+states/bounce/position = Vector2(654, 86)
+states/chew/node = SubResource("AnimationNodeAnimation_iiw7o")
+states/chew/position = Vector2(892, 86)
+states/graze/node = SubResource("AnimationNodeAnimation_y4b66")
+states/graze/position = Vector2(784, 86)
 states/idle_right/node = SubResource("AnimationNodeAnimation_jxnyl")
 states/idle_right/position = Vector2(345, 86)
+states/love/node = SubResource("AnimationNodeAnimation_u57qv")
+states/love/position = Vector2(1007, 79)
 states/walk_right/node = SubResource("AnimationNodeAnimation_ukr8t")
 states/walk_right/position = Vector2(506, 86)
-transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_wbjck"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_y4b66"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_iiw7o")]
+transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_wbjck"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_y4b66"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_iiw7o"), "walk_right", "bounce", SubResource("AnimationNodeStateMachineTransition_u57qv"), "bounce", "walk_right", SubResource("AnimationNodeStateMachineTransition_dqo3j"), "bounce", "graze", SubResource("AnimationNodeStateMachineTransition_j3emm"), "graze", "bounce", SubResource("AnimationNodeStateMachineTransition_ckrg4"), "graze", "chew", SubResource("AnimationNodeStateMachineTransition_tgi6i"), "chew", "graze", SubResource("AnimationNodeStateMachineTransition_3iuhi"), "chew", "love", SubResource("AnimationNodeStateMachineTransition_4ogfu"), "love", "chew", SubResource("AnimationNodeStateMachineTransition_nkjo8")]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jxnyl"]
+radius = 20.0
 
 [node name="bb_cow" type="CharacterBody2D" unique_id=1245950768]
 script = ExtResource("1_jxnyl")
@@ -140,5 +234,12 @@ tree_root = SubResource("AnimationNodeStateMachine_s32nw")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Timer" type="Timer" parent="." unique_id=2131740869]
+
+[node name="CowDetector" type="Area2D" parent="." unique_id=2055283044]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=1370877516]
+visible = false
+position = Vector2(1, 6)
+shape = SubResource("CircleShape2D_jxnyl")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
