@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 enum COW_STATE { IDLE, WALK, BOUNCE, GRAZE, CHEW, LOVE }
 
+signal found_cow
+
 @export var move_speed: float = 20
 @export var idle_time: float = 3
 @export var walk_time: float = 4
@@ -9,6 +11,7 @@ enum COW_STATE { IDLE, WALK, BOUNCE, GRAZE, CHEW, LOVE }
 @export var graze_time: float = 5
 @export var chew_time: float = 4
 @export var love_time: float = 2
+@export var is_secret: bool = false
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -116,3 +119,10 @@ func _on_timer_timeout():
 		timer.start(randf_range(chew_time * 0.5, chew_time * 1.5))
 	else:
 		pick_new_state()
+
+
+func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event.is_pressed() and is_secret:
+		current_state = COW_STATE.BOUNCE
+		state_machine.travel("bounce")
+		emit_signal("found_cow")

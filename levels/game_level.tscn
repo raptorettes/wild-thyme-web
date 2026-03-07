@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://byutox5k673a5"]
 
+[ext_resource type="Script" uid="uid://bcse2oua8ntxm" path="res://levels/game_level.gd" id="1_3n2a7"]
 [ext_resource type="Texture2D" uid="uid://cs16yxa30ohqn" path="res://assets/Tilesets/ground tiles/water frames/Water.png" id="1_d65c1"]
 [ext_resource type="PackedScene" uid="uid://duh4dqmehsp4y" path="res://characters/cat-thyme.tscn" id="1_qc6i3"]
 [ext_resource type="Texture2D" uid="uid://drafk8xgcpne" path="res://assets/Tilesets/ground tiles/New tiles/Darker_Grass_Hills_Tiles_v2.png" id="3_2i5ty"]
@@ -747,6 +748,7 @@ sources/2 = SubResource("TileSetAtlasSource_jyjt4")
 sources/3 = SubResource("TileSetAtlasSource_gehph")
 
 [node name="GameLevel" type="Node2D" unique_id=931376677]
+script = ExtResource("1_3n2a7")
 
 [node name="ground_maps" type="Node2D" parent="." unique_id=2015902103]
 
@@ -856,8 +858,22 @@ position = Vector2(172, 135)
 
 [node name="bb_cow6" parent="BB_cow" unique_id=1299146989 groups=["cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(232, 175)
+is_secret = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=246935544]
 stream = ExtResource("26_dwws4")
 autoplay = true
 parameters/looping = true
+
+[node name="TheLabels" type="Node2D" parent="." unique_id=2123384287]
+
+[node name="TheLabel" type="Label" parent="TheLabels" unique_id=2118206202]
+visible = false
+offset_left = 135.0
+offset_top = 94.0
+offset_right = 301.0
+offset_bottom = 117.0
+scale = Vector2(0.56433874, 0.56433874)
+text = "You found secret cow"
+
+[connection signal="found_cow" from="BB_cow/bb_cow6" to="." method="_on_bb_cow_found_cow"]

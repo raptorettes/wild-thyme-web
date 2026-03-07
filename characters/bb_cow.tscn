@@ -214,6 +214,7 @@ transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTran
 radius = 12.0
 
 [node name="bb_cow" type="CharacterBody2D" unique_id=1245950768]
+input_pickable = true
 script = ExtResource("1_jxnyl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
@@ -240,4 +241,5 @@ anim_player = NodePath("../AnimationPlayer")
 position = Vector2(1, 6)
 shape = SubResource("CircleShape2D_jxnyl")
 
+[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
