@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b7qlnkfw2igj6" path="res://assets/Animals/Cow/Purple cow animation sprites.png" id="1_kfm0s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wucx"]
-size = Vector2(22, 11)
+size = Vector2(21, 10)
 
 [sub_resource type="Animation" id="Animation_kfm0s"]
 length = 0.001
@@ -166,6 +166,9 @@ transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTran
 [sub_resource type="CircleShape2D" id="CircleShape2D_5wucx"]
 radius = 24.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_t8fki"]
+radius = 15.033297
+
 [node name="Cow" type="CharacterBody2D" unique_id=1245950768]
 script = ExtResource("1_5wucx")
 
@@ -175,7 +178,7 @@ hframes = 8
 vframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=235545710]
-position = Vector2(1, 7.5)
+position = Vector2(0.5, 7)
 shape = SubResource("RectangleShape2D_5wucx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1193278904]
@@ -193,6 +196,12 @@ visible = false
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LoveArea" unique_id=2098283078]
 position = Vector2(1, 4)
 shape = SubResource("CircleShape2D_5wucx")
+
+[node name="CowDetector" type="Area2D" parent="." unique_id=48888518]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=970503130]
+position = Vector2(0, 4)
+shape = SubResource("CircleShape2D_t8fki")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="LoveArea" to="." method="_on_love_area_body_entered"]

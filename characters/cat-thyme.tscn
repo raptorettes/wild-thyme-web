@@ -6,7 +6,7 @@
 load_path = "res://.godot/imported/Premium Charakter Spritesheet.png-080407d5c428d197f3601c1e16fa25f5.ctex"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4gien"]
-size = Vector2(10, 8.25)
+size = Vector2(8, 7.25)
 
 [sub_resource type="Animation" id="Animation_dkbiv"]
 length = 0.001
@@ -248,7 +248,8 @@ hframes = 8
 vframes = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1532849389]
-position = Vector2(0, 3.875)
+y_sort_enabled = true
+position = Vector2(0, 3.375)
 shape = SubResource("RectangleShape2D_4gien")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1284409928]

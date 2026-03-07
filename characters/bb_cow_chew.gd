@@ -27,13 +27,16 @@ func _ready():
 func _physics_process(_delta):
 	if current_state == COW_STATE.WALK:
 		var avoid_force = get_avoidance_force()
-
-		var final_direction = move_direction + avoid_force * 1.2
+		var final_direction = move_direction + avoid_force * 3.0
 		final_direction = final_direction.normalized()
-
 		velocity = final_direction * move_speed
 	else:
-		velocity = Vector2.ZERO
+		# Also apply avoidance when standing still so idle cows get nudged too
+		var avoid_force = get_avoidance_force()
+		if avoid_force.length() > 0.8:
+			velocity = avoid_force.normalized() * move_speed * 0.2
+		else:
+			velocity = Vector2.ZERO
 	
 	move_and_slide()
 	
@@ -94,12 +97,12 @@ func pick_new_state():
 
 func get_avoidance_force():
 	var force = Vector2.ZERO
+	var bodies = cow_detector.get_overlapping_bodies()
 	
-	for body in cow_detector.get_overlapping_bodies():
+	for body in bodies:
 		if body != self and body.is_in_group("cow"):
 			var push_dir = global_position - body.global_position
 			force += push_dir.normalized()
-		
 		if body.is_in_group("player"):
 			var push_dir = global_position - body.global_position
 			force += push_dir.normalized() * 2.5

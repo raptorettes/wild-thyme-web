@@ -11,6 +11,7 @@ enum COW_STATE { IDLE, WALK, GRAZE }
 @onready var state_machine = animation_tree.get("parameters/playback")
 @onready var sprite = $Sprite2D
 @onready var timer = $Timer
+@onready var cow_detector = $CowDetector
 
 var move_direction: Vector2 = Vector2.ZERO
 var current_state: COW_STATE = COW_STATE.IDLE
@@ -21,9 +22,26 @@ func _ready():
 
 func _physics_process(_delta):
 	if current_state == COW_STATE.WALK:
-		velocity = move_direction * move_speed
+		var avoid_force = get_avoidance_force()
+		var final_direction = move_direction + avoid_force * 3.0
+		final_direction = final_direction.normalized()
+		velocity = final_direction * move_speed
 	else:
-		velocity = Vector2.ZERO
+		var avoid_force = get_avoidance_force()
+		if avoid_force.length() > 0.8:
+			velocity = avoid_force.normalized() * move_speed * 0.2
+		else:
+			velocity = Vector2.ZERO
+	
+	move_and_slide()
+	
+	if is_on_wall() and current_state == COW_STATE.WALK:
+		var away_direction = -velocity.normalized()
+		move_direction = away_direction
+		if move_direction.x < 0:
+			sprite.flip_h = true
+		elif move_direction.x > 0:
+			sprite.flip_h = false
 	
 	move_and_slide()
 	
@@ -73,6 +91,20 @@ func pick_new_state():
 			current_state = COW_STATE.GRAZE
 			state_machine.travel("graze_right") 
 			timer.start(randf_range(graze_time * 0.5, graze_time * 1.5))
+
+func get_avoidance_force():
+	var force = Vector2.ZERO
+	var bodies = cow_detector.get_overlapping_bodies()
+	
+	for body in bodies:
+		if body != self and body.is_in_group("cow"):
+			var push_dir = global_position - body.global_position
+			force += push_dir.normalized()
+		if body.is_in_group("player"):
+			var push_dir = global_position - body.global_position
+			force += push_dir.normalized() * 2.5
+	
+	return force
 
 func _on_timer_timeout():
 	pick_new_state()

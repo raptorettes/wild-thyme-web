@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bkp4wkr1blkd0" path="res://assets/Animals/Cow_Baby/baby purple cow animations sprites.png" id="2_jxnyl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wucx"]
-size = Vector2(22, 11)
+size = Vector2(13, 10)
 
 [sub_resource type="Animation" id="Animation_jxnyl"]
 length = 0.001
@@ -211,7 +211,7 @@ states/walk_right/position = Vector2(506, 86)
 transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_wbjck"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_y4b66"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_iiw7o"), "walk_right", "bounce", SubResource("AnimationNodeStateMachineTransition_u57qv"), "bounce", "walk_right", SubResource("AnimationNodeStateMachineTransition_dqo3j"), "bounce", "graze", SubResource("AnimationNodeStateMachineTransition_j3emm"), "graze", "bounce", SubResource("AnimationNodeStateMachineTransition_ckrg4"), "graze", "chew", SubResource("AnimationNodeStateMachineTransition_tgi6i"), "chew", "graze", SubResource("AnimationNodeStateMachineTransition_3iuhi"), "chew", "love", SubResource("AnimationNodeStateMachineTransition_4ogfu"), "love", "chew", SubResource("AnimationNodeStateMachineTransition_nkjo8")]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_jxnyl"]
-radius = 20.0
+radius = 12.0
 
 [node name="bb_cow" type="CharacterBody2D" unique_id=1245950768]
 script = ExtResource("1_jxnyl")
@@ -222,8 +222,7 @@ hframes = 8
 vframes = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=235545710]
-visible = false
-position = Vector2(1, 7.5)
+position = Vector2(1.5, 7)
 shape = SubResource("RectangleShape2D_5wucx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1646746265]
@@ -238,7 +237,6 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="CowDetector" type="Area2D" parent="." unique_id=2055283044]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=1370877516]
-visible = false
 position = Vector2(1, 6)
 shape = SubResource("CircleShape2D_jxnyl")
 
