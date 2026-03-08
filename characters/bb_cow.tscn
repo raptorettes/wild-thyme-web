@@ -171,7 +171,6 @@ animation = &"love"
 animation = &"walk_right"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wbjck"]
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y4b66"]
 
@@ -223,6 +222,7 @@ hframes = 8
 vframes = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=235545710]
+visible = false
 position = Vector2(1.5, 7)
 shape = SubResource("RectangleShape2D_5wucx")
 
@@ -230,16 +230,17 @@ shape = SubResource("RectangleShape2D_5wucx")
 libraries/ = SubResource("AnimationLibrary_y4b66")
 
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=526544511]
+deterministic = false
 tree_root = SubResource("AnimationNodeStateMachine_s32nw")
 anim_player = NodePath("../AnimationPlayer")
 
 [node name="Timer" type="Timer" parent="." unique_id=2131740869]
 
 [node name="CowDetector" type="Area2D" parent="." unique_id=2055283044]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=1370877516]
 position = Vector2(1, 6)
 shape = SubResource("CircleShape2D_jxnyl")
 
-[connection signal="input_event" from="." to="." method="_on_input_event"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

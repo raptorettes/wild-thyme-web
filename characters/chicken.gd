@@ -1,16 +1,15 @@
 extends CharacterBody2D
 
-enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE }
+enum CHICKEN_STATE { IDLE, WALK, REST, PECK }
 
-#signal found_cow
 
-@export var move_speed: float = 20
+@export var move_speed: float = 15
 @export var idle_time: float = 3
 @export var walk_time: float = 2
-@export var rest_time: float = 4 
-@export var graze_time: float = 5
-@export var chew_time: float = 4
-@export var love_time: float = 2
+@export var rest_time: float = 2 
+@export var peck_time: float = 3
+#@export var chew_time: float = 4
+#@export var love_time: float = 2
 #@export var is_secret: bool = false
 
 @onready var animation_tree = $AnimationTree
@@ -20,21 +19,23 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE }
 @onready var cow_detector = $CowDetector
 
 var move_direction: Vector2 = Vector2.ZERO
-var current_state: COW_STATE = COW_STATE.IDLE
+var current_state: CHICKEN_STATE = CHICKEN_STATE.IDLE
 var avoid_force: Vector2 = Vector2.ZERO
+var wall_redirect_cooldown: float = 0.0
 
 func _ready():
 	randomize()
 	pick_new_state()
 
-func _physics_process(_delta):
-	if current_state == COW_STATE.WALK:
+func _physics_process(delta):
+	wall_redirect_cooldown -= delta  # count down each frame
+	
+	if current_state == CHICKEN_STATE.WALK:
 		var avoid_force = get_avoidance_force()
 		var final_direction = move_direction + avoid_force * 3.0
 		final_direction = final_direction.normalized()
 		velocity = final_direction * move_speed
 	else:
-		# Also apply avoidance when standing still so idle cows get nudged too
 		var avoid_force = get_avoidance_force()
 		if avoid_force.length() > 0.8:
 			velocity = avoid_force.normalized() * move_speed * 0.2
@@ -43,16 +44,25 @@ func _physics_process(_delta):
 	
 	move_and_slide()
 	
-	# If cow hits wall, pick new direction
-	if is_on_wall() and current_state == COW_STATE.WALK:
-		var away_direction = -velocity.normalized()
-		move_direction = away_direction
-		
+	if is_on_wall() and current_state == CHICKEN_STATE.WALK and wall_redirect_cooldown <= 0.0:
+		wall_redirect_cooldown = 0.5  # wait half a second before redirecting again
+		select_new_direction()        # pick a fresh random direction instead of reversing
+	
 		# Flip the sprite based on new horizontal direction
 		if move_direction.x < 0:
 			sprite.flip_h = true
 		elif move_direction.x > 0:
 			sprite.flip_h = false
+	
+	move_and_slide()
+	#
+	## If cow hits wall, pick new direction
+	#if is_on_wall() and current_state == CHICKEN_STATE.WALK:
+		#var away_direction = -velocity.normalized()
+		#move_direction = away_direction
+		#
+
+
 
 func select_new_direction():
 	move_direction = Vector2(
@@ -73,30 +83,27 @@ func select_new_direction():
 		sprite.flip_h = false
 
 func pick_new_state():
-	var state_roll = randi() % 5  # 0=idle, 1=walk, 2=bounce, 3=graze, 4=love
+	var state_roll = randi() % 4  # 0=idle, 1=walk, 2=rest, 3=peck
 	
 	match state_roll:
 		0:
-			current_state = COW_STATE.IDLE
-			state_machine.travel("idle_right")
+			current_state = CHICKEN_STATE.IDLE
+			state_machine.travel("idle")
 			timer.start(randf_range(idle_time * 0.5, idle_time * 1.5))
 		1:
-			current_state = COW_STATE.WALK
-			state_machine.travel("walk_right")
+			current_state = CHICKEN_STATE.WALK
+			state_machine.travel("walk")
 			select_new_direction()
 			timer.start(randf_range(walk_time * 0.5, walk_time * 1.5))
 		2:
-			current_state = COW_STATE.REST
+			current_state = CHICKEN_STATE.REST
 			state_machine.travel("rest")
 			timer.start(randf_range(rest_time * 0.5, rest_time * 1.5))
 		3:
-			current_state = COW_STATE.GRAZE
-			state_machine.travel("graze_right")
-			timer.start(5.6)
-		4:
-			current_state = COW_STATE.LOVE
-			state_machine.travel("love")
-			timer.start(randf_range(love_time * 0.5, love_time * 1.5))
+			current_state = CHICKEN_STATE.PECK
+			state_machine.travel("peck")
+			timer.start(randf_range(peck_time * 0.5, peck_time * 1.5))
+
 
 func get_avoidance_force():
 	var force = Vector2.ZERO
@@ -113,15 +120,15 @@ func get_avoidance_force():
 	return force
 	
 func _on_timer_timeout():
-	if current_state == COW_STATE.GRAZE and randf() < 0.5:
-		current_state = COW_STATE.CHEW
-		state_machine.travel("chew")
-		timer.start(randf_range(chew_time * 0.5, chew_time * 1.5))
-	else:
+	#if current_state == CHICKEN_STATE.PECK and randf() < 0.5:
+		#current_state = COW_STATE.CHEW
+		#state_machine.travel("chew")
+		#timer.start(randf_range(chew_time * 0.5, chew_time * 1.5))
+	#else:
 		pick_new_state()
 
 
-#func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+#func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	#if event.is_pressed() and is_secret:
 		#current_state = COW_STATE.BOUNCE
 		#state_machine.travel("bounce")

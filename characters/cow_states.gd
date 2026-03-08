@@ -22,10 +22,24 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE }
 var move_direction: Vector2 = Vector2.ZERO
 var current_state: COW_STATE = COW_STATE.IDLE
 var avoid_force: Vector2 = Vector2.ZERO
+var pending_state: int = -1  # -1 means no pending state
 
 func _ready():
 	randomize()
+	animation_tree.connect("animation_finished", _on_animation_finished)
 	pick_new_state()
+
+func _on_animation_finished(anim_name: String):
+	if pending_state == -1:
+		return  # No transition queued, keep looping
+	
+	if pending_state == -2:
+		pending_state = -1
+		pick_new_state()
+	else:
+		var next = pending_state
+		pending_state = -1
+		_enter_state(next)
 
 func _physics_process(_delta):
 	if current_state == COW_STATE.WALK:
@@ -73,28 +87,34 @@ func select_new_direction():
 		sprite.flip_h = false
 
 func pick_new_state():
-	var state_roll = randi() % 5  # 0=idle, 1=walk, 2=bounce, 3=graze, 4=love
-	
+	var state_roll = randi() % 5
 	match state_roll:
-		0:
-			current_state = COW_STATE.IDLE
+		0: _enter_state(COW_STATE.IDLE)
+		1: _enter_state(COW_STATE.WALK)
+		2: _enter_state(COW_STATE.REST)
+		3: _enter_state(COW_STATE.GRAZE)
+		4: _enter_state(COW_STATE.LOVE)
+
+func _enter_state(state: COW_STATE):
+	current_state = state
+	match state:
+		COW_STATE.IDLE:
 			state_machine.travel("idle_right")
 			timer.start(randf_range(idle_time * 0.5, idle_time * 1.5))
-		1:
-			current_state = COW_STATE.WALK
+		COW_STATE.WALK:
 			state_machine.travel("walk_right")
 			select_new_direction()
 			timer.start(randf_range(walk_time * 0.5, walk_time * 1.5))
-		2:
-			current_state = COW_STATE.REST
+		COW_STATE.REST:
 			state_machine.travel("rest")
 			timer.start(randf_range(rest_time * 0.5, rest_time * 1.5))
-		3:
-			current_state = COW_STATE.GRAZE
+		COW_STATE.GRAZE:
 			state_machine.travel("graze_right")
-			timer.start(5.6)
-		4:
-			current_state = COW_STATE.LOVE
+			timer.start(randf_range(graze_time * 0.5, graze_time * 1.5))
+		COW_STATE.CHEW:
+			state_machine.travel("chew")
+			timer.start(randf_range(chew_time * 0.5, chew_time * 1.5))
+		COW_STATE.LOVE:
 			state_machine.travel("love")
 			timer.start(randf_range(love_time * 0.5, love_time * 1.5))
 
@@ -114,11 +134,9 @@ func get_avoidance_force():
 	
 func _on_timer_timeout():
 	if current_state == COW_STATE.GRAZE and randf() < 0.5:
-		current_state = COW_STATE.CHEW
-		state_machine.travel("chew")
-		timer.start(randf_range(chew_time * 0.5, chew_time * 1.5))
+		pending_state = COW_STATE.CHEW
 	else:
-		pick_new_state()
+		pending_state = -2  # -2 = "pick a new random state when ready"
 
 
 #func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:

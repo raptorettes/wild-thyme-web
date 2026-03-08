@@ -106,6 +106,9 @@ func get_avoidance_force():
 		if body != self and body.is_in_group("cow"):
 			var push_dir = global_position - body.global_position
 			force += push_dir.normalized()
+		if body != self and body.is_in_group("chickens"):
+			var push_dir = global_position - body.global_position
+			force += push_dir.normalized()
 		if body.is_in_group("player"):
 			var push_dir = global_position - body.global_position
 			force += push_dir.normalized() * 2.5
@@ -121,7 +124,7 @@ func _on_timer_timeout():
 		pick_new_state()
 
 
-func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_pressed() and is_secret:
 		current_state = COW_STATE.BOUNCE
 		state_machine.travel("bounce")
