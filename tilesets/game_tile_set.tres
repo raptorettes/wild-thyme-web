@@ -1,6 +1,7 @@
 [gd_resource type="TileSet" format=3 uid="uid://v5xsf30rgrlf"]
 
 [ext_resource type="Texture2D" uid="uid://cs16yxa30ohqn" path="res://assets/Tilesets/ground tiles/water frames/Water.png" id="1_tjtrf"]
+[ext_resource type="Texture2D" uid="uid://drafk8xgcpne" path="res://assets/Tilesets/ground tiles/New tiles/Darker_Grass_Hills_Tiles_v2.png" id="2_pudl8"]
 [ext_resource type="Texture2D" uid="uid://becmh3te0xn2h" path="res://assets/Tilesets/ground tiles/New tiles/Grass_tiles.png" id="2_tkbyn"]
 [ext_resource type="Texture2D" uid="uid://cxtbchbqvjsx2" path="res://assets/Tilesets/ground tiles/New tiles/Tilled_Dirt_Wide_v2.png" id="3_v1amf"]
 [ext_resource type="Texture2D" uid="uid://d2u06p1ysaeqq" path="res://assets/Objects/Basic Grass Biom things 1.png" id="4_7cqdy"]
@@ -13,6 +14,9 @@ texture = ExtResource("1_tjtrf")
 0:0/animation_frame_2/duration = 0.2
 0:0/animation_frame_3/duration = 0.2
 0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uk42g"]
+texture = ExtResource("2_pudl8")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_v1amf"]
 texture = ExtResource("2_tkbyn")
@@ -510,3 +514,4 @@ sources/0 = SubResource("TileSetAtlasSource_tkbyn")
 sources/5 = SubResource("TileSetAtlasSource_v1amf")
 sources/6 = SubResource("TileSetAtlasSource_7cqdy")
 sources/7 = SubResource("TileSetAtlasSource_pudl8")
+sources/1 = SubResource("TileSetAtlasSource_uk42g")
