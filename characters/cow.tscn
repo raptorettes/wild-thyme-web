@@ -218,12 +218,13 @@ radius = 15.033297
 script = ExtResource("1_5wucx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
+position = Vector2(0, -12)
 texture = ExtResource("1_kfm0s")
 hframes = 8
 vframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=235545710]
-position = Vector2(0.5, 7)
+position = Vector2(0.5, -5)
 shape = SubResource("RectangleShape2D_5wucx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1193278904]
@@ -244,7 +245,7 @@ position = Vector2(1, 4)
 shape = SubResource("CircleShape2D_5wucx")
 
 [node name="CowDetector" type="Area2D" parent="." unique_id=48888518]
-visible = false
+position = Vector2(0, -11)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=970503130]
 position = Vector2(0, 4)

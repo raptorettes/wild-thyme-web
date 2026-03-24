@@ -217,13 +217,13 @@ input_pickable = true
 script = ExtResource("1_jxnyl")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
+position = Vector2(-1, -13)
 texture = ExtResource("2_jxnyl")
 hframes = 8
 vframes = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=235545710]
-visible = false
-position = Vector2(1.5, 7)
+position = Vector2(0.5, -6)
 shape = SubResource("RectangleShape2D_5wucx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1646746265]
@@ -237,10 +237,9 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="Timer" type="Timer" parent="." unique_id=2131740869]
 
 [node name="CowDetector" type="Area2D" parent="." unique_id=2055283044]
-visible = false
+position = Vector2(0, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=1370877516]
-position = Vector2(1, 6)
 shape = SubResource("CircleShape2D_jxnyl")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

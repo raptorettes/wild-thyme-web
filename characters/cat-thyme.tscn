@@ -243,13 +243,14 @@ y_sort_enabled = true
 script = ExtResource("1_dkbiv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=814850010]
+position = Vector2(0, -7)
 texture = SubResource("CompressedTexture2D_4gien")
 hframes = 8
 vframes = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1532849389]
 y_sort_enabled = true
-position = Vector2(0, 3.375)
+position = Vector2(0, -3.625)
 shape = SubResource("RectangleShape2D_4gien")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1284409928]
