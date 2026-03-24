@@ -169,6 +169,7 @@ sources/1 = SubResource("TileSetAtlasSource_5kejm")
 texture = ExtResource("7_o8r0f")
 0:0/size_in_atlas = Vector2i(2, 2)
 0:0/0 = 0
+0:0/0/y_sort_origin = 12
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-12.230393, -3.057598, 12.410252, -2.1583042, 12.590111, 14.208841, -13.3095455, 13.849123)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vgcik"]
@@ -564,49 +565,26 @@ position = Vector2(16, 12)
 position = Vector2(-1, 2)
 remote_path = NodePath("../../Camera2D")
 
-[node name="Cows" type="Node2D" parent="." unique_id=1459625005]
-
-[node name="Cow" parent="Cows" unique_id=1245950768 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow" parent="." unique_id=1245950768 groups=["cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(-9, 117)
 
-[node name="Cow2" parent="Cows" unique_id=507985070 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow2" parent="." unique_id=507985070 groups=["cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(58, 180)
 
-[node name="Cow3" parent="Cows" unique_id=620143291 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow3" parent="." unique_id=620143291 groups=["cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(170, -279)
 
-[node name="Cow4" parent="Cows" unique_id=956069206 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow4" parent="." unique_id=956069206 groups=["cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(253, -308)
 
-[node name="Cow5" parent="Cows" unique_id=576245560 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow5" parent="." unique_id=576245560 groups=["cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(230, -157)
 
-[node name="Cow6" parent="Cows" unique_id=863489864 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow6" parent="." unique_id=863489864 groups=["cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(270, -254)
 
-[node name="Cow7" parent="Cows" unique_id=1748162169 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow7" parent="." unique_id=1748162169 groups=["cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(103, -198)
-
-[node name="BB_cow" type="Node2D" parent="." unique_id=734356262]
-
-[node name="bb_cow" parent="BB_cow" unique_id=1848823565 groups=["cows"] instance=ExtResource("25_vgcik")]
-position = Vector2(159, -231)
-
-[node name="bb_cow2" parent="BB_cow" unique_id=1829969712 groups=["cows"] instance=ExtResource("25_vgcik")]
-position = Vector2(191, -218)
-
-[node name="bb_cow3" parent="BB_cow" unique_id=631024965 groups=["cows"] instance=ExtResource("25_vgcik")]
-position = Vector2(304, -315)
-
-[node name="bb_cow4" parent="BB_cow" unique_id=1902179276 groups=["cows"] instance=ExtResource("25_vgcik")]
-position = Vector2(53, -243)
-
-[node name="bb_cow5" parent="BB_cow" unique_id=1540015752 groups=["cows"] instance=ExtResource("25_vgcik")]
-position = Vector2(172, 135)
-
-[node name="bb_cow6" parent="BB_cow" unique_id=1299146989 groups=["cows"] instance=ExtResource("25_vgcik")]
-position = Vector2(232, 175)
-is_secret = true
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=246935544]
 stream = ExtResource("26_dwws4")
@@ -624,15 +602,32 @@ offset_bottom = 117.0
 scale = Vector2(0.56433874, 0.56433874)
 text = "You found secret cow"
 
-[node name="Chickens" type="Node2D" parent="." unique_id=1961074308]
+[node name="bb_cow" parent="." unique_id=1848823565 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(159, -231)
 
-[node name="Chicken" parent="Chickens" unique_id=775685339 groups=["chickens"] instance=ExtResource("28_52gom")]
+[node name="bb_cow2" parent="." unique_id=1829969712 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(191, -218)
+
+[node name="bb_cow3" parent="." unique_id=631024965 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(304, -315)
+
+[node name="bb_cow4" parent="." unique_id=1902179276 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(53, -243)
+
+[node name="bb_cow5" parent="." unique_id=1540015752 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(172, 135)
+
+[node name="bb_cow6" parent="." unique_id=1299146989 groups=["cows"] instance=ExtResource("25_vgcik")]
+position = Vector2(232, 175)
+is_secret = true
+
+[node name="Chicken" parent="." unique_id=775685339 groups=["chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(128, 67)
 
-[node name="Chicken2" parent="Chickens" unique_id=894156607 groups=["chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken2" parent="." unique_id=894156607 groups=["chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(152, 105)
 
-[node name="Chicken3" parent="Chickens" unique_id=826117459 groups=["chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken3" parent="." unique_id=826117459 groups=["chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(34, 216)
 
-[connection signal="found_cow" from="BB_cow/bb_cow6" to="." method="_on_bb_cow_found_cow"]
+[connection signal="found_cow" from="bb_cow6" to="." method="_on_bb_cow_found_cow"]

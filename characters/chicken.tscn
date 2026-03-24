@@ -49,10 +49,14 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b7ce8"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_71i4c"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_421ok"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f1q5m"]
 states/End/position = Vector2(1290, 100)
 states/get_down/node = SubResource("AnimationNodeAnimation_hexpo")
-states/get_down/position = Vector2(852, 173)
+states/get_down/position = Vector2(888, 100)
 states/get_up/node = SubResource("AnimationNodeAnimation_b7ce8")
 states/get_up/position = Vector2(974, 173)
 states/idle/node = SubResource("AnimationNodeAnimation_71i4c")
@@ -67,7 +71,8 @@ states/sleep/node = SubResource("AnimationNodeAnimation_ifkuu")
 states/sleep/position = Vector2(1192, 173)
 states/walk/node = SubResource("AnimationNodeAnimation_pmfyl")
 states/walk/position = Vector2(677, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_05g0y"), "idle", "idle_wake", SubResource("AnimationNodeStateMachineTransition_a03ur"), "idle_wake", "idle", SubResource("AnimationNodeStateMachineTransition_lswcm"), "idle_wake", "peck", SubResource("AnimationNodeStateMachineTransition_8wa3q"), "peck", "idle_wake", SubResource("AnimationNodeStateMachineTransition_h043g"), "peck", "walk", SubResource("AnimationNodeStateMachineTransition_t2a7s"), "walk", "peck", SubResource("AnimationNodeStateMachineTransition_atham"), "walk", "rest", SubResource("AnimationNodeStateMachineTransition_hexpo"), "rest", "walk", SubResource("AnimationNodeStateMachineTransition_b7ce8")]
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_05g0y"), "idle", "idle_wake", SubResource("AnimationNodeStateMachineTransition_a03ur"), "idle_wake", "idle", SubResource("AnimationNodeStateMachineTransition_lswcm"), "idle_wake", "peck", SubResource("AnimationNodeStateMachineTransition_8wa3q"), "peck", "idle_wake", SubResource("AnimationNodeStateMachineTransition_h043g"), "peck", "walk", SubResource("AnimationNodeStateMachineTransition_t2a7s"), "walk", "peck", SubResource("AnimationNodeStateMachineTransition_atham"), "walk", "rest", SubResource("AnimationNodeStateMachineTransition_hexpo"), "rest", "walk", SubResource("AnimationNodeStateMachineTransition_b7ce8"), "rest", "get_down", SubResource("AnimationNodeStateMachineTransition_71i4c"), "get_down", "rest", SubResource("AnimationNodeStateMachineTransition_421ok")]
+graph_offset = Vector2(250, 8)
 
 [sub_resource type="Animation" id="Animation_b7ce8"]
 length = 0.001
@@ -235,8 +240,14 @@ _data = {
 [sub_resource type="CircleShape2D" id="CircleShape2D_hexpo"]
 radius = 11.045361
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_b7ce8"]
+radius = 8.0
+
 [node name="Chicken" type="CharacterBody2D" unique_id=775685339]
+input_pickable = true
 script = ExtResource("1_hexpo")
+mouse_flee_radius = 80.0
+player_flee_radius = 60.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=355742702]
 position = Vector2(1, -6)
@@ -259,10 +270,17 @@ libraries/ = SubResource("AnimationLibrary_b7ce8")
 [node name="Timer" type="Timer" parent="." unique_id=2059353436]
 
 [node name="CowDetector" type="Area2D" parent="." unique_id=2054371249]
+visible = false
 position = Vector2(1, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=914103000]
 position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_hexpo")
+
+[node name="PickupArea" type="Area2D" parent="." unique_id=1012196709]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2011395488]
+position = Vector2(0, -5)
+shape = SubResource("CircleShape2D_b7ce8")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

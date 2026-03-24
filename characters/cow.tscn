@@ -216,6 +216,7 @@ radius = 15.033297
 
 [node name="Cow" type="CharacterBody2D" unique_id=1245950768]
 script = ExtResource("1_5wucx")
+player_flee_radius = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 position = Vector2(0, -12)
@@ -245,6 +246,7 @@ position = Vector2(1, 4)
 shape = SubResource("CircleShape2D_5wucx")
 
 [node name="CowDetector" type="Area2D" parent="." unique_id=48888518]
+visible = false
 position = Vector2(0, -11)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=970503130]
