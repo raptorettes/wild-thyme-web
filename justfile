@@ -9,3 +9,7 @@ play:
 # Serve the preview files
 serve:
     bunx vite /run/media/raptor/lump/game dev files/godot/game_runs
+
+# Export
+export:
+    godot --export-release Web ./export/game.html
