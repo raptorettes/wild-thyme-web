@@ -12,4 +12,4 @@ serve:
 
 # Export
 export:
-    godot --export-release Web ./export/game.html
+    godot --export-release Web ./export/index.html
