@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://b7qlnkfw2igj6" path="res://assets/Animals/Cow/Purple cow animation sprites.png" id="1_kfm0s"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wucx"]
-size = Vector2(21, 10)
+size = Vector2(14, 10)
 
 [sub_resource type="Animation" id="Animation_kfm0s"]
 length = 0.001
@@ -226,7 +226,7 @@ hframes = 8
 vframes = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=235545710]
-position = Vector2(0.5, -5)
+position = Vector2(-2, -5)
 shape = SubResource("RectangleShape2D_5wucx")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1193278904]

@@ -280,7 +280,7 @@ shape = SubResource("CircleShape2D_hexpo")
 [node name="PickupArea" type="Area2D" parent="." unique_id=1012196709]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2011395488]
-position = Vector2(0, -5)
+position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_b7ce8")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 MusicManager="*uid://c3yww0o1sw16k"
+NightManager="*uid://1pn34hgwfjsn"
 
 [display]
 
@@ -32,6 +33,7 @@ mouse_cursor/custom_image="uid://1oq333hy4p1"
 cows=""
 player=""
 chickens=""
+baby=""
 
 [input]
 

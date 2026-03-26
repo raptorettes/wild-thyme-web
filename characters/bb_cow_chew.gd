@@ -1,21 +1,27 @@
 extends CharacterBody2D
 
-enum COW_STATE { IDLE, WALK, BOUNCE, GRAZE, CHEW, LOVE, FLEE }
+enum COW_STATE { IDLE, WALK, REST, BOUNCE, GRAZE, CHEW, LOVE, FLEE }
 
 signal found_cow
 
 @export var move_speed: float = 20
 @export var idle_time: float = 3
 @export var walk_time: float = 4
-@export var bounce_time: float = 1 
+@export var bounce_time: float = 1
 @export var graze_time: float = 5
 @export var chew_time: float = 4
 @export var love_time: float = 2
 @export var is_secret: bool = false
-
 @export var flee_speed: float = 40.0
 @export var mouse_flee_radius: float = 40.0
 @export var player_flee_radius: float = 80.0
+@export var rest_time: float = 4
+
+# Happiness — babies start happier and are more resilient
+@export var happiness: float = 0.7
+@export var happiness_gain_per_night: float = 0.15
+@export var happiness_loss_per_night: float = 0.04
+@export var happiness_chicken_penalty: float = 0.03
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -78,6 +84,130 @@ func _physics_process(_delta):
 		var scatter = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 		velocity = scatter * flee_speed
 
+func apply_night_happiness(slept_safely: bool, chickens_present: bool):
+	if slept_safely:
+		happiness += happiness_gain_per_night
+	else:
+		happiness -= happiness_loss_per_night
+	if chickens_present:
+		happiness -= happiness_chicken_penalty
+	happiness = clamp(happiness, 0.0, 1.0)
+	_update_flee_radius()
+
+func _update_flee_radius():
+	if happiness < 0.3:
+		player_flee_radius = 120.0
+	elif happiness < 0.6:
+		player_flee_radius = 80.0
+	elif happiness < 0.8:
+		player_flee_radius = 50.0
+	else:
+		player_flee_radius = 20.0
+
+func pick_new_state():
+	var roll = randf()
+	
+	if happiness < 0.3:
+		if roll < 0.40:
+			_set_state_idle()
+		elif roll < 0.75:
+			_set_state_walk()
+		elif roll < 0.90:
+			_set_state_rest()
+		else:
+			_set_state_graze()
+	
+	elif happiness < 0.6:
+		if roll < 0.25:
+			_set_state_idle()
+		elif roll < 0.45:
+			_set_state_walk()
+		elif roll < 0.60:
+			_set_state_rest()
+		elif roll < 0.75:
+			_set_state_graze()
+		elif roll < 0.90:
+			_set_state_bounce()
+		else:
+			_set_state_love()
+	
+	elif happiness < 0.8:
+		if roll < 0.10:
+			_set_state_idle()
+		elif roll < 0.25:
+			_set_state_walk()
+		elif roll < 0.40:
+			_set_state_rest()
+		elif roll < 0.60:
+			_set_state_graze()
+		elif roll < 0.80:
+			_set_state_bounce()
+		else:
+			_set_state_love()
+	
+	else:
+		# Very happy baby — bouncing everywhere
+		if roll < 0.05:
+			_set_state_idle()
+		elif roll < 0.15:
+			_set_state_walk()
+		elif roll < 0.25:
+			_set_state_rest()
+		elif roll < 0.45:
+			_set_state_graze()
+		elif roll < 0.70:
+			_set_state_bounce()
+		else:
+			_set_state_love()
+
+func _set_state_idle():
+	current_state = COW_STATE.IDLE
+	state_machine.travel("idle_right")
+	timer.start(randf_range(idle_time * 0.5, idle_time * 1.5))
+
+func _set_state_walk():
+	current_state = COW_STATE.WALK
+	state_machine.travel("walk_right")
+	select_new_direction()
+	timer.start(randf_range(walk_time * 0.5, walk_time * 1.5))
+
+func _set_state_rest():
+	current_state = COW_STATE.REST
+	state_machine.travel("rest")
+	timer.start(5.2)
+
+func _set_state_graze():
+	current_state = COW_STATE.GRAZE
+	state_machine.travel("graze")
+	timer.start(5.6)
+
+func _set_state_bounce():
+	current_state = COW_STATE.BOUNCE
+	state_machine.travel("bounce")
+	timer.start(randf_range(bounce_time * 0.5, bounce_time * 1.5))
+
+func _set_state_love():
+	current_state = COW_STATE.LOVE
+	state_machine.travel("love")
+	timer.start(randf_range(love_time * 0.5, love_time * 1.5))
+
+func _resume_state(state: COW_STATE):
+	match state:
+		COW_STATE.IDLE:
+			_set_state_idle()
+		COW_STATE.WALK:
+			_set_state_walk()
+		COW_STATE.REST:
+			_set_state_rest()
+		COW_STATE.GRAZE:
+			_set_state_graze()
+		COW_STATE.BOUNCE:
+			_set_state_bounce()
+		COW_STATE.LOVE:
+			_set_state_love()
+		_:
+			pick_new_state()
+
 func get_mouse_flee_force() -> Vector2:
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
@@ -107,27 +237,6 @@ func get_avoidance_force() -> Vector2:
 			force += push_dir.normalized() * 2.5
 	return force
 
-func _resume_state(state: COW_STATE):
-	match state:
-		COW_STATE.IDLE:
-			state_machine.travel("idle_right")
-			timer.start(randf_range(idle_time * 0.5, idle_time * 1.5))
-		COW_STATE.WALK:
-			state_machine.travel("walk_right")
-			select_new_direction()
-			timer.start(randf_range(walk_time * 0.5, walk_time * 1.5))
-		COW_STATE.BOUNCE:
-			state_machine.travel("bounce")
-			timer.start(randf_range(bounce_time * 0.5, bounce_time * 1.5))
-		COW_STATE.GRAZE:
-			state_machine.travel("graze")
-			timer.start(randf_range(graze_time * 0.5, graze_time * 1.5))
-		COW_STATE.LOVE:
-			state_machine.travel("love")
-			timer.start(randf_range(love_time * 0.5, love_time * 1.5))
-		_:
-			pick_new_state()
-
 func select_new_direction():
 	move_direction = Vector2(randi_range(-1,1), randi_range(-1,1))
 	if move_direction == Vector2.ZERO:
@@ -137,31 +246,6 @@ func select_new_direction():
 		sprite.flip_h = true
 	elif move_direction.x > 0:
 		sprite.flip_h = false
-
-func pick_new_state():
-	var state_roll = randi() % 5
-	match state_roll:
-		0:
-			current_state = COW_STATE.IDLE
-			state_machine.travel("idle_right")
-			timer.start(randf_range(idle_time * 0.5, idle_time * 1.5))
-		1:
-			current_state = COW_STATE.WALK
-			state_machine.travel("walk_right")
-			select_new_direction()
-			timer.start(randf_range(walk_time * 0.5, walk_time * 1.5))
-		2:
-			current_state = COW_STATE.BOUNCE
-			state_machine.travel("bounce")
-			timer.start(randf_range(bounce_time * 0.5, bounce_time * 1.5))
-		3:
-			current_state = COW_STATE.GRAZE
-			state_machine.travel("graze")
-			timer.start(randf_range(graze_time * 0.5, graze_time * 1.5))
-		4:
-			current_state = COW_STATE.LOVE
-			state_machine.travel("love")
-			timer.start(randf_range(love_time * 0.5, love_time * 1.5))
 
 func _on_timer_timeout():
 	if current_state == COW_STATE.GRAZE and randf() < 0.5:
