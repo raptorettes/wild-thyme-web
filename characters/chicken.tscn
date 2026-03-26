@@ -241,7 +241,7 @@ _data = {
 radius = 11.045361
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7ce8"]
-radius = 8.0
+radius = 9.0
 
 [node name="Chicken" type="CharacterBody2D" unique_id=775685339]
 input_pickable = true

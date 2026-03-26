@@ -216,6 +216,7 @@ radius = 15.033297
 
 [node name="Cow" type="CharacterBody2D" unique_id=1245950768]
 script = ExtResource("1_5wucx")
+mouse_flee_radius = 60.0
 player_flee_radius = 50.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]

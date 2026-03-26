@@ -1,0 +1,59 @@
+[gd_scene format=3 uid="uid://bjjkiv45k1a1s"]
+
+[ext_resource type="Script" uid="uid://dnvawyl0bm055" path="res://scripts/pause_menu.gd" id="1_e7fsp"]
+[ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="2_qlm62"]
+
+[node name="PauseMenu" type="CanvasLayer" unique_id=334462023]
+script = ExtResource("1_e7fsp")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1942478811]
+offset_right = 232.0
+offset_bottom = 173.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1364850104]
+layout_mode = 2
+
+[node name="PAUSED" type="Label" parent="PanelContainer/VBoxContainer" unique_id=181919105]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qlm62")
+text = "paused"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=1668011944]
+layout_mode = 2
+
+[node name="ChillButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=137357534]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qlm62")
+text = "Chill"
+
+[node name="LofiButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=1159458362]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qlm62")
+text = "lofi"
+
+[node name="BeatsButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer" unique_id=547992182]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qlm62")
+text = "beats"
+
+[node name="Next Song" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1640037112]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qlm62")
+text = "next song"
+
+[node name="Resume" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1159403223]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qlm62")
+text = "resume"
+
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1878273092]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_qlm62")
+text = "quit"
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/ChillButton" to="." method="_on_chill_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/LofiButton" to="." method="_on_lofi_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/HBoxContainer/BeatsButton" to="." method="_on_beats_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Next Song" to="." method="_on_next_song_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Resume" to="." method="_on_resume_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]

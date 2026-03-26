@@ -15,12 +15,17 @@ run/main_scene="uid://rftcf6km7fmx"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+MusicManager="*uid://c3yww0o1sw16k"
+
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
+mouse_cursor/custom_image="uid://1oq333hy4p1"
 
 [global_group]
 

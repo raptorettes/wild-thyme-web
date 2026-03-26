@@ -20,8 +20,8 @@
 [ext_resource type="Texture2D" uid="uid://cjgajygk3c1q" path="res://assets/Tilesets/Building parts/Fences.png" id="15_dwws4"]
 [ext_resource type="Texture2D" uid="uid://xqwea6wcm3ed" path="res://assets/Tilesets/Building parts/Fence gates animation sprites .png" id="16_3n2a7"]
 [ext_resource type="PackedScene" uid="uid://duxpj77m1j6nd" path="res://characters/cow.tscn" id="22_2bx2d"]
-[ext_resource type="AudioStream" uid="uid://c52o2cn8gnybh" path="res://assets/music/main.mp3" id="22_876hk"]
 [ext_resource type="PackedScene" uid="uid://cfsfaeu0xjdgd" path="res://objects/chest.tscn" id="23_4edbn"]
+[ext_resource type="PackedScene" uid="uid://bjjkiv45k1a1s" path="res://levels/pause_menu.tscn" id="25_dwws4"]
 [ext_resource type="PackedScene" uid="uid://epvi6v6e0j6y" path="res://characters/bb_cow.tscn" id="25_vgcik"]
 [ext_resource type="PackedScene" uid="uid://dx6m8ghifwkfb" path="res://characters/chicken.tscn" id="28_52gom"]
 
@@ -531,7 +531,7 @@ tile_set = SubResource("TileSet_ahv3r")
 
 [node name="ground-plants" type="TileMapLayer" parent="." unique_id=370182394]
 z_index = -1
-tile_map_data = PackedByteArray("AAACAAIAAAAEAAQAAAAPAAEAAgAEAAAAAAAPAAIAAgAAAAAAAAAQAAAAAgADAAAAAAAQAAEAAgACAAAAAAAMAAEAAgAAAAAAAAANAAMAAgABAAAAAAALAAMAAgADAAAAAAAPAAQAAgAAAAAAAAAcAAQAAgAEAAQAAAAdAAUAAgAEAAQAAAAdAAIAAgAGAAQAAAAeAAQAAgAGAAQAAAAfAAMAAgAHAAQAAAATAA4AAgAEAAMAAAATAA8AAgAGAAMAAAATABAAAgACAAIAAAAUAA8AAgALAAMAAAAUABEAAgALAAQAAAAVABAAAgAIAAMAAAAVABEAAgAIAAQAAAAVABIAAgAEAAQAAAAWAA4AAgAHAAMAAAAWAA8AAgALAAQAAAAWABAAAgAIAAQAAAAXABEAAgAHAAQAAAAYABAAAgAGAAQAAAAJABAAAgABAAMAAAAJABEAAgAAAAMAAAAKABAAAgAAAAMAAAAKABEAAgABAAMAAAAKABIAAgAAAAMAAAALABAAAgADAAMAAAD+/woAAgACAAIAAAABAAwAAgAAAAIAAAAFAAwAAgAHAAMAAAALAAwAAgACAAIAAAAPAAoAAgACAAIAAAD+/wMAAAADAAQAAAABAAIAAAADAAIAAAABAAMAAAAHAAIAAAAJAAMAAAAAAAIAAAD9/wcAAAAHAAIAAAD8/wgAAAAAAAIAAAD7/wcAAAAAAAIAAAAJAAIAAAAEAAIAAAD9/wMAAAAEAAQAAAD9/wEAAAAEAAQAAAD8/wIAAAACAAQAAAA=")
+tile_map_data = PackedByteArray("AAACAAIAAAAEAAQAAAAPAAEAAgAEAAAAAAAPAAIAAgAAAAAAAAAQAAAAAgADAAAAAAAQAAEAAgACAAAAAAAMAAEAAgAAAAAAAAANAAMAAgABAAAAAAALAAMAAgADAAAAAAAPAAQAAgAAAAAAAAAcAAQAAgAEAAQAAAAdAAUAAgAEAAQAAAAdAAIAAgAGAAQAAAAeAAQAAgAGAAQAAAAfAAMAAgAHAAQAAAATAA4AAgAEAAMAAAATAA8AAgAGAAMAAAATABAAAgACAAIAAAAUAA8AAgALAAMAAAAUABEAAgALAAQAAAAVABAAAgAIAAMAAAAVABEAAgAIAAQAAAAVABIAAgAEAAQAAAAWAA4AAgAHAAMAAAAWAA8AAgALAAQAAAAWABAAAgAIAAQAAAAXABEAAgAHAAQAAAAYABAAAgAGAAQAAAAJABAAAgABAAMAAAAJABEAAgAAAAMAAAAKABAAAgAAAAMAAAAKABEAAgABAAMAAAAKABIAAgAAAAMAAAALABAAAgADAAMAAAABAAwAAgAAAAIAAAAFAAwAAgAHAAMAAAALAAwAAgACAAIAAAAPAAoAAgACAAIAAAD+/wMAAAADAAQAAAABAAIAAAADAAIAAAABAAMAAAAHAAIAAAAJAAMAAAAAAAIAAAD9/wcAAAAHAAIAAAD8/wgAAAAAAAIAAAD7/wcAAAAAAAIAAAAJAAIAAAAEAAIAAAD9/wMAAAAEAAQAAAD9/wEAAAAEAAQAAAD8/wIAAAACAAQAAAD//wsAAgACAAIAAAA=")
 tile_set = ExtResource("3_876hk")
 
 [node name="trees-shrubs" type="TileMapLayer" parent="." unique_id=744675795]
@@ -588,12 +588,6 @@ position = Vector2(270, -254)
 [node name="Cow7" parent="." unique_id=1748162169 groups=["cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(103, -198)
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=246935544]
-position = Vector2(20, 0)
-stream = ExtResource("22_876hk")
-autoplay = true
-parameters/looping = true
-
 [node name="TheLabels" type="Node2D" parent="." unique_id=2123384287]
 
 [node name="TheLabel" type="Label" parent="TheLabels" unique_id=2118206202]
@@ -624,13 +618,16 @@ position = Vector2(172, 135)
 position = Vector2(232, 175)
 is_secret = true
 
-[node name="Chicken" parent="." unique_id=775685339 groups=["chickens"] instance=ExtResource("28_52gom")]
-position = Vector2(128, 67)
+[node name="Chicken" parent="." unique_id=775685339 instance=ExtResource("28_52gom")]
+position = Vector2(47, 91)
 
-[node name="Chicken2" parent="." unique_id=894156607 groups=["chickens"] instance=ExtResource("28_52gom")]
-position = Vector2(152, 105)
+[node name="Chicken2" parent="." unique_id=2073849780 instance=ExtResource("28_52gom")]
+position = Vector2(132, 171)
 
-[node name="Chicken3" parent="." unique_id=826117459 groups=["chickens"] instance=ExtResource("28_52gom")]
-position = Vector2(34, 216)
+[node name="Chicken3" parent="." unique_id=1404254163 instance=ExtResource("28_52gom")]
+position = Vector2(49, 234)
+
+[node name="PauseMenu" parent="." unique_id=334462023 instance=ExtResource("25_dwws4")]
+process_mode = 3
 
 [connection signal="found_cow" from="bb_cow6" to="." method="_on_bb_cow_found_cow"]
