@@ -2,9 +2,9 @@ extends Node2D
 
 @onready var banner = $TextureRect
 @onready var press_any_key = $AnimatedSprite2D
+@onready var click_sound = $ClickSound
 
 var can_start: bool = false
-
 var banner_rest_y: float
 var press_key_rest_y: float
 
@@ -50,6 +50,7 @@ func _input(event):
 
 func _start_game():
 	can_start = false
+	click_sound.play()
 	
 	# Play the key press animation on the sprite sheet
 	press_any_key.play("pressed") 

@@ -11,6 +11,7 @@ var tracks = {
 		"res://assets/music/chill/chill-beam.mp3",
 		"res://assets/music/chill/chill-wednesday.mp3",
 		"res://assets/music/chill/chill-peace.mp3",
+		"res://assets/music/chill/chill-universe.mp3",
 	],
 	CATEGORY.LOFI: [
 		"res://assets/music/lofi/lofi-trippy.mp3",
@@ -26,6 +27,7 @@ var tracks = {
 	CATEGORY.BEATS: [
 		"res://assets/music/beats/beats-cosy.mp3",
 		"res://assets/music/beats/beats-mountain.mp3",
+		"res://assets/music/beats/beats-abstract.mp3",
 	],
 }
 
