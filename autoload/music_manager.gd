@@ -13,7 +13,6 @@ var tracks = {
 		"res://assets/music/chill/chill-peace.mp3",
 		"res://assets/music/chill/chill-universe.mp3",
 		"res://assets/music/chill/chill-melody.mp3",
-		"res://assets/music/chill/chill-guitar.mp3",
 	],
 	CATEGORY.LOFI: [
 		"res://assets/music/lofi/lofi-trippy.mp3",

@@ -582,7 +582,7 @@ position = Vector2(-1, 2)
 remote_path = NodePath("../../Camera2D")
 
 [node name="Cow" parent="." unique_id=1245950768 groups=["cows"] instance=ExtResource("22_2bx2d")]
-position = Vector2(-413, -89)
+position = Vector2(-384, -213)
 player_flee_radius = 70.0
 
 [node name="Cow2" parent="." unique_id=507985070 groups=["cows"] instance=ExtResource("22_2bx2d")]
@@ -628,7 +628,7 @@ position = Vector2(298, -320)
 position = Vector2(47, -248)
 
 [node name="bb_cow5" parent="." unique_id=1540015752 groups=["baby", "cows"] instance=ExtResource("25_vgcik")]
-position = Vector2(-326, -98)
+position = Vector2(-321, -207)
 
 [node name="bb_cow6" parent="." unique_id=1299146989 groups=["baby", "cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(226, 170)
