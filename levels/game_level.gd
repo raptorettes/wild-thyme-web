@@ -33,7 +33,13 @@ func _input(event):
 			if _player_near_gate():
 				print("Player near gate!")
 				NightManager.trigger_night()
-
+		if event.keycode == KEY_F:
+			var mouse_pos = get_global_mouse_position()
+			var water = get_tree().get_root().find_child("water", true, false)
+			if water:
+				var tile_pos = water.local_to_map(mouse_pos)
+				var cell = water.get_cell_source_id(tile_pos)
+				print("tile: ", tile_pos, " id: ", cell)
 func _player_near_gate() -> bool:
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:

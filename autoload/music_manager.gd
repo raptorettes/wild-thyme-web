@@ -12,6 +12,8 @@ var tracks = {
 		"res://assets/music/chill/chill-wednesday.mp3",
 		"res://assets/music/chill/chill-peace.mp3",
 		"res://assets/music/chill/chill-universe.mp3",
+		"res://assets/music/chill/chill-melody.mp3",
+		"res://assets/music/chill/chill-guitar.mp3",
 	],
 	CATEGORY.LOFI: [
 		"res://assets/music/lofi/lofi-trippy.mp3",
@@ -23,11 +25,14 @@ var tracks = {
 		"res://assets/music/lofi/lofi-adventure.mp3",
 		"res://assets/music/lofi/lofi-jazzy.mp3",
 		"res://assets/music/lofi/lofi-wind.mp3",
+		"res://assets/music/lofi/lofi-journey.mp3",
 	],
 	CATEGORY.BEATS: [
 		"res://assets/music/beats/beats-cosy.mp3",
 		"res://assets/music/beats/beats-mountain.mp3",
-		"res://assets/music/beats/beats-abstract.mp3",
+		"res://assets/music/beats/beats-glider.mp3",
+		"res://assets/music/beats/beats-shadow.mp3",
+		"res://assets/music/beats/beats-doof.mp3",
 	],
 }
 
@@ -37,6 +42,10 @@ func _ready():
 	player = AudioStreamPlayer.new()
 	add_child(player)
 	player.finished.connect(_on_audio_finished)
+	# Start at a random track each time
+	current_category = randi() % 3  # 0, 1, or 2 — matches your CATEGORY enum
+	current_track_index = randi() % tracks[current_category].size()
+	
 	play_current_track()
 
 func play_current_track():

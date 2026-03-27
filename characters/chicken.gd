@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum CHICKEN_STATE { IDLE, WALK, REST, PECK, FLEE, CARRIED }
+enum CHICKEN_STATE { IDLE, WALK, REST, PECK, FLEE, CARRIED, FLAPPING }
 
 @export var move_speed: float = 15
 @export var idle_time: float = 3
@@ -11,6 +11,7 @@ enum CHICKEN_STATE { IDLE, WALK, REST, PECK, FLEE, CARRIED }
 @export var mouse_flee_radius: float = 50.0
 @export var player_flee_radius: float = 100.0
 
+@onready var flap_sprite = $FlapSprite
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 @onready var sprite = $Sprite2D
@@ -18,6 +19,7 @@ enum CHICKEN_STATE { IDLE, WALK, REST, PECK, FLEE, CARRIED }
 @onready var cow_detector = $CowDetector
 @onready var pickup_area = $PickupArea
 
+var water_layer: TileMapLayer
 var move_direction: Vector2 = Vector2.ZERO
 var current_state: CHICKEN_STATE = CHICKEN_STATE.IDLE
 var pre_flee_state: CHICKEN_STATE = CHICKEN_STATE.IDLE
@@ -27,20 +29,34 @@ func _ready():
 	randomize()
 	pick_new_state()
 	pickup_area.input_event.connect(_on_pickup_area_input)
-	
+	water_layer = get_tree().get_root().find_child("water", true, false)
+	flap_sprite.visible = false
+
 func _physics_process(delta):
 	wall_redirect_cooldown -= delta
 	
-	# Carried state — chicken follows mouse cursor
+	# Flapping back to land — handled entirely here, clean and simple
+	if current_state == CHICKEN_STATE.FLAPPING:
+		var player = get_tree().get_first_node_in_group("player")
+		if player:
+			var dir = (player.global_position - global_position).normalized()
+			velocity = dir * flee_speed * 1.5
+			move_and_slide()
+		print("pos: ", global_position, " over water: ", _is_over_water(global_position))
+		
+		# Check every frame if we've reached land
+		if not _is_over_water(global_position):
+			_land_safely()
+		return
+	
+	# Carried state
 	if current_state == CHICKEN_STATE.CARRIED:
 		global_position = get_global_mouse_position()
-		state_machine.travel("get_down")
-		# Release when mouse button is let go
 		if not Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
 			_put_down()
 		return
 	
-	# Mouse flee takes priority over everything else
+	# Mouse flee
 	var mouse_flee = get_mouse_flee_force()
 	
 	if mouse_flee.length() > 0.0:
@@ -97,15 +113,38 @@ func _on_pickup_area_input(_viewport, event, _shape_idx):
 func _pick_up():
 	current_state = CHICKEN_STATE.CARRIED
 	timer.stop()
-	# Disable collision so it doesn't push things while carried
 	$CollisionShape2D.disabled = true
+	state_machine.travel("get_down")
 
 func _put_down():
+	var drop_pos = get_global_mouse_position()
+		
+	if _is_over_water(drop_pos):
+		current_state = CHICKEN_STATE.FLAPPING
+		$CollisionShape2D.disabled = true  # ← keep disabled while flapping!
+		sprite.visible = false
+		flap_sprite.visible = true
+		flap_sprite.play("flap")
+	else:
+		current_state = CHICKEN_STATE.IDLE
+		$CollisionShape2D.disabled = false
+		state_machine.travel("idle")
+		timer.start(randf_range(idle_time * 0.5, idle_time * 1.5))
+
+func _land_safely():
+	# Called when flapping chicken reaches land
 	current_state = CHICKEN_STATE.IDLE
-	$CollisionShape2D.disabled = false
-	# Burst away after being dropped, like the grub
-	timer.start(randf_range(idle_time * 0.5, idle_time * 1.5))
-	state_machine.travel("idle")
+	$CollisionShape2D.disabled = false  # ← re-enable on landing
+	flap_sprite.stop()
+	flap_sprite.visible = false
+	sprite.visible = true
+	pick_new_state()
+
+func _is_over_water(world_pos: Vector2) -> bool:
+	if water_layer == null:
+		return false
+	var tile_pos = water_layer.local_to_map(world_pos)
+	return water_layer.get_cell_source_id(tile_pos) != -1
 
 func get_mouse_flee_force() -> Vector2:
 	var player = get_tree().get_first_node_in_group("player")

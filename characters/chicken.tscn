@@ -72,7 +72,7 @@ states/sleep/position = Vector2(1192, 173)
 states/walk/node = SubResource("AnimationNodeAnimation_pmfyl")
 states/walk/position = Vector2(677, 100)
 transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_05g0y"), "idle", "idle_wake", SubResource("AnimationNodeStateMachineTransition_a03ur"), "idle_wake", "idle", SubResource("AnimationNodeStateMachineTransition_lswcm"), "idle_wake", "peck", SubResource("AnimationNodeStateMachineTransition_8wa3q"), "peck", "idle_wake", SubResource("AnimationNodeStateMachineTransition_h043g"), "peck", "walk", SubResource("AnimationNodeStateMachineTransition_t2a7s"), "walk", "peck", SubResource("AnimationNodeStateMachineTransition_atham"), "walk", "rest", SubResource("AnimationNodeStateMachineTransition_hexpo"), "rest", "walk", SubResource("AnimationNodeStateMachineTransition_b7ce8"), "rest", "get_down", SubResource("AnimationNodeStateMachineTransition_71i4c"), "get_down", "rest", SubResource("AnimationNodeStateMachineTransition_421ok")]
-graph_offset = Vector2(250, 8)
+graph_offset = Vector2(459.5768, 8)
 
 [sub_resource type="Animation" id="Animation_b7ce8"]
 length = 0.001
@@ -89,10 +89,13 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_pmfyl"]
+resource_name = "flap"
+
 [sub_resource type="Animation" id="Animation_71i4c"]
 resource_name = "get_down"
 length = 1.8
-loop_mode = 1
+loop_mode = 2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -227,6 +230,7 @@ tracks/0/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_b7ce8"]
 _data = {
 &"RESET": SubResource("Animation_b7ce8"),
+&"flap": SubResource("Animation_pmfyl"),
 &"get_down": SubResource("Animation_71i4c"),
 &"get_up": SubResource("Animation_421ok"),
 &"idle": SubResource("Animation_fyelr"),
@@ -242,6 +246,42 @@ radius = 11.045361
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_b7ce8"]
 radius = 9.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05g0y"]
+atlas = ExtResource("1_gn1oa")
+region = Rect2(0, 273, 32, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a03ur"]
+atlas = ExtResource("1_gn1oa")
+region = Rect2(32, 273, 32, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lswcm"]
+atlas = ExtResource("1_gn1oa")
+region = Rect2(64, 273, 32, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8wa3q"]
+atlas = ExtResource("1_gn1oa")
+region = Rect2(96, 273, 32, 39)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_h043g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05g0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a03ur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lswcm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8wa3q")
+}],
+"loop": true,
+"name": &"flap",
+"speed": 5.0
+}]
 
 [node name="Chicken" type="CharacterBody2D" unique_id=775685339]
 input_pickable = true
@@ -270,7 +310,6 @@ libraries/ = SubResource("AnimationLibrary_b7ce8")
 [node name="Timer" type="Timer" parent="." unique_id=2059353436]
 
 [node name="CowDetector" type="Area2D" parent="." unique_id=2054371249]
-visible = false
 position = Vector2(1, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=914103000]
@@ -282,5 +321,12 @@ shape = SubResource("CircleShape2D_hexpo")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2011395488]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_b7ce8")
+
+[node name="FlapSprite" type="AnimatedSprite2D" parent="." unique_id=194494319]
+visible = false
+sprite_frames = SubResource("SpriteFrames_h043g")
+animation = &"flap"
+frame = 3
+frame_progress = 1.0
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
