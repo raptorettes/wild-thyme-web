@@ -4,6 +4,19 @@ extends Node
 @export var days_happy_needed_for_birth: int = 3
 @export var birth_happiness_threshold: float = 0.75
 @export var baby_outside_herd_penalty: float = 0.15
+@export var sleep_duration: float = 5.0
+
+func _wait_for_all_awake() -> void:
+	while true:
+		var animals = get_tree().get_nodes_in_group("animals")
+		var all_awake = true
+		for animal in animals:
+			if animal.is_sleeping:
+				all_awake = false
+				break
+		if all_awake:
+			break
+		await get_tree().process_frame
 
 # State
 var day_count: int = 1
@@ -123,29 +136,31 @@ func trigger_night():
 	
 	day_count += 1
 	
-	# Tell all animals to sleep
-	var all_sleeping = get_tree().get_nodes_in_group("animals")
-	for animal in all_sleeping:
+	# PHASE 1 — start overlay and animals simultaneously
+	NightOverlay.start_fade_in()
+	NightOverlay.play_crickets_and_music()
+	
+	var sleeping_animals = get_tree().get_nodes_in_group("animals")
+	for animal in sleeping_animals:
 		if animal.has_method("go_to_sleep"):
 			animal.go_to_sleep()
 	
-	# Wait until every animal is sleeping
+# PHASE 2 — wait for last animal to settle then hold
 	await _wait_for_all_sleeping()
+	await get_tree().create_timer(sleep_duration).timeout
 	
-	# NOW start the night overlay
-	NightOverlay.night_sequence_finished.connect(
-		_on_night_sequence_finished.bind(message, birth_cow != null),
-		CONNECT_ONE_SHOT
-	)
-	NightOverlay.play_night_sequence()
-
-func _on_night_sequence_finished(message: String, baby_born: bool):
-	# Wake all animals
-	var all_sleeping = get_tree().get_nodes_in_group("animals")
-	for animal in all_sleeping:
+	# PHASE 3 — fade out first, THEN wake animals
+	NightOverlay.start_fade_out()
+	await NightOverlay.night_sequence_finished  # wait for overlay to fully lift
+	
+	# NOW wake everyone up
+	for animal in sleeping_animals:
 		if animal.has_method("wake_up"):
 			animal.wake_up()
-	emit_signal("morning_started", message, baby_born)
+	
+	await _wait_for_all_awake()
+	
+	emit_signal("morning_started", message, birth_cow != null)
 	night_active = false
 
 func _is_in_enclosure(animal) -> bool:

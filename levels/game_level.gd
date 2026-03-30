@@ -7,8 +7,7 @@ extends Node2D
 
 func _ready():
 	gate_prompt.hide()
-	print("gate_prompt node: ", gate_prompt)
-
+	NightManager.night_started.connect(_on_night_started)
 	night_trigger_area.body_entered.connect(_on_gate_area_entered)
 	night_trigger_area.body_exited.connect(_on_gate_area_exited)
 	NightManager.register_enclosure($Enclosure)
@@ -52,8 +51,18 @@ func _on_dialogue_dismissed():
 		player.set_process_input(true) # re-enable
 		player.set_physics_process(true)
 
+func _on_night_started():
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(false)
+		player.set_process_input(false)
 	
 func _on_morning_started(message: String, baby_born: bool):
+		# Re-enable player at morning
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(true)
+		player.set_process_input(true)
 	var expression = "smiling"
 	var emoji = "day"
 	

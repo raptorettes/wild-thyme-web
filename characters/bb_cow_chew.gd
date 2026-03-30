@@ -38,6 +38,11 @@ func _ready():
 	pick_new_state()
 
 func _physics_process(_delta):
+	# Don't do anything while sleeping
+	if current_state == COW_STATE.SLEEPING:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
 	var mouse_flee = get_mouse_flee_force()
 	
 	if mouse_flee.length() > 0.0:

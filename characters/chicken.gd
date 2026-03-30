@@ -32,8 +32,13 @@ func _ready():
 	water_layer = get_tree().get_root().find_child("water", true, false)
 	flap_sprite.visible = false
 
-func _physics_process(delta):
-	wall_redirect_cooldown -= delta
+func _physics_process(_delta):
+	# Don't do anything while sleeping
+	if current_state == CHICKEN_STATE.SLEEPING:
+		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+	wall_redirect_cooldown -= _delta
 	
 	# Flapping back to land — handled entirely here, clean and simple
 	if current_state == CHICKEN_STATE.FLAPPING:

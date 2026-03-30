@@ -575,12 +575,12 @@ y_sort_enabled = true
 position = Vector2(229, 27)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1872238816]
-position = Vector2(-203, -207)
+position = Vector2(228, -232)
 zoom = Vector2(3.5, 3.5)
 
 [node name="cat-thyme" parent="." unique_id=117357209 groups=["player"] instance=ExtResource("1_qc6i3")]
 y_sort_enabled = false
-position = Vector2(-202, -209)
+position = Vector2(229, -234)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="cat-thyme" unique_id=508694820]
 position = Vector2(-1, 2)

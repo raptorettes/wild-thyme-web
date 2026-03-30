@@ -13,4 +13,4 @@ color = Color(0, 0.10980392, 0.20392157, 0)
 [node name="CricketSound" type="AudioStreamPlayer" parent="." unique_id=289946597]
 
 [node name="MooSound" type="AudioStreamPlayer" parent="." unique_id=1103378403]
-volume_db = -8.0
+volume_db = -15.0
