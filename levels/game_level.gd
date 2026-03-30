@@ -11,14 +11,13 @@ func _ready():
 	NightManager.register_enclosure($Enclosure)
 	# listen for morning message
 	NightManager.morning_started.connect(_on_morning_started)
-	NightManager.night_started.connect(_on_night_started)
 	DialogueBox.message_shown.connect(_on_dialogue_shown)
 	DialogueBox.message_dismissed.connect(_on_dialogue_dismissed)
 	# Show opening sequence
 	DialogueBox.show_sequence([
 		{
 			"text": "Your herd is scattered across the meadow.",
-			"expression": "sad_talk",
+			"expression": "talking",
 			"emoji": ""
 		},
 		{
@@ -41,7 +40,7 @@ func _ready():
 func _on_dialogue_shown():
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
-		player.set_process_input(false) # disable player input
+		#player.set_process_input(false) # disable player input
 		player.set_physics_process(false) # stop player moving
 
 func _on_dialogue_dismissed():
@@ -50,12 +49,6 @@ func _on_dialogue_dismissed():
 		player.set_process_input(true) # re-enable
 		player.set_physics_process(true)
 
-func _on_night_started():
-	DialogueBox.show_message(
-		"Everyone's settling in... Goodnight little ones.",
-		"love",
-		"night"
-	)
 	
 func _on_morning_started(message: String, baby_born: bool):
 	var expression = "smiling"
@@ -65,7 +58,7 @@ func _on_morning_started(message: String, baby_born: bool):
 		expression = "love_talk"    # excited and warm
 		emoji = "cow"
 	elif message.contains("outside") or message.contains("tired"):
-		expression = "sad-talk"     # genuinely sad news
+		expression = "sad_talk"     # genuinely sad news
 		emoji = "night"
 	elif message.contains("chicken"):
 		expression = "angry"           # chickens!! 
@@ -88,6 +81,16 @@ func _input(event):
 				pause_menu.open()
 		if event.keycode == KEY_E:
 			if _player_near_gate():
+				#clear existing dialogue
+				DialogueBox.message_queue.clear()
+				DialogueBox._hide()
+				#show goodnight message first
+				DialogueBox.show_message(
+					"Everyone's settling in... Goodnight little ones.",
+					"love",
+					""
+				)
+				await DialogueBox.message_dismissed
 				NightManager.trigger_night()
 
 func _player_near_gate() -> bool:

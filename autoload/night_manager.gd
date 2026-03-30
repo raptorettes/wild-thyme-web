@@ -23,7 +23,6 @@ func trigger_night():
 	if night_active:
 		return
 	if enclosure == null:
-		print("NightManager: no enclosure registered!")
 		return
 	
 	night_active = true
@@ -109,14 +108,20 @@ func trigger_night():
 		_spawn_baby_cow(birth_cow)
 	
 	day_count += 1
-	
-	# Emit morning signal with message so the level can display it
-	emit_signal("morning_started", message, birth_cow != null)
+	# Play night visual, morning message fires after it finishes
+	NightOverlay.night_sequence_finished.connect(
+		_on_night_sequence_finished.bind(message, birth_cow != null),
+		CONNECT_ONE_SHOT
+	)
+	NightOverlay.play_night_sequence()
+
+func _on_night_sequence_finished(message: String, baby_born: bool):
+	emit_signal("morning_started", message, baby_born)
 	night_active = false
 
-func trigger_morning():
-	# Called by the level after the night visual finishes
-	night_active = false
+#func trigger_morning():
+	## Called by the level after the night visual finishes
+	#night_active = false
 
 func _is_in_enclosure(animal) -> bool:
 	if enclosure == null:

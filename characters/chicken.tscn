@@ -286,6 +286,7 @@ animations = [{
 [node name="Chicken" type="CharacterBody2D" unique_id=775685339]
 input_pickable = true
 script = ExtResource("1_hexpo")
+flee_speed = 60.0
 mouse_flee_radius = 80.0
 player_flee_radius = 60.0
 

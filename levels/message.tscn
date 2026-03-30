@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://c65m7lfmqcx6c"]
+
+[ext_resource type="Texture2D" uid="uid://m3x8jrh307ln" path="res://assets/UI/Sprite sheets/Dialouge UI/dialog box small.png" id="1_1hbsv"]
+[ext_resource type="FontFile" uid="uid://bvrdku2vkw66r" path="res://assets/UI/fonts/GrapeSoda.ttf" id="2_hefbe"]
+
+[node name="Message" type="CanvasLayer" unique_id=39341620]
+
+[node name="Control" type="Control" parent="." unique_id=666388994]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -431.0
+offset_top = -216.0
+offset_right = -391.0
+offset_bottom = -176.0
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=1183992375]
+layout_mode = 0
+offset_left = -28.0
+offset_top = -28.0
+offset_right = 217.0
+offset_bottom = 77.0
+texture = ExtResource("1_1hbsv")
+
+[node name="Label" type="Label" parent="Control" unique_id=807328139]
+layout_mode = 0
+offset_left = -1.0
+offset_top = -5.0
+offset_right = 205.0
+offset_bottom = 54.0
+theme_override_colors/font_outline_color = Color(0.76862746, 0.6039216, 0.42352942, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_hefbe")
+theme_override_font_sizes/font_size = 25
+text = "Press E when ready
+to say goodnight."
+autowrap_mode = 3

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://si32fjl5d70g"]
+
+[ext_resource type="Script" uid="uid://diqsyvkkxsixe" path="res://levels/night_overlay.gd" id="1_numw6"]
+
+[node name="NightOverlay" type="CanvasLayer" unique_id=849274716]
+script = ExtResource("1_numw6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1283709555]
+offset_right = 1285.0
+offset_bottom = 722.0
+color = Color(0, 0.10980392, 0.20392157, 0)
+
+[node name="CricketSound" type="AudioStreamPlayer" parent="." unique_id=289946597]
+
+[node name="MooSound" type="AudioStreamPlayer" parent="." unique_id=1103378403]
