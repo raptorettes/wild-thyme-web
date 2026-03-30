@@ -1,7 +1,7 @@
 extends Node
 
 # Tuning vars — lower for testing!
-@export var days_happy_needed_for_birth: int = 3
+@export var days_happy_needed_for_birth: int = 1
 @export var birth_happiness_threshold: float = 0.75
 @export var baby_outside_herd_penalty: float = 0.15
 @export var sleep_duration: float = 5.0

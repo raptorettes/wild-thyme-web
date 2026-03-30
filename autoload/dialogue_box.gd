@@ -5,7 +5,7 @@ signal message_dismissed
 signal message_shown
 
 @onready var portrait = $Control/Portrait
-@onready var emoji_icon = $Control/EmojiIcon
+#@onready var emoji_icon = $Control/EmojiIcon
 @onready var dialogue_label = $Control/Label
 
 var message_queue: Array = []
@@ -14,7 +14,7 @@ var has_appeared: bool = false
 
 func _ready():
 	visible = false
-	emoji_icon.visible = false
+	#emoji_icon.visible = false
 	
 # Main function to show a single message
 # Expression "angry" "blink" "happy" "love" "love talking" "sad talking" "sleep" "static" "super excited" "talking"
@@ -23,7 +23,7 @@ func show_message(text: String, expression: String = "talking", emoji: String = 
 	message_queue.append({
 		"text": text,
 		"expression": expression,
-		"emoji": emoji
+		#"emoji": emoji
 	})
 	if not is_showing:
 		_show_next()
@@ -31,7 +31,7 @@ func show_message(text: String, expression: String = "talking", emoji: String = 
 # Show a sequence of messages, await them all
 func show_sequence(messages: Array) -> void:
 	for msg in messages:
-		show_message(msg.get("text", ""), msg.get("expression", "talking"), msg.get("emoji", ""))
+		show_message(msg.get("text", ""), msg.get("expression", "talking"))
 	await _wait_for_queue()
 	
 func _wait_for_queue() -> void:
@@ -73,13 +73,13 @@ func _show_next():
 	else:
 		portrait.play("talking")
 		
-	# set emoji icon
-	if msg.emoji != "" and emoji_icon.sprite_frames.has_animation(msg.emoji):
-		emoji_icon.visible = true 
-		emoji_icon.play(msg.emoji)
-	else:
-		emoji_icon.visible = false
-	
+	## set emoji icon
+	#if msg.emoji != "" and emoji_icon.sprite_frames.has_animation(msg.emoji):
+		#emoji_icon.visible = true 
+		#emoji_icon.play(msg.emoji)
+	#else:
+		#emoji_icon.visible = false
+	#
 func _hide():
 	has_appeared = false  # ← reset so next show bounces in
 	var tween = create_tween()
@@ -96,7 +96,6 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		is_showing = false
 		_show_next()
-		# get_viewport().set_input_as_handled() #stops click passing through to game
 	
 	
 	

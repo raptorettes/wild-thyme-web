@@ -254,10 +254,8 @@ animation = &"walk_right"
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_87ri1"]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wfo2c"]
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y4opc"]
-advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pfofr"]
 
@@ -288,7 +286,7 @@ states/sleep/position = Vector2(1253, 87)
 states/walk_right/node = SubResource("AnimationNodeAnimation_t8fki")
 states/walk_right/position = Vector2(480, 100)
 transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_t8qks"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_unut8"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_0h17f"), "walk_right", "graze_right", SubResource("AnimationNodeStateMachineTransition_s32nw"), "graze_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_3j5tr"), "graze_right", "chew", SubResource("AnimationNodeStateMachineTransition_fh3vp"), "chew", "graze_right", SubResource("AnimationNodeStateMachineTransition_rg7hg"), "chew", "rest", SubResource("AnimationNodeStateMachineTransition_r3n4y"), "rest", "chew", SubResource("AnimationNodeStateMachineTransition_b66ct"), "rest", "love", SubResource("AnimationNodeStateMachineTransition_3l2yh"), "love", "rest", SubResource("AnimationNodeStateMachineTransition_87ri1"), "love", "get_down", SubResource("AnimationNodeStateMachineTransition_wfo2c"), "get_down", "love", SubResource("AnimationNodeStateMachineTransition_y4opc"), "get_down", "sleep", SubResource("AnimationNodeStateMachineTransition_pfofr"), "sleep", "get_down", SubResource("AnimationNodeStateMachineTransition_owtl3"), "sleep", "get_up", SubResource("AnimationNodeStateMachineTransition_q7cx5"), "get_up", "sleep", SubResource("AnimationNodeStateMachineTransition_mdegj")]
-graph_offset = Vector2(410.49194, 0)
+graph_offset = Vector2(505.70654, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5wucx"]
 radius = 24.0

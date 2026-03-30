@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://diqsyvkkxsixe" path="res://levels/night_overlay.gd" id="1_numw6"]
 
 [node name="NightOverlay" type="CanvasLayer" unique_id=849274716]
+layer = 3
 script = ExtResource("1_numw6")
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=1283709555]

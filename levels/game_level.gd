@@ -4,8 +4,10 @@ extends Node2D
 @onready var enclosure = $Enclosure
 @onready var night_trigger_area = $NightTriggerArea
 @onready var gate_prompt = $GatePrompt
+@onready var day_counter = $DayCounter/Label
 
 func _ready():
+	day_counter.text = "Day " + str(NightManager.day_count)
 	gate_prompt.hide()
 	NightManager.night_started.connect(_on_night_started)
 	night_trigger_area.body_entered.connect(_on_gate_area_entered)
@@ -24,7 +26,7 @@ func _ready():
 		},
 		{
 			"text": "As night falls, they'll need somewhere safe to rest together.",
-			"expression": "talking",
+			"expression": "love_talk",
 			"emoji": ""
 		},
 		{
@@ -58,7 +60,8 @@ func _on_night_started():
 		player.set_process_input(false)
 	
 func _on_morning_started(message: String, baby_born: bool):
-		# Re-enable player at morning
+	day_counter.text = "Day " + str(NightManager.day_count)
+	# Re-enable player at morning
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
 		player.set_physics_process(true)
@@ -82,8 +85,16 @@ func _on_morning_started(message: String, baby_born: bool):
 		expression = "talking"         # neutral news
 		emoji = "day"
 	
-	DialogueBox.show_message(message, expression, emoji)
-	
+	DialogueBox.show_sequence([
+		{
+			"text": "Good morning! Lets see how everyone's doing.",
+			"expression": "happy",
+		},
+		{
+			"text": message,
+			"expression": expression,
+		}
+	])
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
