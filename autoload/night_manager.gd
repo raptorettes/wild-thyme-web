@@ -19,6 +19,20 @@ func register_enclosure(area: Area2D):
 	enclosure = area
 	print("NightManager: enclosure registered — ", area.name)
 
+func _all_animals_sleeping() -> bool:
+	var animals = get_tree().get_nodes_in_group("animals")
+	for animal in animals:
+		if not animal.is_sleeping:
+			return false
+	return true
+
+func _wait_for_all_sleeping() -> void:
+	var animals = get_tree().get_nodes_in_group("animals")
+	print("waiting for ", animals.size(), " animals to sleep")
+	while not _all_animals_sleeping():
+		await get_tree().process_frame
+	print("all animals sleeping!")
+
 func trigger_night():
 	if night_active:
 		return
@@ -108,7 +122,17 @@ func trigger_night():
 		_spawn_baby_cow(birth_cow)
 	
 	day_count += 1
-	# Play night visual, morning message fires after it finishes
+	
+	# Tell all animals to sleep
+	var all_sleeping = get_tree().get_nodes_in_group("animals")
+	for animal in all_sleeping:
+		if animal.has_method("go_to_sleep"):
+			animal.go_to_sleep()
+	
+	# Wait until every animal is sleeping
+	await _wait_for_all_sleeping()
+	
+	# NOW start the night overlay
 	NightOverlay.night_sequence_finished.connect(
 		_on_night_sequence_finished.bind(message, birth_cow != null),
 		CONNECT_ONE_SHOT
@@ -116,12 +140,13 @@ func trigger_night():
 	NightOverlay.play_night_sequence()
 
 func _on_night_sequence_finished(message: String, baby_born: bool):
+	# Wake all animals
+	var all_sleeping = get_tree().get_nodes_in_group("animals")
+	for animal in all_sleeping:
+		if animal.has_method("wake_up"):
+			animal.wake_up()
 	emit_signal("morning_started", message, baby_born)
 	night_active = false
-
-#func trigger_morning():
-	## Called by the level after the night visual finishes
-	#night_active = false
 
 func _is_in_enclosure(animal) -> bool:
 	if enclosure == null:
@@ -179,7 +204,7 @@ func _build_morning_message(inside: int, outside: int, babies_outside: int, chic
 	
 	if outside == 0 and not chickens:
 		if herd_happiness > 0.8:
-			return "That was a beautiful night. Everyone slept soundly together. The herd seems genuinely happy this morning."
+			return "Everyone slept well together last night. The herd seems genuinely happy this morning."
 		else:
 			return "Everyone made it in last night. The herd rested well together."
 	elif outside == 0 and chickens:
@@ -192,9 +217,8 @@ func _build_morning_message(inside: int, outside: int, babies_outside: int, chic
 		return "Most of the herd was left outside. Everyone looks exhausted and unhappy. Try to get them all in tonight."
 
 func _spawn_baby_cow(parent_cow):
-	var baby_scene = load("res://characters/bb_cow.tscn")  # ← update path
+	var baby_scene = load("res://characters/bb_cow.tscn")  
 	if baby_scene == null:
-		print("NightManager: could not load baby cow scene!")
 		return
 	var baby = baby_scene.instantiate()
 	baby.global_position = parent_cow.global_position + Vector2(

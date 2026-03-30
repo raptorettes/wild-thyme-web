@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum CHICKEN_STATE { IDLE, WALK, REST, PECK, FLEE, CARRIED, FLAPPING }
+enum CHICKEN_STATE { IDLE, WALK, REST, PECK, FLEE, CARRIED, FLAPPING, SLEEPING }
 
 @export var move_speed: float = 15
 @export var idle_time: float = 3
@@ -100,9 +100,35 @@ func _physics_process(delta):
 		var wall_scatter = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 		velocity = wall_scatter * flee_speed
 
+var is_sleeping: bool = false
+
+@export var get_down_duration: float = 1.8  # set to your get_down animation length
+@export var get_up_duration: float = 0.8   # set to your get_up animation length
+
+func go_to_sleep():
+	timer.stop()
+	current_state = CHICKEN_STATE.SLEEPING
+	is_sleeping = false
+	var delay = randf_range(0.0, 5.0)
+	await get_tree().create_timer(delay).timeout
+	state_machine.travel("get_down")
+	await get_tree().create_timer(get_down_duration).timeout
+	state_machine.travel("sleep")
+	is_sleeping = true
+
+func wake_up():
+	is_sleeping = false
+	var delay = randf_range(0.0, 3.0)
+	await get_tree().create_timer(delay).timeout
+	state_machine.travel("get_up")
+	await get_tree().create_timer(get_up_duration).timeout
+	current_state = CHICKEN_STATE.IDLE
+	pick_new_state()
+
 func _on_pickup_area_input(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			print("pickup area clicked!")
 			var player = get_tree().get_first_node_in_group("player")
 			if player == null:
 				return

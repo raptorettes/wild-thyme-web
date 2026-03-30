@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://cfsfaeu0xjdgd" path="res://objects/chest.tscn" id="23_4edbn"]
 [ext_resource type="PackedScene" uid="uid://bjjkiv45k1a1s" path="res://levels/pause_menu.tscn" id="25_dwws4"]
 [ext_resource type="PackedScene" uid="uid://epvi6v6e0j6y" path="res://characters/bb_cow.tscn" id="25_vgcik"]
+[ext_resource type="FontFile" uid="uid://bvrdku2vkw66r" path="res://assets/UI/fonts/GrapeSoda.ttf" id="27_52gom"]
 [ext_resource type="PackedScene" uid="uid://dx6m8ghifwkfb" path="res://characters/chicken.tscn" id="28_52gom"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qmvb7"]
@@ -502,6 +503,10 @@ sources/1 = SubResource("TileSetAtlasSource_txx3f")
 size = Vector2(209, 149)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dwws4"]
+size = Vector2(17.1875, 17.0625)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3n2a7"]
+size = Vector2(45, 36)
 
 [node name="GameLevel" type="Node2D" unique_id=931376677]
 y_sort_enabled = true
@@ -555,7 +560,7 @@ tile_set = SubResource("TileSet_ahv3r")
 
 [node name="trees-shrubs" type="TileMapLayer" parent="." unique_id=744675795]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAD3/xAAAgAGAAEAAAD5/xIAAgAEAAEAAAANAAQAAAAJAAYAAAD3/w0AAgAFAAEAAAD3/w8AAgABAAEAAAD4/w8AAQABAAAAAAD4/xEAAgADAAEAAAD5/w0AAgADAAEAAAD5/xEAAgABAAEAAAD6/wEAAAABAAAAAAD6/w4AAgAEAAEAAAD6/xEAAgAKAAAAAAD7/w8AAgAIAAEAAAD8/wYABAAAAAIAAAD///3/AAABAAAAAAACAAAAAAABAAAAAAAEAAcAAQAJAAAAAAAGAAcAAQAIAAAAAAAOAP//AAABAAAAAAAVAAYABAAAAAIAAAD9/wIAAAAEAAMAAAASAAcABwAAAAEAAAARAAMAAAAJAAMAAAAIAAEAAAAJAAMAAAAEAP//BwAAAAMAAAAMAAMAAAABAAAAAADc//X/AAAAAAIAAADd//T/AAAJAAMAAADe//f/AAADAAAAAADf//P/AAAFAAAAAADh//T/AAAAAAIAAADh//f/AAABAAIAAADi//X/AAADAAAAAADj//7/AAAJAAMAAADw/+3/AAAJAAMAAADj/+//AAAJAAMAAADu/+z/AAAAAAAAAADy/+//AAAAAAAAAADg//H/AAAAAAAAAADb//T/AAAAAAAAAADd//j/AAAAAAAAAADd//H/AAAAAAAAAADs/wIAAAAAAAAAAADi//z/AAAEAAYAAADw//P/AAAGAAYAAADh//P/AAAGAAYAAADt/wAAAAACAAYAAADs//X/AAAEAAYAAADm/+3/AAAEAAMAAADo/+z/AAAEAAMAAADq/+v/AAADAAMAAADr/+z/AAACAAMAAADp/+7/AAADAAMAAADm/+v/AAABAAMAAADm//D/AAABAAMAAADn/+7/AAABAAMAAADk//L/AAABAAMAAADq//H/AAACAAQAAADq/+//AAADAAQAAADq/+z/AAADAAQAAADn/+3/AAAEAAQAAADn/+z/AAAEAAQAAADm/+//AAABAAQAAADs/+v/AAABAAQAAAD+/wEAAAADAAMAAAAXAO//AAAJAAMAAAABAOz/AAAJAAMAAAATAO//BAAAAAIAAAAFAOn/BAAAAAIAAAAWAOj/BwAAAAMAAAASAOX/BwAAAAMAAAAYAOv/BwAAAAMAAAAGAO3/AgAIAAEAAAA=")
+tile_map_data = PackedByteArray("AAD3/xAAAgAGAAEAAAD5/xIAAgAEAAEAAAANAAQAAAAJAAYAAAD3/w0AAgAFAAEAAAD3/w8AAgABAAEAAAD4/w8AAQABAAAAAAD4/xEAAgADAAEAAAD5/w0AAgADAAEAAAD5/xEAAgABAAEAAAD6/wEAAAABAAAAAAD6/w4AAgAEAAEAAAD6/xEAAgAKAAAAAAD7/w8AAgAIAAEAAAD8/wYABAAAAAIAAAD///3/AAABAAAAAAACAAAAAAABAAAAAAAEAAcAAQAJAAAAAAAGAAcAAQAIAAAAAAAOAP//AAABAAAAAAAVAAYABAAAAAIAAAD9/wIAAAAEAAMAAAASAAcABwAAAAEAAAARAAMAAAAJAAMAAAAIAAEAAAAJAAMAAAAEAP//BwAAAAMAAAAMAAMAAAABAAAAAADc//X/AAAAAAIAAADd//T/AAAJAAMAAADe//f/AAADAAAAAADf//P/AAAFAAAAAADh//T/AAAAAAIAAADh//f/AAABAAIAAADi//X/AAADAAAAAADj//7/AAAJAAMAAADw/+3/AAAJAAMAAADj/+//AAAJAAMAAADu/+z/AAAAAAAAAADy/+//AAAAAAAAAADg//H/AAAAAAAAAADb//T/AAAAAAAAAADd//j/AAAAAAAAAADd//H/AAAAAAAAAADs/wIAAAAAAAAAAADi//z/AAAEAAYAAADw//P/AAAGAAYAAADh//P/AAAGAAYAAADt/wAAAAACAAYAAADs//X/AAAEAAYAAADm/+3/AAAEAAMAAADo/+z/AAAEAAMAAADq/+v/AAADAAMAAADr/+z/AAACAAMAAADp/+7/AAADAAMAAADm/+v/AAABAAMAAADm//D/AAABAAMAAADn/+7/AAABAAMAAADk//L/AAABAAMAAADq//H/AAACAAQAAADq/+//AAADAAQAAADq/+z/AAADAAQAAADn/+3/AAAEAAQAAADn/+z/AAAEAAQAAADm/+//AAABAAQAAADs/+v/AAABAAQAAAD+/wEAAAADAAMAAAAXAO//AAAJAAMAAAABAOz/AAAJAAMAAAATAO//BAAAAAIAAAAFAOn/BAAAAAIAAAAWAOj/BwAAAAMAAAASAOX/BwAAAAMAAAAYAOv/BwAAAAMAAAAGAO3/AgAIAAEAAADm//X/BgAEAAEAAAA=")
 tile_set = ExtResource("3_876hk")
 
 [node name="objects" type="Node2D" parent="." unique_id=1164560747]
@@ -581,26 +586,26 @@ position = Vector2(-202, -209)
 position = Vector2(-1, 2)
 remote_path = NodePath("../../Camera2D")
 
-[node name="Cow" parent="." unique_id=1245950768 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow" parent="." unique_id=1245950768 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(-384, -213)
 player_flee_radius = 70.0
 
-[node name="Cow2" parent="." unique_id=507985070 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow2" parent="." unique_id=507985070 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(52, 175)
 
-[node name="Cow3" parent="." unique_id=620143291 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow3" parent="." unique_id=620143291 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(137, -278)
 
-[node name="Cow4" parent="." unique_id=956069206 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow4" parent="." unique_id=956069206 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(270, -217)
 
-[node name="Cow5" parent="." unique_id=576245560 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow5" parent="." unique_id=576245560 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(224, -162)
 
-[node name="Cow6" parent="." unique_id=863489864 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow6" parent="." unique_id=863489864 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(264, -259)
 
-[node name="Cow7" parent="." unique_id=1748162169 groups=["cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow7" parent="." unique_id=1748162169 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(97, -203)
 
 [node name="TheLabels" type="Node2D" parent="." unique_id=2123384287]
@@ -615,23 +620,23 @@ offset_bottom = 117.0
 scale = Vector2(0.56433874, 0.56433874)
 text = "You found secret cow"
 
-[node name="bb_cow" parent="." unique_id=1848823565 groups=["baby", "cows"] instance=ExtResource("25_vgcik")]
+[node name="bb_cow" parent="." unique_id=1848823565 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(153, -236)
 flee_speed = 60.0
 
-[node name="bb_cow2" parent="." unique_id=1829969712 groups=["baby", "cows"] instance=ExtResource("25_vgcik")]
+[node name="bb_cow2" parent="." unique_id=1829969712 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(185, -223)
 
-[node name="bb_cow3" parent="." unique_id=631024965 groups=["baby", "cows"] instance=ExtResource("25_vgcik")]
+[node name="bb_cow3" parent="." unique_id=631024965 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(298, -320)
 
-[node name="bb_cow4" parent="." unique_id=1902179276 groups=["baby", "cows"] instance=ExtResource("25_vgcik")]
+[node name="bb_cow4" parent="." unique_id=1902179276 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(47, -248)
 
-[node name="bb_cow5" parent="." unique_id=1540015752 groups=["baby", "cows"] instance=ExtResource("25_vgcik")]
+[node name="bb_cow5" parent="." unique_id=1540015752 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(-321, -207)
 
-[node name="bb_cow6" parent="." unique_id=1299146989 groups=["baby", "cows"] instance=ExtResource("25_vgcik")]
+[node name="bb_cow6" parent="." unique_id=1299146989 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(226, 170)
 is_secret = true
 
@@ -647,21 +652,69 @@ position = Vector2(-372.5, -99.5)
 shape = SubResource("RectangleShape2D_vgcik")
 
 [node name="NightTriggerArea" type="Area2D" parent="." unique_id=254705965]
-position = Vector2(-6, -5)
+position = Vector2(-44, -4)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NightTriggerArea" unique_id=1476933922]
-position = Vector2(-363, -161)
+position = Vector2(-363, -164)
 shape = SubResource("RectangleShape2D_dwws4")
 
-[node name="Chicken" parent="." unique_id=775685339 groups=["chickens"] instance=ExtResource("28_52gom")]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="NightTriggerArea" unique_id=178730366]
+position = Vector2(251, -311)
+shape = SubResource("RectangleShape2D_3n2a7")
+
+[node name="Chicken" parent="." unique_id=775685339 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(-183, -193)
 mouse_flee_radius = 150.0
 player_flee_radius = 100.0
 
-[node name="Chicken2" parent="." unique_id=373349891 groups=["chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken2" parent="." unique_id=373349891 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(-205, -170)
 
-[node name="Chicken3" parent="." unique_id=803197160 groups=["chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken3" parent="." unique_id=803197160 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(-233, -196)
+
+[node name="GatePrompt" type="CanvasLayer" parent="." unique_id=699650921]
+layer = 10
+follow_viewport_enabled = true
+
+[node name="Label" type="Label" parent="GatePrompt" unique_id=183069389]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = -0.32200003
+anchor_top = -0.20600002
+anchor_right = -0.26200002
+anchor_bottom = -0.164
+offset_left = 0.1600647
+offset_top = 0.32002258
+offset_right = 60.50293
+offset_bottom = 24.080017
+scale = Vector2(0.56, 0.56)
+theme_override_colors/font_outline_color = Color(0.54901963, 0.4509804, 0.4117647, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("27_52gom")
+theme_override_font_sizes/font_size = 16
+text = "Press E when you're ready to rest."
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="Label2" type="Label" parent="GatePrompt" unique_id=1065767000]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = -0.32200003
+anchor_top = -0.20600002
+anchor_right = -0.26200002
+anchor_bottom = -0.164
+offset_left = 588.16003
+offset_top = -126.67999
+offset_right = 648.5029
+offset_bottom = -102.92
+scale = Vector2(0.56, 0.56)
+theme_override_colors/font_outline_color = Color(0.54901963, 0.4509804, 0.4117647, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("27_52gom")
+theme_override_font_sizes/font_size = 16
+text = "Press E when you're ready to rest."
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [connection signal="found_cow" from="bb_cow6" to="." method="_on_bb_cow_found_cow"]

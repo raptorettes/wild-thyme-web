@@ -332,6 +332,7 @@ animation = &"sleep"
 frame_progress = 0.13803984
 
 [node name="EmojiIcon" type="AnimatedSprite2D" parent="Control" unique_id=1017265963]
+visible = false
 position = Vector2(898.00006, 570.00006)
 scale = Vector2(1.1718721, 1.1718721)
 sprite_frames = SubResource("SpriteFrames_7nbos")
@@ -339,10 +340,10 @@ animation = &"baby_cow"
 
 [node name="Label" type="Label" parent="Control" unique_id=197933314]
 layout_mode = 0
-offset_left = 499.0
-offset_top = 522.0
-offset_right = 924.0
-offset_bottom = 590.0
+offset_left = 494.0
+offset_top = 520.0
+offset_right = 919.0
+offset_bottom = 586.0
 theme_override_colors/font_outline_color = Color(0.5647059, 0.38431373, 0.3647059, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("6_k3d8c")

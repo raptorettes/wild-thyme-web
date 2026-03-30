@@ -53,12 +53,20 @@ advance_mode = 2
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_421ok"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ef456"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ajblo"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ifkuu"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pmfyl"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f1q5m"]
 states/End/position = Vector2(1290, 100)
 states/get_down/node = SubResource("AnimationNodeAnimation_hexpo")
 states/get_down/position = Vector2(888, 100)
 states/get_up/node = SubResource("AnimationNodeAnimation_b7ce8")
-states/get_up/position = Vector2(974, 173)
+states/get_up/position = Vector2(1000, 105)
 states/idle/node = SubResource("AnimationNodeAnimation_71i4c")
 states/idle/position = Vector2(312, 100)
 states/idle_wake/node = SubResource("AnimationNodeAnimation_421ok")
@@ -68,11 +76,11 @@ states/peck/position = Vector2(564, 100)
 states/rest/node = SubResource("AnimationNodeAnimation_ajblo")
 states/rest/position = Vector2(783, 100)
 states/sleep/node = SubResource("AnimationNodeAnimation_ifkuu")
-states/sleep/position = Vector2(1192, 173)
+states/sleep/position = Vector2(1127, 105)
 states/walk/node = SubResource("AnimationNodeAnimation_pmfyl")
 states/walk/position = Vector2(677, 100)
-transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_05g0y"), "idle", "idle_wake", SubResource("AnimationNodeStateMachineTransition_a03ur"), "idle_wake", "idle", SubResource("AnimationNodeStateMachineTransition_lswcm"), "idle_wake", "peck", SubResource("AnimationNodeStateMachineTransition_8wa3q"), "peck", "idle_wake", SubResource("AnimationNodeStateMachineTransition_h043g"), "peck", "walk", SubResource("AnimationNodeStateMachineTransition_t2a7s"), "walk", "peck", SubResource("AnimationNodeStateMachineTransition_atham"), "walk", "rest", SubResource("AnimationNodeStateMachineTransition_hexpo"), "rest", "walk", SubResource("AnimationNodeStateMachineTransition_b7ce8"), "rest", "get_down", SubResource("AnimationNodeStateMachineTransition_71i4c"), "get_down", "rest", SubResource("AnimationNodeStateMachineTransition_421ok")]
-graph_offset = Vector2(459.5768, 8)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_05g0y"), "idle", "idle_wake", SubResource("AnimationNodeStateMachineTransition_a03ur"), "idle_wake", "idle", SubResource("AnimationNodeStateMachineTransition_lswcm"), "idle_wake", "peck", SubResource("AnimationNodeStateMachineTransition_8wa3q"), "peck", "idle_wake", SubResource("AnimationNodeStateMachineTransition_h043g"), "peck", "walk", SubResource("AnimationNodeStateMachineTransition_t2a7s"), "walk", "peck", SubResource("AnimationNodeStateMachineTransition_atham"), "walk", "rest", SubResource("AnimationNodeStateMachineTransition_hexpo"), "rest", "walk", SubResource("AnimationNodeStateMachineTransition_b7ce8"), "rest", "get_down", SubResource("AnimationNodeStateMachineTransition_71i4c"), "get_down", "rest", SubResource("AnimationNodeStateMachineTransition_421ok"), "get_down", "get_up", SubResource("AnimationNodeStateMachineTransition_ef456"), "get_up", "get_down", SubResource("AnimationNodeStateMachineTransition_ajblo"), "get_up", "sleep", SubResource("AnimationNodeStateMachineTransition_ifkuu"), "sleep", "get_up", SubResource("AnimationNodeStateMachineTransition_pmfyl")]
+graph_offset = Vector2(113.44149, 8)
 
 [sub_resource type="Animation" id="Animation_b7ce8"]
 length = 0.001
@@ -314,12 +322,14 @@ libraries/ = SubResource("AnimationLibrary_b7ce8")
 position = Vector2(1, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=914103000]
+visible = false
 position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_hexpo")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1012196709]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2011395488]
+visible = false
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_b7ce8")
 

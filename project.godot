@@ -36,6 +36,7 @@ cows=""
 player=""
 chickens=""
 baby=""
+animals=""
 
 [input]
 

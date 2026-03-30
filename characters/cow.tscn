@@ -38,6 +38,38 @@ tracks/0/keys = {
 "values": [Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6), Vector2i(0, 6), Vector2i(1, 6), Vector2i(2, 6), Vector2i(3, 6)]
 }
 
+[sub_resource type="Animation" id="Animation_fh3vp"]
+resource_name = "get_down"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 2), Vector2i(2, 2), Vector2i(3, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_rg7hg"]
+resource_name = "get_up"
+length = 0.8
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(3, 2), Vector2i(4, 2), Vector2i(5, 2), Vector2i(6, 2)]
+}
+
 [sub_resource type="Animation" id="Animation_t8fki"]
 resource_name = "graze_right"
 length = 3.0
@@ -123,6 +155,23 @@ tracks/0/keys = {
 "values": [Vector2i(0, 0), Vector2i(0, 2), Vector2i(1, 2), Vector2i(2, 2), Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(0, 3), Vector2i(2, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 2), Vector2i(2, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(0, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(0, 3), Vector2i(2, 3), Vector2i(1, 3), Vector2i(2, 3), Vector2i(3, 2), Vector2i(2, 3), Vector2i(1, 3), Vector2i(4, 2), Vector2i(5, 2), Vector2i(6, 2)]
 }
 
+[sub_resource type="Animation" id="Animation_r3n4y"]
+resource_name = "sleep"
+length = 1.9
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 4), Vector2i(1, 4), Vector2i(2, 4), Vector2i(3, 4)]
+}
+
 [sub_resource type="Animation" id="Animation_unut8"]
 resource_name = "walk_right"
 length = 0.8
@@ -144,16 +193,25 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_kfm0s"),
 &"chew": SubResource("Animation_0h17f"),
+&"get_down": SubResource("Animation_fh3vp"),
+&"get_up": SubResource("Animation_rg7hg"),
 &"graze_right": SubResource("Animation_t8fki"),
 &"idle": SubResource("Animation_5wucx"),
 &"idle_right": SubResource("Animation_t8qks"),
 &"love": SubResource("Animation_s32nw"),
 &"rest": SubResource("Animation_3j5tr"),
+&"sleep": SubResource("Animation_r3n4y"),
 &"walk_right": SubResource("Animation_unut8")
 }
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0h17f"]
 animation = &"chew"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3j5tr"]
+animation = &"get_down"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_fh3vp"]
+animation = &"get_up"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t8qks"]
 animation = &"graze_right"
@@ -166,6 +224,9 @@ animation = &"love"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_unut8"]
 animation = &"rest"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_rg7hg"]
+animation = &"sleep"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t8fki"]
 animation = &"walk_right"
@@ -192,10 +253,28 @@ animation = &"walk_right"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_87ri1"]
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_wfo2c"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_y4opc"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pfofr"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_owtl3"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_q7cx5"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_mdegj"]
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_s32nw"]
-states/End/position = Vector2(1153, 93)
+states/End/position = Vector2(1553, 81)
 states/chew/node = SubResource("AnimationNodeAnimation_0h17f")
 states/chew/position = Vector2(760, 100)
+states/get_down/node = SubResource("AnimationNodeAnimation_3j5tr")
+states/get_down/position = Vector2(1104, 95)
+states/get_up/node = SubResource("AnimationNodeAnimation_fh3vp")
+states/get_up/position = Vector2(1415, 87)
 states/graze_right/node = SubResource("AnimationNodeAnimation_t8qks")
 states/graze_right/position = Vector2(628, 100)
 states/idle_right/node = SubResource("AnimationNodeAnimation_5wucx")
@@ -204,9 +283,12 @@ states/love/node = SubResource("AnimationNodeAnimation_s32nw")
 states/love/position = Vector2(1005, 100)
 states/rest/node = SubResource("AnimationNodeAnimation_unut8")
 states/rest/position = Vector2(893, 100)
+states/sleep/node = SubResource("AnimationNodeAnimation_rg7hg")
+states/sleep/position = Vector2(1253, 87)
 states/walk_right/node = SubResource("AnimationNodeAnimation_t8fki")
 states/walk_right/position = Vector2(480, 100)
-transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_t8qks"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_unut8"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_0h17f"), "walk_right", "graze_right", SubResource("AnimationNodeStateMachineTransition_s32nw"), "graze_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_3j5tr"), "graze_right", "chew", SubResource("AnimationNodeStateMachineTransition_fh3vp"), "chew", "graze_right", SubResource("AnimationNodeStateMachineTransition_rg7hg"), "chew", "rest", SubResource("AnimationNodeStateMachineTransition_r3n4y"), "rest", "chew", SubResource("AnimationNodeStateMachineTransition_b66ct"), "rest", "love", SubResource("AnimationNodeStateMachineTransition_3l2yh"), "love", "rest", SubResource("AnimationNodeStateMachineTransition_87ri1")]
+transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_t8qks"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_unut8"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_0h17f"), "walk_right", "graze_right", SubResource("AnimationNodeStateMachineTransition_s32nw"), "graze_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_3j5tr"), "graze_right", "chew", SubResource("AnimationNodeStateMachineTransition_fh3vp"), "chew", "graze_right", SubResource("AnimationNodeStateMachineTransition_rg7hg"), "chew", "rest", SubResource("AnimationNodeStateMachineTransition_r3n4y"), "rest", "chew", SubResource("AnimationNodeStateMachineTransition_b66ct"), "rest", "love", SubResource("AnimationNodeStateMachineTransition_3l2yh"), "love", "rest", SubResource("AnimationNodeStateMachineTransition_87ri1"), "love", "get_down", SubResource("AnimationNodeStateMachineTransition_wfo2c"), "get_down", "love", SubResource("AnimationNodeStateMachineTransition_y4opc"), "get_down", "sleep", SubResource("AnimationNodeStateMachineTransition_pfofr"), "sleep", "get_down", SubResource("AnimationNodeStateMachineTransition_owtl3"), "sleep", "get_up", SubResource("AnimationNodeStateMachineTransition_q7cx5"), "get_up", "sleep", SubResource("AnimationNodeStateMachineTransition_mdegj")]
+graph_offset = Vector2(410.49194, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5wucx"]
 radius = 24.0

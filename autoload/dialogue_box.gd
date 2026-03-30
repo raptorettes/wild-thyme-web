@@ -96,7 +96,7 @@ func _input(event):
 	if event is InputEventMouseButton and event.pressed:
 		is_showing = false
 		_show_next()
-		get_viewport().set_input_as_handled() #stops click passing through to game
+		# get_viewport().set_input_as_handled() #stops click passing through to game
 	
 	
 	

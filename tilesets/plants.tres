@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://q7yv3e7ekdia" path="res://assets/Objects/Tree animations/tree_peach_sprites.png" id="4_2ldep"]
 [ext_resource type="Texture2D" uid="uid://cvibobb0dc2hy" path="res://assets/Tilesets/ground tiles/New tiles/Bush_Tiles.png" id="4_uh0lj"]
 [ext_resource type="Texture2D" uid="uid://ddyfrwgv1dx43" path="res://assets/Objects/Tree animations/tree sprites.png" id="5_cggmd"]
+[ext_resource type="Texture2D" uid="uid://njac5j71vb62" path="res://assets/Objects/signs_sides.png" id="6_0gelj"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3n7cs"]
 texture = ExtResource("1_d1jjb")
@@ -356,6 +357,26 @@ texture_region_size = Vector2i(48, 48)
 0:3/0/y_sort_origin = 21
 0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-7.01449, 9.892231, 6.6547737, 9.712372, 6.4749146, 17.806013, -7.1943493, 18.52545)
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_2ldep"]
+texture = ExtResource("6_0gelj")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4.5, -8, 4.5, 8, -4, 8)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:0/0 = 0
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4.5, -8, 4.5, 8, -4, 8)
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4.5, -8, 4.5, 8, -4, 8)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-4, -8, 4.5, -8, 4.5, 8, -4, 8)
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_smjyf"]
 texture = ExtResource("5_cggmd")
 texture_region_size = Vector2i(48, 48)
@@ -403,3 +424,4 @@ sources/2 = SubResource("TileSetAtlasSource_x6325")
 sources/4 = SubResource("TileSetAtlasSource_52gom")
 sources/7 = SubResource("TileSetAtlasSource_smjyf")
 sources/3 = SubResource("TileSetAtlasSource_0gelj")
+sources/6 = SubResource("TileSetAtlasSource_2ldep")

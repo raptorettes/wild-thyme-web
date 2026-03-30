@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-enum COW_STATE { IDLE, WALK, REST, BOUNCE, GRAZE, CHEW, LOVE, FLEE }
+enum COW_STATE { IDLE, WALK, REST, BOUNCE, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 
 signal found_cow
 
@@ -83,6 +83,31 @@ func _physics_process(_delta):
 	if is_on_wall() and current_state == COW_STATE.FLEE:
 		var scatter = Vector2(randf_range(-1.0, 1.0), randf_range(-1.0, 1.0)).normalized()
 		velocity = scatter * flee_speed
+		
+var is_sleeping: bool = false
+
+@export var get_down_duration: float = 1.16  # set to your get_down animation length
+@export var get_up_duration: float = 1.0    # set to your get_up animation length
+
+func go_to_sleep():
+	timer.stop()
+	current_state = COW_STATE.SLEEPING
+	is_sleeping = false
+	var delay = randf_range(0.0, 5.0)
+	await get_tree().create_timer(delay).timeout
+	state_machine.travel("get_down")
+	await get_tree().create_timer(get_down_duration).timeout
+	state_machine.travel("sleep")
+	is_sleeping = true
+
+func wake_up():
+	is_sleeping = false
+	var delay = randf_range(0.0, 3.0)
+	await get_tree().create_timer(delay).timeout
+	state_machine.travel("get_up")
+	await get_tree().create_timer(get_up_duration).timeout
+	current_state = COW_STATE.IDLE
+	pick_new_state()
 
 func apply_night_happiness(slept_safely: bool, chickens_present: bool):
 	if slept_safely:

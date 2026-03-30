@@ -3,9 +3,12 @@ extends Node2D
 @onready var pause_menu = $PauseMenu
 @onready var enclosure = $Enclosure
 @onready var night_trigger_area = $NightTriggerArea
-
+@onready var gate_prompt = $GatePrompt
 
 func _ready():
+	gate_prompt.hide()
+	print("gate_prompt node: ", gate_prompt)
+
 	night_trigger_area.body_entered.connect(_on_gate_area_entered)
 	night_trigger_area.body_exited.connect(_on_gate_area_exited)
 	NightManager.register_enclosure($Enclosure)
@@ -16,13 +19,13 @@ func _ready():
 	# Show opening sequence
 	DialogueBox.show_sequence([
 		{
-			"text": "Your herd is scattered across the meadow.",
+			"text": "There is a wild herd of cows scattered across the meadow.",
 			"expression": "talking",
 			"emoji": ""
 		},
 		{
 			"text": "As night falls, they'll need somewhere safe to rest together.",
-			"expression": "love_talk",
+			"expression": "talking",
 			"emoji": ""
 		},
 		{
@@ -81,10 +84,7 @@ func _input(event):
 				pause_menu.open()
 		if event.keycode == KEY_E:
 			if _player_near_gate():
-				#clear existing dialogue
-				DialogueBox.message_queue.clear()
-				DialogueBox._hide()
-				#show goodnight message first
+				gate_prompt.hide()
 				DialogueBox.show_message(
 					"Everyone's settling in... Goodnight little ones.",
 					"love",
@@ -102,16 +102,15 @@ func _player_near_gate() -> bool:
 	return player in bodies
 
 func _on_gate_area_entered(body):
+	print("body entered: ", body.name, " is player: ", body.is_in_group("player"))
 	if body.is_in_group("player"):
-		DialogueBox.show_message(
-			"The herd looks sleepy... Press E to say goodnight 🌙",
-			"sleeping",
-			"night"
-		)
+		print("showing gate prompt")
+		gate_prompt.show()
+
 
 func _on_gate_area_exited(body):
 	if body.is_in_group("player"):
-		DialogueBox._hide()
+		gate_prompt.hide()
 
 func _on_bb_cow_found_cow() -> void:
 	$TheLabels/TheLabel.text = "FOUND THE COW"
