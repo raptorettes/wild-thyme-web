@@ -4,7 +4,7 @@ extends Node2D
 @onready var enclosure = $Enclosure
 @onready var night_trigger_area = $NightTriggerArea
 @onready var gate_prompt = $GatePrompt
-@onready var day_counter = $DayCounter/Label
+@onready var day_counter = $DayCounter/Control/Label
 
 func _ready():
 	day_counter.text = "Day " + str(NightManager.day_count)

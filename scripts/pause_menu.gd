@@ -7,11 +7,11 @@ func _ready():
 
 func _update_category_buttons():
 	var current = MusicManager.current_category
-	$PanelContainer/VBoxContainer/HBoxContainer/ChillButton.disabled = \
+	$CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/ChillButton.disabled = \
 		current == MusicManager.CATEGORY.CHILL
-	$PanelContainer/VBoxContainer/HBoxContainer/LofiButton.disabled = \
+	$CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/LofiButton.disabled = \
 		current == MusicManager.CATEGORY.LOFI
-	$PanelContainer/VBoxContainer/HBoxContainer/BeatsButton.disabled = \
+	$CenterContainer/PanelContainer/VBoxContainer/HBoxContainer/BeatsButton.disabled = \
 		current == MusicManager.CATEGORY.BEATS
 
 func open():
