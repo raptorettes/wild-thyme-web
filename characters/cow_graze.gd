@@ -19,6 +19,8 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 @export var happiness_loss_per_night: float = 0.08
 @export var happiness_chicken_penalty: float = 0.05
 
+@export var favourite_spot: Vector2 = Vector2.ZERO
+
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 @onready var sprite = $Sprite2D
@@ -31,6 +33,8 @@ var pre_flee_state: COW_STATE = COW_STATE.IDLE
 
 func _ready():
 	randomize()
+	if favourite_spot == Vector2.ZERO:
+		favourite_spot = GameManager.get_random_spot()
 	pick_new_state()
 
 func _physics_process(_delta):
@@ -102,14 +106,40 @@ func go_to_sleep():
 	state_machine.travel("sleep")
 	is_sleeping = true
 
-func wake_up():
+func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 	is_sleeping = false
 	var delay = randf_range(0.0, 3.0)
 	await get_tree().create_timer(delay).timeout
 	state_machine.travel("get_up")
 	await get_tree().create_timer(get_up_duration).timeout
 	current_state = COW_STATE.IDLE
+	
+	# Walk to enclosure exit first
+	if exit_pos != Vector2.ZERO:
+		_walk_to_position(exit_pos)
+		await _reached_position(exit_pos)
+	
+	# Then walk to favourite spot
+	if favourite_spot != Vector2.ZERO:
+		var arrival = GameManager.get_arrival_position(favourite_spot)
+		_walk_to_position(arrival)
+		await _reached_position(arrival)
+	
 	pick_new_state()
+
+func _walk_to_position(target: Vector2):
+	current_state = COW_STATE.WALK
+	move_direction = (target - global_position).normalized()
+	state_machine.travel("walk_right")
+	if move_direction.x < 0:
+		sprite.flip_h = true
+	elif move_direction.x > 0:
+		sprite.flip_h = false
+
+func _reached_position(target: Vector2) -> bool:
+	while global_position.distance_to(target) > 30.0:
+		await get_tree().process_frame
+	return true
 
 # Called by NightManager each night
 func apply_night_happiness(slept_safely: bool, chickens_present: bool):

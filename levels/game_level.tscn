@@ -509,17 +509,17 @@ texture = ExtResource("16_3n2a7")
 sources/0 = SubResource("TileSetAtlasSource_hrrti")
 sources/1 = SubResource("TileSetAtlasSource_txx3f")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgcik"]
-size = Vector2(209, 149)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_52gom"]
 size = Vector2(146.5, 111)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwws4"]
-size = Vector2(17.1875, 17.0625)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3n2a7"]
 size = Vector2(45, 36)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgcik"]
+size = Vector2(209, 149)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwws4"]
+size = Vector2(17.1875, 17.0625)
 
 [node name="GameLevel" type="Node2D" unique_id=931376677]
 y_sort_enabled = true
@@ -609,16 +609,16 @@ player_flee_radius = 70.0
 position = Vector2(52, 175)
 
 [node name="Cow3" parent="." unique_id=620143291 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
-position = Vector2(137, -278)
+position = Vector2(192, -340)
 
 [node name="Cow4" parent="." unique_id=956069206 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
-position = Vector2(270, -217)
+position = Vector2(249, -319)
 
 [node name="Cow5" parent="." unique_id=576245560 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
 position = Vector2(224, -162)
 
 [node name="Cow6" parent="." unique_id=863489864 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
-position = Vector2(264, -259)
+position = Vector2(247, -345)
 
 [node name="TheLabels" type="Node2D" parent="." unique_id=2123384287]
 position = Vector2(-6, -5)
@@ -640,7 +640,7 @@ flee_speed = 60.0
 position = Vector2(185, -223)
 
 [node name="bb_cow3" parent="." unique_id=631024965 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
-position = Vector2(298, -320)
+position = Vector2(223, -366)
 
 [node name="bb_cow5" parent="." unique_id=1540015752 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(-321, -207)
@@ -653,64 +653,28 @@ is_secret = true
 process_mode = 3
 visible = false
 
-[node name="Enclosure" type="Area2D" parent="." unique_id=1146847243]
+[node name="Enclosure1" type="Area2D" parent="." unique_id=1146847243]
 position = Vector2(-6, -5)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Enclosure" unique_id=1515270673]
-position = Vector2(-372.5, -99.5)
-shape = SubResource("RectangleShape2D_vgcik")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="Enclosure" unique_id=244251846]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enclosure1" unique_id=244251846]
 position = Vector2(220.75, -342.5)
 shape = SubResource("RectangleShape2D_52gom")
 
-[node name="NightTriggerArea" type="Area2D" parent="." unique_id=254705965]
+[node name="NightTriggerArea1" type="Area2D" parent="." unique_id=254705965]
 position = Vector2(-44, -4)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NightTriggerArea" unique_id=1476933922]
-position = Vector2(-363, -164)
-shape = SubResource("RectangleShape2D_dwws4")
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="NightTriggerArea" unique_id=178730366]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NightTriggerArea1" unique_id=178730366]
 position = Vector2(251, -311)
 shape = SubResource("RectangleShape2D_3n2a7")
 
-[node name="Chicken" parent="." unique_id=775685339 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
-position = Vector2(-183, -193)
-mouse_flee_radius = 150.0
-player_flee_radius = 100.0
+[node name="EnclosureExit1" type="Node2D" parent="." unique_id=984199758 groups=["enclosure_exit"]]
+position = Vector2(205, -233)
 
-[node name="Chicken2" parent="." unique_id=373349891 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
-position = Vector2(273, -295)
-
-[node name="Chicken3" parent="." unique_id=803197160 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
-position = Vector2(164, -268)
-
-[node name="GatePrompt" type="CanvasLayer" parent="." unique_id=699650921]
+[node name="GatePrompt1" type="CanvasLayer" parent="." unique_id=699650921]
 layer = 10
 follow_viewport_enabled = true
 
-[node name="Label" type="Label" parent="GatePrompt" unique_id=183069389]
-texture_filter = 1
-anchors_preset = -1
-anchor_left = -0.32200003
-anchor_top = -0.20600002
-anchor_right = -0.26200002
-anchor_bottom = -0.164
-offset_left = 214.24005
-offset_top = 78.48001
-offset_right = 274.5829
-offset_bottom = 102.240005
-scale = Vector2(0.56, 0.56)
-theme_override_colors/font_outline_color = Color(0.54901963, 0.4509804, 0.4117647, 1)
-theme_override_constants/outline_size = 3
-theme_override_fonts/font = ExtResource("27_52gom")
-theme_override_font_sizes/font_size = 16
-text = "Press E when you're ready to rest."
-autowrap_mode = 3
-metadata/_edit_use_anchors_ = true
-
-[node name="Label2" type="Label" parent="GatePrompt" unique_id=1065767000]
+[node name="Label2" type="Label" parent="GatePrompt1" unique_id=1065767000]
 texture_filter = 1
 anchors_preset = -1
 anchor_left = -0.32200003
@@ -729,6 +693,17 @@ theme_override_font_sizes/font_size = 16
 text = "Press E when you're ready to rest."
 autowrap_mode = 3
 metadata/_edit_use_anchors_ = true
+
+[node name="Chicken" parent="." unique_id=775685339 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+position = Vector2(-183, -193)
+mouse_flee_radius = 150.0
+player_flee_radius = 100.0
+
+[node name="Chicken2" parent="." unique_id=373349891 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+position = Vector2(273, -295)
+
+[node name="Chicken3" parent="." unique_id=803197160 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+position = Vector2(164, -268)
 
 [node name="DayCounter" type="CanvasLayer" parent="." unique_id=1147659350]
 layer = 2
@@ -757,12 +732,59 @@ theme_override_fonts/font = ExtResource("27_3n2a7")
 
 [node name="FavoriteSpots" type="Node" parent="." unique_id=1247922434]
 
-[node name="Spot1" type="Node2D" parent="FavoriteSpots" unique_id=1602409549]
+[node name="Spot1-oak" type="Node2D" parent="FavoriteSpots" unique_id=1602409549 groups=["favourite_spot"]]
+position = Vector2(339, -245)
 
-[node name="Spot2" type="Node2D" parent="FavoriteSpots" unique_id=1668560893]
+[node name="Spot2-peach" type="Node2D" parent="FavoriteSpots" unique_id=1668560893 groups=["favourite_spot"]]
+position = Vector2(67, -327)
 
-[node name="Spot3" type="Node2D" parent="FavoriteSpots" unique_id=1003005758]
+[node name="Spot3-well" type="Node2D" parent="FavoriteSpots" unique_id=1003005758 groups=["favourite_spot"]]
+position = Vector2(134, 63)
 
-[node name="Spot4" type="Node2D" parent="FavoriteSpots" unique_id=406453418]
+[node name="Spot4-trough" type="Node2D" parent="FavoriteSpots" unique_id=1168246180 groups=["favourite_spot"]]
+position = Vector2(192, -203)
+
+[node name="Spot5-meadowhard" type="Node2D" parent="FavoriteSpots" unique_id=406453418 groups=["favourite_spot"]]
+position = Vector2(232, 52)
+
+[node name="Spot6-distantmeadow" type="Node2D" parent="FavoriteSpots" unique_id=747608518 groups=["favourite_spot"]]
+position = Vector2(-333, -258)
+
+[node name="Enclosure2" type="Area2D" parent="." unique_id=813447361]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Enclosure2" unique_id=1515270673]
+position = Vector2(-378.5, -104.5)
+shape = SubResource("RectangleShape2D_vgcik")
+
+[node name="NightTriggerArea2" type="Area2D" parent="." unique_id=1682994989]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NightTriggerArea2" unique_id=1476933922]
+position = Vector2(-407, -168)
+shape = SubResource("RectangleShape2D_dwws4")
+
+[node name="EnclosureExit2" type="Node2D" parent="." unique_id=1540182946 groups=["enclosure_exit"]]
+position = Vector2(-363, -252)
+
+[node name="GatePrompt2" type="CanvasLayer" parent="." unique_id=1429354336]
+
+[node name="Label" type="Label" parent="GatePrompt2" unique_id=183069389]
+texture_filter = 1
+anchors_preset = -1
+anchor_left = -0.32200003
+anchor_top = -0.20600002
+anchor_right = -0.26200002
+anchor_bottom = -0.164
+offset_left = 214.24005
+offset_top = 78.48001
+offset_right = 274.5829
+offset_bottom = 102.240005
+scale = Vector2(0.56, 0.56)
+theme_override_colors/font_outline_color = Color(0.54901963, 0.4509804, 0.4117647, 1)
+theme_override_constants/outline_size = 3
+theme_override_fonts/font = ExtResource("27_52gom")
+theme_override_font_sizes/font_size = 16
+text = "Press E when you're ready to rest."
+autowrap_mode = 3
+metadata/_edit_use_anchors_ = true
 
 [connection signal="found_cow" from="bb_cow6" to="." method="_on_bb_cow_found_cow"]

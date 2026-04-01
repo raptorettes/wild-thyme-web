@@ -21,6 +21,7 @@ MusicManager="*uid://c3yww0o1sw16k"
 NightManager="*uid://1pn34hgwfjsn"
 DialogueBox="*uid://dotcec1xg4smu"
 NightOverlay="*uid://si32fjl5d70g"
+GameManager="*uid://o2h8573jvc7n"
 
 [display]
 
@@ -37,6 +38,8 @@ player=""
 chickens=""
 baby=""
 animals=""
+favourite_spot=""
+enclosure_exit=""
 
 [input]
 
