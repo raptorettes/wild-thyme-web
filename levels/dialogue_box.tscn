@@ -323,11 +323,13 @@ offset_right = -244.5
 offset_bottom = -179.0
 grow_horizontal = 2
 grow_vertical = 0
+mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control" unique_id=45407614]
 layout_mode = 0
 offset_right = 644.99994
 offset_bottom = 172.0
+mouse_filter = 2
 texture = ExtResource("2_k3d8c")
 
 [node name="Portrait" type="AnimatedSprite2D" parent="Control" unique_id=1916543930]

@@ -1,29 +1,29 @@
-extends Node2D
+extends CanvasLayer
 
-@onready var canvas = $CanvasLayer
-@onready var canvas_container = $CanvasLayer/CenterContainer
-@onready var press_any_key = $CanvasLayer/CenterContainer/VBoxContainer/AnimatedSprite2D
+@onready var canvas_container = $CenterContainer
+@onready var press_any_key = $CenterContainer/VBoxContainer/AnimatedSprite2D
 @onready var click_sound = $ClickSound
 
 var can_start: bool = false
-var canvas_rest_y: Vector2
+var rest_y: float
 
 func _ready():
-	canvas.offset = Vector2(0, -300)
-	canvas_container.modulate.a = 0.0  # ← changed
+	rest_y = canvas_container.position.y
+	canvas_container.position.y = rest_y - 300.0
+	canvas_container.modulate.a = 0.0
 	press_any_key.modulate.a = 0.0
 	press_any_key.stop()
 	
 	var tween = create_tween()
 	tween.set_parallel(false)
 	
-	tween.tween_property(canvas_container, "modulate:a", 1.0, 0.3)  # ← changed
-	tween.tween_property(canvas, "offset", Vector2(0, 0), 0.8)\
+	tween.tween_property(canvas_container, "modulate:a", 1.0, 0.3)
+	tween.tween_property(canvas_container, "position:y", rest_y, 0.8)\
 		.set_ease(Tween.EASE_OUT)\
 		.set_trans(Tween.TRANS_BACK)
 	
-	tween.tween_property(canvas, "offset", Vector2(0, -8), 0.08)
-	tween.tween_property(canvas, "offset", Vector2(0, 0), 0.08)
+	tween.tween_property(canvas_container, "position:y", rest_y - 8.0, 0.08)
+	tween.tween_property(canvas_container, "position:y", rest_y, 0.08)
 	
 	tween.tween_interval(0.2)
 	tween.tween_property(press_any_key, "modulate:a", 1.0, 0.5)
@@ -41,16 +41,38 @@ func _input(event):
 func _start_game():
 	can_start = false
 	click_sound.play()
-	
-	# Play the key press animation on the sprite sheet
-	press_any_key.play("pressed") 
-	
-	# Wait for that animation to finish then transition
+	press_any_key.play("pressed")
 	await press_any_key.animation_finished
 	
-	# Fade everything out
 	var tween = create_tween()
-	tween.tween_property(canvas_container, "modulate:a", 0.0, 0.4) 
+	tween.tween_property(canvas_container, "modulate:a", 0.0, 0.4)
 	tween.tween_callback(func():
-		get_tree().change_scene_to_file("res://levels/game_level.tscn")
+		visible = false
+		DialogueBox.show_sequence([
+		{
+			"text": "There is a wild herd of cows scattered across the meadow.",
+			"expression": "talking",
+			"emoji": ""
+		},
+		{
+			"text": "As night falls, they'll need somewhere safe to rest together.",
+			"expression": "love_talk",
+			"emoji": ""
+		},
+		{
+			"text": "Guide them toward the enclosure using your mouse.",
+			"expression": "smiling",
+			"emoji": ""
+		},
+		{
+			"text": "When everyone's inside, press E to say goodnight.",
+			"expression": "happy",
+			"emoji": ""
+		}
+	])
+		# Enable player
+		var player = get_tree().get_first_node_in_group("player")
+		if player:
+			player.set_physics_process(true)
+			player.set_process_input(true)
 )

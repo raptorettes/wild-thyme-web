@@ -1,5 +1,6 @@
 extends Node2D
 
+@onready var title_screen = $TitleScreen 
 @onready var pause_menu = $PauseMenu
 @onready var enclosure = $Enclosure
 @onready var night_trigger_area = $NightTriggerArea
@@ -7,6 +8,11 @@ extends Node2D
 @onready var day_counter = $DayCounter/Control/Label
 
 func _ready():
+	# Disable player until title dismissed
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(false)
+		player.set_process_input(false)
 	day_counter.text = "Day " + str(NightManager.day_count)
 	gate_prompt.hide()
 	NightManager.night_started.connect(_on_night_started)
@@ -17,34 +23,12 @@ func _ready():
 	NightManager.morning_started.connect(_on_morning_started)
 	DialogueBox.message_shown.connect(_on_dialogue_shown)
 	DialogueBox.message_dismissed.connect(_on_dialogue_dismissed)
-	# Show opening sequence
-	DialogueBox.show_sequence([
-		{
-			"text": "There is a wild herd of cows scattered across the meadow.",
-			"expression": "talking",
-			"emoji": ""
-		},
-		{
-			"text": "As night falls, they'll need somewhere safe to rest together.",
-			"expression": "love_talk",
-			"emoji": ""
-		},
-		{
-			"text": "Guide them toward the enclosure using your mouse.",
-			"expression": "smiling",
-			"emoji": ""
-		},
-		{
-			"text": "When everyone's inside, press E to say goodnight.",
-			"expression": "happy",
-			"emoji": ""
-		}
-	])
+
 	
 func _on_dialogue_shown():
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
-		#player.set_process_input(false) # disable player input
+		player.set_process_input(false) # disable player input
 		player.set_physics_process(false) # stop player moving
 
 func _on_dialogue_dismissed():

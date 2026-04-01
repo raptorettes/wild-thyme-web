@@ -41,8 +41,10 @@ func _physics_process(_delta):
 		return
 		
 	var mouse_flee = get_mouse_flee_force()
+	var avoid = get_avoidance_force()
 	
 	if mouse_flee.length() > 0.0:
+		print("flee: ", mouse_flee, " avoid: ", avoid, " combined would be: ", (mouse_flee + avoid).normalized())
 		if current_state != COW_STATE.FLEE:
 			pre_flee_state = current_state
 			current_state = COW_STATE.FLEE
@@ -62,11 +64,9 @@ func _physics_process(_delta):
 			_resume_state(pre_flee_state)
 		
 		if current_state == COW_STATE.WALK:
-			var avoid = get_avoidance_force()
 			var final_dir = (move_direction + avoid * 3.0).normalized()
 			velocity = final_dir * move_speed
 		else:
-			var avoid = get_avoidance_force()
 			if avoid.length() > 0.8:
 				velocity = avoid.normalized() * move_speed * 0.2
 			else:
