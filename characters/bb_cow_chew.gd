@@ -35,6 +35,12 @@ var pre_flee_state: COW_STATE = COW_STATE.IDLE
 
 @export var favourite_spot: Vector2 = Vector2.ZERO
 
+func _ready():
+	randomize()
+	if favourite_spot == Vector2.ZERO:
+		favourite_spot = GameManager.get_random_spot()
+	pick_new_state()
+
 func _physics_process(_delta):
 	# Don't do anything while sleeping
 	if current_state == COW_STATE.SLEEPING:
