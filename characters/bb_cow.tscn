@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c5aue6uernut" path="res://characters/bb_cow_chew.gd" id="1_jxnyl"]
 [ext_resource type="Texture2D" uid="uid://bkp4wkr1blkd0" path="res://assets/Animals/Cow_Baby/baby purple cow animations sprites.png" id="2_jxnyl"]
+[ext_resource type="BehaviorTree" uid="uid://8qfs23lx0x4y" path="res://ai/trees/bb_cow.tres" id="3_ukr8t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wucx"]
 size = Vector2(10, 8)
@@ -317,6 +318,8 @@ graph_offset = Vector2(545.56, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_jxnyl"]
 radius = 12.0
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_wbjck"]
+
 [node name="bb_cow" type="CharacterBody2D" unique_id=1245950768]
 input_pickable = true
 script = ExtResource("1_jxnyl")
@@ -349,5 +352,11 @@ position = Vector2(0, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=1370877516]
 shape = SubResource("CircleShape2D_jxnyl")
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=1023128993]
+behavior_tree = ExtResource("3_ukr8t")
+blackboard_plan = SubResource("BlackboardPlan_wbjck")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=127740589]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
