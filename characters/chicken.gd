@@ -106,6 +106,10 @@ func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 	
 	$BTPlayer.set_active(true)
 	current_state = CHICKEN_STATE.IDLE
+	
+	# Immediately start walking toward favourite spot
+	if favourite_spot != Vector2.ZERO:
+		nav_agent.target_position = GameManager.get_arrival_position(favourite_spot)
 
 func _on_pickup_area_input(_viewport, event, _shape_idx):
 	if event is InputEventMouseButton:

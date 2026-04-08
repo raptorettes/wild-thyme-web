@@ -10,11 +10,16 @@ func _tick(delta: float) -> int:
 	
 	var dist_to_player = animal.global_position.distance_to(player.global_position)
 	if dist_to_player > animal.player_flee_radius:
+		HerdManager.clear_panic(animal)
 		return SUCCESS
 	
 	var dist_to_mouse = animal.global_position.distance_to(mouse_pos)
 	if dist_to_mouse > animal.mouse_flee_radius:
+		HerdManager.clear_panic(animal)
 		return SUCCESS
+	
+	# Register panic so nearby cows can react
+	HerdManager.register_panic(animal)
 	
 	var flee_dir = (animal.global_position - mouse_pos).normalized()
 	animal.velocity = flee_dir * animal.flee_speed

@@ -140,12 +140,16 @@ func trigger_night(enclosure: Area2D):
 			exit_pos = exit.global_position
 		elif exit.name == "EnclosureExit2" and current_enclosure.name == "Enclosure2":
 			exit_pos = exit.global_position
-	
+
 	# Wake all animals with exit position
 	var waking_animals = get_tree().get_nodes_in_group("animals")
 	for animal in waking_animals:
 		if animal.has_method("wake_up"):
-			animal.wake_up(exit_pos)
+			var spread_exit = exit_pos + Vector2(
+				randf_range(-25.0, 25.0),
+				randf_range(-25.0, 25.0)
+			)
+			animal.wake_up(spread_exit)
 	
 	await _wait_for_all_awake()
 	

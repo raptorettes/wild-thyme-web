@@ -16,6 +16,7 @@ signal found_cow
 @export var favourite_spot: Vector2 = Vector2.ZERO
 @export var get_down_duration: float = 0.6
 @export var get_up_duration: float = 0.8
+@export var skittishness: float = 0.3  # 0=very calm, 1=very skittish
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -103,8 +104,17 @@ func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 		nav_agent.target_position = exit_pos
 		while global_position.distance_to(exit_pos) > 30.0:
 			var next = nav_agent.get_next_path_position()
-			velocity = (next - global_position).normalized() * move_speed
+			var dir = (next - global_position).normalized()
+			velocity = dir * move_speed
 			move_and_slide()
+			
+			# Play walk animation
+			state_machine.travel(get_anim("walk"))
+			if dir.x < 0:
+				sprite.flip_h = true
+			elif dir.x > 0:
+				sprite.flip_h = false
+			
 			await get_tree().process_frame
 	
 	if favourite_spot != Vector2.ZERO:
@@ -119,7 +129,11 @@ func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 	# Restart behaviour tree
 	$BTPlayer.set_active(true)
 	current_state = COW_STATE.IDLE
-
+	
+	# Immediately start walking toward favourite spot
+	if favourite_spot != Vector2.ZERO:
+		nav_agent.target_position = GameManager.get_arrival_position(favourite_spot)
+		
 func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event.is_pressed() and is_secret:
 		current_state = COW_STATE.BOUNCE

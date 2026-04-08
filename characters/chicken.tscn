@@ -325,14 +325,12 @@ libraries/ = SubResource("AnimationLibrary_b7ce8")
 position = Vector2(1, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=914103000]
-visible = false
 position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_hexpo")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1012196709]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2011395488]
-visible = false
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_b7ce8")
 

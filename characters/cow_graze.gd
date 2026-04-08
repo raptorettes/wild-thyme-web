@@ -3,9 +3,9 @@ extends CharacterBody2D
 enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 
 @export var move_speed: float = 20
-@export var flee_speed: float = 40.0
+@export var flee_speed: float = 35.0
 @export var mouse_flee_radius: float = 40.0
-@export var player_flee_radius: float = 80.0
+@export var player_flee_radius: float = 70.0
 @export var happiness: float = 0.5
 @export var happiness_gain_per_night: float = 0.1
 @export var happiness_loss_per_night: float = 0.08
@@ -13,6 +13,7 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 @export var favourite_spot: Vector2 = Vector2.ZERO
 @export var get_down_duration: float = 0.6
 @export var get_up_duration: float = 0.8
+@export var skittishness: float = 0.1  # 0=very calm, 1=very skittish
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -101,19 +102,33 @@ func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 		nav_agent.target_position = exit_pos
 		while global_position.distance_to(exit_pos) > 30.0:
 			var next = nav_agent.get_next_path_position()
-			velocity = (next - global_position).normalized() * move_speed
+			var dir = (next - global_position).normalized()
+			velocity = dir * move_speed
 			move_and_slide()
+			
+			# Play walk animation
+			state_machine.travel(get_anim("walk"))
+			if dir.x < 0:
+				sprite.flip_h = true
+			elif dir.x > 0:
+				sprite.flip_h = false
+			
 			await get_tree().process_frame
 	
-	if favourite_spot != Vector2.ZERO:
-		var arrival = GameManager.get_arrival_position(favourite_spot)
-		nav_agent.target_position = arrival
-		while global_position.distance_to(arrival) > 30.0:
-			var next = nav_agent.get_next_path_position()
-			velocity = (next - global_position).normalized() * move_speed
-			move_and_slide()
-			await get_tree().process_frame
+		# Moved to limbo AI 
+		#if favourite_spot != Vector2.ZERO:
+		#var arrival = GameManager.get_arrival_position(favourite_spot)
+		#nav_agent.target_position = arrival
+		#while global_position.distance_to(arrival) > 30.0:
+			#var next = nav_agent.get_next_path_position()
+			#velocity = (next - global_position).normalized() * move_speed
+			#move_and_slide()
+			#await get_tree().process_frame
 	
 	# Restart behaviour tree
 	$BTPlayer.set_active(true)
 	current_state = COW_STATE.IDLE
+		
+	# Immediately start walking toward favourite spot
+	if favourite_spot != Vector2.ZERO:
+		nav_agent.target_position = GameManager.get_arrival_position(favourite_spot)

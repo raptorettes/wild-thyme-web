@@ -15,16 +15,16 @@ func _physics_process(_delta):
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	).normalized()
-	
+		
 	update_anamation_parameters(input_direction)
-	
-	# Update Velocity
+		# Update Velocity
 	velocity = input_direction * move_speed
 	
 	# Move and slide
 	move_and_slide()
 	
 	pick_new_state()
+
 
 func update_anamation_parameters(move_input : Vector2):
 	# dont change animation parameters if there is no move input 

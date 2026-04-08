@@ -5,6 +5,8 @@
 [ext_resource type="Script" uid="uid://br3r41e0cwfef" path="res://ai/tasks/actions/bt_graze.gd" id="2_lpmjd"]
 [ext_resource type="Script" uid="uid://y7533e26c1c6" path="res://ai/tasks/actions/bt_flee.gd" id="2_y616i"]
 [ext_resource type="Script" uid="uid://6kafldyhiiqk" path="res://ai/tasks/actions/bt_play_idle.gd" id="3_qqtlw"]
+[ext_resource type="Script" uid="uid://ddbngs5f38hye" path="res://ai/tasks/conditions/check_herd_panic.gd" id="3_u1mq5"]
+[ext_resource type="Script" uid="uid://bvxvgox0iubh0" path="res://ai/tasks/actions/bt_flee_from_panic.gd" id="4_aq1ci"]
 [ext_resource type="Script" uid="uid://rn5d413leyg1" path="res://ai/tasks/actions/bt_rest.gd" id="4_y616i"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ui7ju"]
@@ -16,8 +18,18 @@ script = ExtResource("1_u1mq5")
 script = ExtResource("2_y616i")
 
 [sub_resource type="BTSequence" id="BTSequence_wqi5g"]
-custom_name = "Sequence - flee"
+custom_name = "flee"
 children = [SubResource("BTCondition_mxkk4"), SubResource("BTAction_48fud")]
+
+[sub_resource type="BTCondition" id="BTCondition_48fud"]
+script = ExtResource("3_u1mq5")
+
+[sub_resource type="BTAction" id="BTAction_wqi5g"]
+script = ExtResource("4_aq1ci")
+
+[sub_resource type="BTSequence" id="BTSequence_wyeeb"]
+custom_name = "herd panic"
+children = [SubResource("BTCondition_48fud"), SubResource("BTAction_wqi5g")]
 
 [sub_resource type="BTAction" id="BTAction_ym1yg"]
 script = ExtResource("2_lpmjd")
@@ -49,7 +61,7 @@ children = [SubResource("BTAction_aq1ci"), SubResource("BTAction_mxkk4")]
 children = [SubResource("BTAction_ym1yg"), SubResource("BTAction_lpmjd"), SubResource("BTSequence_aq1ci"), SubResource("BTSequence_48fud")]
 
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_u1mq5"]
-children = [SubResource("BTSequence_wqi5g"), SubResource("BTRandomSelector_mxkk4")]
+children = [SubResource("BTSequence_wqi5g"), SubResource("BTSequence_wyeeb"), SubResource("BTRandomSelector_mxkk4")]
 
 [sub_resource type="BTRepeat" id="BTRepeat_gycl0"]
 forever = true
