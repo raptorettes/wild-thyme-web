@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 enum COW_STATE { IDLE, WALK, REST, BOUNCE, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
-
+signal ready_to_grow_up(baby)
 signal found_cow
 @export var is_secret: bool = false
 
@@ -17,6 +17,10 @@ signal found_cow
 @export var get_down_duration: float = 0.6
 @export var get_up_duration: float = 0.8
 @export var skittishness: float = 0.3  # 0=very calm, 1=very skittish
+@export var days_in_herd: int = 0 # effects lead cow that chooses favorite spot
+@export var confidence: float = 0.5 # effects lead cow, born with a number
+@export var herd_cohesion: float = 0.6 # 
+@export var is_wanderer: bool = false
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -38,6 +42,17 @@ func _physics_process(_delta):
 	if current_state == COW_STATE.SLEEPING:
 		velocity = Vector2.ZERO
 	move_and_slide()
+
+func grow_up_sequence():
+	var bt = $BTPlayer
+	bt.set_active(false)
+	for i in range(5):
+		sprite.visible = false
+		await get_tree().create_timer(0.15).timeout
+		sprite.visible = true
+		await get_tree().create_timer(0.15).timeout
+	sprite.visible = false
+	emit_signal("ready_to_grow_up", self)
 
 func set_behaviour_state(state_name: String):
 	match state_name:
@@ -117,14 +132,15 @@ func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 			
 			await get_tree().process_frame
 	
-	if favourite_spot != Vector2.ZERO:
-		var arrival = GameManager.get_arrival_position(favourite_spot)
-		nav_agent.target_position = arrival
-		while global_position.distance_to(arrival) > 30.0:
-			var next = nav_agent.get_next_path_position()
-			velocity = (next - global_position).normalized() * move_speed
-			move_and_slide()
-			await get_tree().process_frame
+	# Moved to limbo AI 
+	#if favourite_spot != Vector2.ZERO:
+		#var arrival = GameManager.get_arrival_position(favourite_spot)
+		#nav_agent.target_position = arrival
+		#while global_position.distance_to(arrival) > 30.0:
+			#var next = nav_agent.get_next_path_position()
+			#velocity = (next - global_position).normalized() * move_speed
+			#move_and_slide()
+			#await get_tree().process_frame
 	
 	# Restart behaviour tree
 	$BTPlayer.set_active(true)
@@ -139,3 +155,9 @@ func _on_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> voi
 		current_state = COW_STATE.BOUNCE
 		state_machine.travel("bounce")
 		emit_signal("found_cow")
+		
+func get_effective_cohesion() -> float:
+	var base = herd_cohesion
+	var happiness_modifier = happiness * 0.3
+	var experience_modifier = clamp(days_in_herd * 0.02, 0.0, 0.3)
+	return clamp(base + happiness_modifier + experience_modifier, 0.0, 1.0)

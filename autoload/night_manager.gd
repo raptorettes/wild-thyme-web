@@ -15,7 +15,7 @@ var days_happy_tracker: Dictionary = {}
 
 # Signals
 signal night_started
-signal morning_started(message: String, baby_born: bool)
+signal morning_started(message: String, baby_born: bool, cow_grown_up: bool)
 
 func _all_animals_sleeping() -> bool:
 	var animals = get_tree().get_nodes_in_group("animals")
@@ -49,7 +49,7 @@ func trigger_night(enclosure: Area2D):
 	# Check if same enclosure as last night
 	if enclosure == last_enclosure:
 		DialogueBox.show_message(
-			"The herd seems restless here tonight... maybe try the other pasture?",
+			"The herd seems restless here tonight... maybe try the other meadow?",
 			"sad_talk",
 			""
 		)
@@ -59,6 +59,7 @@ func trigger_night(enclosure: Area2D):
 	night_active = true
 	emit_signal("night_started")
 	
+	var any_grown_up = false
 	var all_cows = get_tree().get_nodes_in_group("cows")
 	var all_babies = get_tree().get_nodes_in_group("baby")
 	var all_animals = all_cows + all_babies
@@ -78,10 +79,12 @@ func trigger_night(enclosure: Area2D):
 				cows_inside.append(cow)
 				cow.apply_night_happiness(true, chickens_inside)
 				_track_happy_days(cow, true)
+				cow.days_in_herd += 1
 			else:
 				cows_outside.append(cow)
 				cow.apply_night_happiness(false, false)
 				_track_happy_days(cow, false)
+				cow.days_in_herd += 1
 	
 	for baby in all_babies:
 		if _is_in_enclosure(baby):
@@ -107,7 +110,8 @@ func trigger_night(enclosure: Area2D):
 		babies_outside.size(),
 		chickens_inside,
 		herd_happiness,
-		birth_cow
+		birth_cow,
+		any_grown_up
 	)
 	
 	if birth_cow != null:
@@ -126,6 +130,18 @@ func trigger_night(enclosure: Area2D):
 	
 	# PHASE 2 — wait for last animal to settle then hold
 	await _wait_for_all_sleeping()
+
+	# Check for babies growing up during night darkness
+	var grown_up_babies = _check_for_grown_up_babies()
+	any_grown_up = grown_up_babies.size() > 0
+
+	for baby in grown_up_babies:
+		baby.ready_to_grow_up.connect(_grow_up_cow, CONNECT_ONE_SHOT)
+		baby.grow_up_sequence()
+
+	if any_grown_up:
+		await get_tree().create_timer(2.0).timeout
+
 	await get_tree().create_timer(sleep_duration).timeout
 	
 	# PHASE 3 — fade out then wake animals
@@ -155,7 +171,7 @@ func trigger_night(enclosure: Area2D):
 	
 	# Save last enclosure AFTER everything is done
 	last_enclosure = current_enclosure
-	emit_signal("morning_started", message, birth_cow != null)
+	emit_signal("morning_started", message, birth_cow != null, any_grown_up)
 	night_active = false
 	current_enclosure = null
 
@@ -173,6 +189,31 @@ func _check_chickens_in_enclosure() -> bool:
 		if body.is_in_group("chickens"):
 			return true
 	return false
+
+func _check_for_grown_up_babies() -> Array:
+	var grown = []
+	var babies = get_tree().get_nodes_in_group("baby")
+	for baby in babies:
+		if baby.days_in_herd >= 3:
+			grown.append(baby)
+	return grown
+
+func _grow_up_cow(baby) -> void:
+	var adult_scene = load("res://characters/cow_graze.tscn")
+	if adult_scene == null:
+		print("Could not load adult cow scene!")
+		return
+	var adult = adult_scene.instantiate()
+	adult.global_position = baby.global_position
+	adult.happiness = baby.happiness
+	adult.confidence = baby.confidence
+	adult.days_in_herd = baby.days_in_herd
+	adult.herd_cohesion = baby.herd_cohesion
+	adult.skittishness = baby.skittishness
+	adult.favourite_spot = GameManager.get_random_spot()
+	get_tree().current_scene.add_child(adult)
+	baby.queue_free()
+	print("A baby cow grew up!")
 
 func _get_herd_happiness(all_animals: Array) -> float:
 	if all_animals.is_empty():
@@ -202,7 +243,11 @@ func _check_for_birth(all_cows: Array):
 				return cow
 	return null
 
-func _build_morning_message(inside: int, outside: int, babies_outside: int, chickens: bool, herd_happiness: float, birth_cow) -> String:
+func _build_morning_message(inside: int, outside: int, babies_outside: int, chickens: bool, herd_happiness: float, birth_cow, cow_grown_up: bool) -> String:
+	if cow_grown_up and birth_cow != null:
+		return "What a night! A calf grew up and a new baby was born. The herd is growing!"
+	if cow_grown_up:
+		return "One of your calves has grown up overnight. The herd welcomes a new adult."
 	if birth_cow != null:
 		return "You wake up to a surprise — a baby cow was born in the night! The herd seems happier."
 	if babies_outside > 0:
@@ -233,5 +278,8 @@ func _spawn_baby_cow(parent_cow):
 		randf_range(-20, 20),
 		randf_range(-20, 20)
 	)
+	baby.confidence = randf_range(0.2, 0.9)
+	baby.days_in_herd = 0
+	baby.favourite_spot = GameManager.get_random_spot()
 	get_tree().current_scene.add_child(baby)
 	print("A baby cow was born near ", parent_cow.name)

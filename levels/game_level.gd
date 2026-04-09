@@ -11,7 +11,7 @@ extends Node2D
 @onready var day_counter = $DayCounter/Control/Label
 
 func _ready():
-	day_counter.text = str(NightManager.day_count)
+	day_counter.text = "Day " + str(NightManager.day_count)
 	gate_prompt1.hide()
 	gate_prompt2.hide()
 	NightManager.night_started.connect(_on_night_started)
@@ -33,6 +33,7 @@ func _on_gate1_area_exited(body):
 
 func _on_gate2_area_entered(body):
 	if body.is_in_group("player"):
+		print("showing gate prompt 2")
 		gate_prompt2.show()
 
 func _on_gate2_area_exited(body):
@@ -58,40 +59,45 @@ func _on_night_started():
 		player.set_physics_process(false)
 		player.set_process_input(false)
 	
-func _on_morning_started(message: String, baby_born: bool):
+func _on_morning_started(message: String, baby_born: bool, cow_grown_up: bool):
 	day_counter.text = "Day " + str(NightManager.day_count)
-	# Re-enable player at morning
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
 		player.set_physics_process(true)
 		player.set_process_input(true)
-	var expression = "smiling"
+	
+	var expression = "talking"
 	var emoji = "day"
 	
-	if baby_born:
-		expression = "love_talk"    # excited and warm
+	if cow_grown_up:
+		expression = "super_excited"
+		emoji = "cow"
+	elif baby_born:
+		expression = "love_talk"
 		emoji = "cow"
 	elif message.contains("outside") or message.contains("tired"):
-		expression = "sad_talk"     # genuinely sad news
+		expression = "sad_talk"
 		emoji = "night"
 	elif message.contains("chicken"):
-		expression = "angry"           # chickens!! 
+		expression = "angry"
 		emoji = "chicken"
 	elif message.contains("beautiful") or message.contains("genuinely happy"):
-		expression = "super-excited"   # best possible night
+		expression = "super_excited"
 		emoji = "day"
 	else:
-		expression = "talking"         # neutral news
+		expression = "talking"
 		emoji = "day"
 	
 	DialogueBox.show_sequence([
 		{
-			"text": "Good morning! Lets see how everyone's doing.",
+			"text": "Good morning! Let's see how everyone's doing.",
 			"expression": "happy",
+			"emoji": "day"
 		},
 		{
 			"text": message,
 			"expression": expression,
+			"emoji": emoji
 		}
 	])
 func _input(event):
@@ -102,10 +108,11 @@ func _input(event):
 			else:
 				pause_menu.open()
 		if event.keycode == KEY_E:
+			print("E pressed, near gate1: ", _player_near_gate1(), " near gate2: ", _player_near_gate2())
 			if _player_near_gate1():
 				gate_prompt1.hide()
 				DialogueBox.show_message(
-					"Everyone's settling in... Goodnight little ones.",
+					"Everyone's settling down for the night...",
 					"love",
 					""
 				)
@@ -114,7 +121,7 @@ func _input(event):
 			elif _player_near_gate2():
 				gate_prompt2.hide()
 				DialogueBox.show_message(
-					"Everyone's settling in... Goodnight little ones.",
+					"Everyone's settling in...",
 					"love",
 					""
 				)
@@ -130,8 +137,11 @@ func _player_near_gate1() -> bool:
 func _player_near_gate2() -> bool:
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
+		print("no player found")
 		return false
-	return player in night_trigger2.get_overlapping_bodies()
+	var result = player in night_trigger2.get_overlapping_bodies()
+	print("player near gate2: ", result)
+	return result
 
 
 func _on_bb_cow_found_cow() -> void:

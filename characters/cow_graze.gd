@@ -14,6 +14,10 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 @export var get_down_duration: float = 0.6
 @export var get_up_duration: float = 0.8
 @export var skittishness: float = 0.1  # 0=very calm, 1=very skittish
+@export var days_in_herd: int = 0
+@export var confidence: float = 0.5
+@export var herd_cohesion: float = 0.5
+@export var is_wanderer: bool = false
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -132,3 +136,9 @@ func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 	# Immediately start walking toward favourite spot
 	if favourite_spot != Vector2.ZERO:
 		nav_agent.target_position = GameManager.get_arrival_position(favourite_spot)
+
+func get_effective_cohesion() -> float:
+	var base = herd_cohesion
+	var happiness_modifier = happiness * 0.3
+	var experience_modifier = clamp(days_in_herd * 0.02, 0.0, 0.3)
+	return clamp(base + happiness_modifier + experience_modifier, 0.0, 1.0)

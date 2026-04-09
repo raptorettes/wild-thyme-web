@@ -60,7 +60,7 @@ func _start_game():
 			"emoji": ""
 		},
 		{
-			"text": "Guide them toward the enclosure using your mouse.",
+			"text": "Guide them toward their resting spot using your mouse.",
 			"expression": "smiling",
 			"emoji": ""
 		},

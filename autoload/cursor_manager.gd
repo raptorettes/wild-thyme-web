@@ -9,8 +9,8 @@ func _ready():
 	cursor_pos = get_viewport().get_visible_rect().size / 2.0
 
 func _process(delta):
-	print("cursor_right: ", Input.get_action_strength("cursor_right"))
-	print("cursor_left: ", Input.get_action_strength("cursor_left"))
+	#print("cursor_right: ", Input.get_action_strength("cursor_right"))
+	#print("cursor_left: ", Input.get_action_strength("cursor_left"))
 	if Input.get_connected_joypads().is_empty():
 		return
 	

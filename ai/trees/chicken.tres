@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://y7533e26c1c6" path="res://ai/tasks/actions/bt_flee.gd" id="2_ik1sy"]
 [ext_resource type="Script" uid="uid://bfb0saatjqd4x" path="res://ai/tasks/actions/bt_peck.gd" id="3_8px3q"]
 [ext_resource type="Script" uid="uid://rn5d413leyg1" path="res://ai/tasks/actions/bt_rest.gd" id="4_kbybk"]
-[ext_resource type="Script" uid="uid://c8ha6mfq53842" path="res://ai/tasks/actions/bt_walk.gd" id="5_bh75p"]
+[ext_resource type="Script" uid="uid://4h50l5ftu0p1" path="res://ai/tasks/actions/bt_chicken_walk.gd" id="5_kbybk"]
 [ext_resource type="Script" uid="uid://6kafldyhiiqk" path="res://ai/tasks/actions/bt_play_idle.gd" id="6_kbybk"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_b7ce8"]
@@ -25,15 +25,15 @@ script = ExtResource("3_8px3q")
 [sub_resource type="BTAction" id="BTAction_ik1sy"]
 script = ExtResource("4_kbybk")
 
-[sub_resource type="BTAction" id="BTAction_svrbv"]
-script = ExtResource("5_bh75p")
+[sub_resource type="BTAction" id="BTAction_sre4h"]
+script = ExtResource("5_kbybk")
 
 [sub_resource type="BTAction" id="BTAction_8px3q"]
 script = ExtResource("6_kbybk")
 
 [sub_resource type="BTSequence" id="BTSequence_kunnc"]
 custom_name = "wander"
-children = [SubResource("BTAction_svrbv"), SubResource("BTAction_8px3q")]
+children = [SubResource("BTAction_sre4h"), SubResource("BTAction_8px3q")]
 
 [sub_resource type="BTRandomSelector" id="BTRandomSelector_ixttl"]
 children = [SubResource("BTAction_pftmv"), SubResource("BTAction_ik1sy"), SubResource("BTSequence_kunnc")]
