@@ -323,7 +323,7 @@ radius = 12.0
 [node name="bb_cow" type="CharacterBody2D" unique_id=1245950768]
 input_pickable = true
 script = ExtResource("1_jxnyl")
-flee_speed = 35.0
+move_speed = 25.0
 player_flee_radius = 60.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]

@@ -38,9 +38,35 @@ func _ready():
 	print(name, " favourite spot: ", favourite_spot)
 
 func _physics_process(_delta):
-	# Only handles velocity — LimboAI tasks set the velocity
 	if current_state == COW_STATE.SLEEPING:
 		velocity = Vector2.ZERO
+		move_and_slide()
+		return
+	
+	var is_stationary = current_state == COW_STATE.REST or \
+		current_state == COW_STATE.GRAZE or \
+		current_state == COW_STATE.CHEW or \
+		current_state == COW_STATE.IDLE or \
+		current_state == COW_STATE.LOVE
+	
+	if is_stationary:
+		velocity = Vector2.ZERO
+	
+	# Avoidance runs in all non-sleeping states
+	if current_state != COW_STATE.FLEE and current_state != COW_STATE.SLEEPING:
+		var player = get_tree().get_first_node_in_group("player")
+		if player:
+			var dist_to_player = global_position.distance_to(player.global_position)
+			if dist_to_player < 25.0:
+				var push_away = (global_position - player.global_position).normalized()
+				var push_strength = 1.0 - (dist_to_player / 25.0)
+				if is_stationary:
+					# Stationary cows get a tiny nudge only
+					velocity += push_away * push_strength * 5.0
+				else:
+					# Walking cows get stronger push
+					velocity = velocity.lerp(push_away * push_strength * 1.0, 0.3)
+	
 	move_and_slide()
 
 func grow_up_sequence():

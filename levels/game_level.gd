@@ -3,16 +3,20 @@ extends Node2D
 @onready var pause_menu = $PauseMenu
 @onready var enclosure1 = $Enclosure1
 @onready var enclosure2 = $Enclosure2
+@onready var enclosure3 = $Enclosure3
 @onready var night_trigger1 = $NightTriggerArea1
 @onready var night_trigger2 = $NightTriggerArea2
+@onready var night_trigger3 = $NightTriggerArea3
 @onready var gate_prompt1 = $GatePrompt1
 @onready var gate_prompt2 = $GatePrompt2
+@onready var gate_prompt3 = $GatePrompt3
 @onready var day_counter = $DayCounter/Control/Label
 
 func _ready():
 	day_counter.text = "Day " + str(NightManager.day_count)
 	gate_prompt1.hide()
 	gate_prompt2.hide()
+	gate_prompt3.hide()
 	
 	# Disable player until opening dialogue dismissed
 	var player = get_tree().get_first_node_in_group("player")
@@ -25,6 +29,8 @@ func _ready():
 	night_trigger1.body_exited.connect(_on_gate1_area_exited)
 	night_trigger2.body_entered.connect(_on_gate2_area_entered)
 	night_trigger2.body_exited.connect(_on_gate2_area_exited)
+	night_trigger3.body_entered.connect(_on_gate3_area_entered)
+	night_trigger3.body_exited.connect(_on_gate3_area_exited)
 	NightManager.morning_started.connect(_on_morning_started)
 	DialogueBox.message_shown.connect(_on_dialogue_shown)
 	DialogueBox.message_dismissed.connect(_on_dialogue_dismissed)
@@ -52,17 +58,6 @@ func _ready():
 			"emoji": ""
 		}
 	])
-	day_counter.text = "Day " + str(NightManager.day_count)
-	gate_prompt1.hide()
-	gate_prompt2.hide()
-	NightManager.night_started.connect(_on_night_started)
-	night_trigger1.body_entered.connect(_on_gate1_area_entered)
-	night_trigger1.body_exited.connect(_on_gate1_area_exited)
-	night_trigger2.body_entered.connect(_on_gate2_area_entered)
-	night_trigger2.body_exited.connect(_on_gate2_area_exited)
-	NightManager.morning_started.connect(_on_morning_started)
-	DialogueBox.message_shown.connect(_on_dialogue_shown)
-	DialogueBox.message_dismissed.connect(_on_dialogue_dismissed)
 
 func _on_gate1_area_entered(body):
 	if body.is_in_group("player"):
@@ -80,6 +75,14 @@ func _on_gate2_area_entered(body):
 func _on_gate2_area_exited(body):
 	if body.is_in_group("player"):
 		gate_prompt2.hide()
+
+func _on_gate3_area_entered(body):
+	if body.is_in_group("player"):
+		gate_prompt3.show()
+
+func _on_gate3_area_exited(body):
+	if body.is_in_group("player"):
+		gate_prompt3.hide()
 
 	
 func _on_dialogue_shown():
@@ -149,7 +152,6 @@ func _input(event):
 			else:
 				pause_menu.open()
 		if event.keycode == KEY_E:
-			print("E pressed, near gate1: ", _player_near_gate1(), " near gate2: ", _player_near_gate2())
 			if _player_near_gate1():
 				gate_prompt1.hide()
 				DialogueBox.show_message(
@@ -162,12 +164,21 @@ func _input(event):
 			elif _player_near_gate2():
 				gate_prompt2.hide()
 				DialogueBox.show_message(
-					"Everyone's settling in...",
+					"Everyone's settling down...",
 					"love",
 					""
 				)
 				await DialogueBox.message_dismissed
 				NightManager.trigger_night(enclosure2)
+			elif _player_near_gate3():
+				gate_prompt3.hide()
+				DialogueBox.show_message(
+					"Everyone's settling down for the night...",
+					"love",
+					""
+				)
+				await DialogueBox.message_dismissed
+				NightManager.trigger_night(enclosure3)
 
 func _player_near_gate1() -> bool:
 	var player = get_tree().get_first_node_in_group("player")
@@ -178,12 +189,15 @@ func _player_near_gate1() -> bool:
 func _player_near_gate2() -> bool:
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
-		print("no player found")
 		return false
 	var result = player in night_trigger2.get_overlapping_bodies()
-	print("player near gate2: ", result)
 	return result
 
+func _player_near_gate3() -> bool:
+	var player = get_tree().get_first_node_in_group("player")
+	if player == null:
+		return false
+	return player in night_trigger3.get_overlapping_bodies()
 
 func _on_bb_cow_found_cow() -> void:
 	$TheLabels/TheLabel.text = "FOUND THE COW"
