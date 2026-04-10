@@ -17,15 +17,15 @@ signal night_sequence_finished
 func _ready():
 	overlay.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	cricket_sounds = [
-		load("res://assets/music/sfx/crickets-1.mp3"),
-		load("res://assets/music/sfx/crickets-2.mp3"),
-		load("res://assets/music/sfx/crickets-3.mp3"),
-		load("res://assets/music/sfx/crickets-4.mp3"),
-		load("res://assets/music/sfx/crickets-frogs.mp3"),
-		load("res://assets/music/sfx/crickets-frogs-2.mp3")
+		load("res://assets/music/sfx/crickets-1.ogg"),
+		load("res://assets/music/sfx/crickets-2.ogg"),
+		load("res://assets/music/sfx/crickets-3.ogg"),
+		load("res://assets/music/sfx/crickets-4.ogg"),
+		load("res://assets/music/sfx/crickets-frogs.ogg"),
+		load("res://assets/music/sfx/crickets-frogs-2.ogg")
 	]
 	moo_sounds = [
-		load("res://assets/music/sfx/cows2.mp3"),
+		load("res://assets/music/sfx/cows2.ogg"),
 	]
 
 func _play_random_cricket():

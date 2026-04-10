@@ -27,7 +27,6 @@
 [ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="27_3n2a7"]
 [ext_resource type="FontFile" uid="uid://bvrdku2vkw66r" path="res://assets/UI/fonts/GrapeSoda.ttf" id="27_52gom"]
 [ext_resource type="PackedScene" uid="uid://dx6m8ghifwkfb" path="res://characters/chicken.tscn" id="28_52gom"]
-[ext_resource type="PackedScene" uid="uid://rftcf6km7fmx" path="res://levels/title_screen.tscn" id="28_smjyf"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qmvb7"]
 texture = ExtResource("1_d65c1")
@@ -529,12 +528,6 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(261, -460, 183, -460, 1
 [node name="GameLevel" type="Node2D" unique_id=931376677]
 y_sort_enabled = true
 script = ExtResource("1_3n2a7")
-
-[node name="TitleScreen" parent="." unique_id=1295302780 instance=ExtResource("28_smjyf")]
-layer = 2
-offset = Vector2(150, 100)
-scale = Vector2(0.7, 0.7)
-transform = Transform2D(0.7, 0, 0, 0.7, 150, 100)
 
 [node name="NON Y SORT" type="Node" parent="." unique_id=20901205]
 

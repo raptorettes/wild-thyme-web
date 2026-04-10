@@ -8,30 +8,30 @@ var is_playing: bool = false
 
 var tracks = {
 	CATEGORY.CHILL: [
-		"res://assets/music/chill/chill-beam.mp3",
-		"res://assets/music/chill/chill-wednesday.mp3",
-		"res://assets/music/chill/chill-peace.mp3",
-		"res://assets/music/chill/chill-universe.mp3",
-		"res://assets/music/chill/chill-melody.mp3",
+		"res://assets/music/chill/chill-beam.ogg",
+		"res://assets/music/chill/chill-wednesday.ogg",
+		"res://assets/music/chill/chill-peace.ogg",
+		"res://assets/music/chill/chill-universe.ogg",
+		"res://assets/music/chill/chill-melody.ogg",
 	],
 	CATEGORY.LOFI: [
-		"res://assets/music/lofi/lofi-trippy.mp3",
-		"res://assets/music/lofi/lofi-sunny.mp3",
-		"res://assets/music/lofi/lofi-guitar.mp3",
-		"res://assets/music/lofi/lofi-sleeping.mp3",
-		"res://assets/music/lofi/lofi-inn.mp3",
-		"res://assets/music/lofi/lofi-sundown.mp3",
-		"res://assets/music/lofi/lofi-adventure.mp3",
-		"res://assets/music/lofi/lofi-jazzy.mp3",
-		"res://assets/music/lofi/lofi-wind.mp3",
-		"res://assets/music/lofi/lofi-journey.mp3",
+		"res://assets/music/lofi/lofi-trippy.ogg",
+		"res://assets/music/lofi/lofi-sunny.ogg",
+		"res://assets/music/lofi/lofi-guitar.ogg",
+		"res://assets/music/lofi/lofi-sleeping.ogg",
+		"res://assets/music/lofi/lofi-inn.ogg",
+		"res://assets/music/lofi/lofi-sundown.ogg",
+		"res://assets/music/lofi/lofi-adventure.ogg",
+		"res://assets/music/lofi/lofi-jazzy.ogg",
+		"res://assets/music/lofi/lofi-wind.ogg",
+		"res://assets/music/lofi/lofi-journey.ogg",
 	],
 	CATEGORY.BEATS: [
-		"res://assets/music/beats/beats-cosy.mp3",
-		"res://assets/music/beats/beats-mountain.mp3",
-		"res://assets/music/beats/beats-glider.mp3",
-		"res://assets/music/beats/beats-shadow.mp3",
-		"res://assets/music/beats/beats-doof.mp3",
+		"res://assets/music/beats/beats-cosy.ogg",
+		"res://assets/music/beats/beats-mountain.ogg",
+		"res://assets/music/beats/beats-glider.ogg",
+		"res://assets/music/beats/beats-shadow.ogg",
+		"res://assets/music/beats/beats-doof.ogg",
 	],
 }
 
@@ -41,10 +41,9 @@ func _ready():
 	player = AudioStreamPlayer.new()
 	add_child(player)
 	player.finished.connect(_on_audio_finished)
-	# Start at a random track each time
-	current_category = randi() % 3  # 0, 1, or 2 — matches your CATEGORY enum
-	current_track_index = randi() % tracks[current_category].size()
-	
+	# Start with one specific chill track
+	current_category = CATEGORY.CHILL
+	current_track_index = 2  # chill-beam.ogg
 	play_current_track()
 
 func play_current_track():

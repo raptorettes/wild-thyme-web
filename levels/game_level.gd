@@ -1,6 +1,5 @@
 extends Node2D
 
-@onready var title_screen = $TitleScreen 
 @onready var pause_menu = $PauseMenu
 @onready var enclosure1 = $Enclosure1
 @onready var enclosure2 = $Enclosure2
@@ -11,6 +10,48 @@ extends Node2D
 @onready var day_counter = $DayCounter/Control/Label
 
 func _ready():
+	day_counter.text = "Day " + str(NightManager.day_count)
+	gate_prompt1.hide()
+	gate_prompt2.hide()
+	
+	# Disable player until opening dialogue dismissed
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.set_physics_process(false)
+		player.set_process_input(false)
+	
+	NightManager.night_started.connect(_on_night_started)
+	night_trigger1.body_entered.connect(_on_gate1_area_entered)
+	night_trigger1.body_exited.connect(_on_gate1_area_exited)
+	night_trigger2.body_entered.connect(_on_gate2_area_entered)
+	night_trigger2.body_exited.connect(_on_gate2_area_exited)
+	NightManager.morning_started.connect(_on_morning_started)
+	DialogueBox.message_shown.connect(_on_dialogue_shown)
+	DialogueBox.message_dismissed.connect(_on_dialogue_dismissed)
+	
+	# Show opening dialogue
+	DialogueBox.show_sequence([
+		{
+			"text": "There is a wild herd of cows scattered across the meadow.",
+			"expression": "talking",
+			"emoji": ""
+		},
+		{
+			"text": "As night falls, they'll need somewhere safe to rest together.",
+			"expression": "love_talk",
+			"emoji": ""
+		},
+		{
+			"text": "Guide them toward their resting spot using your mouse.",
+			"expression": "smiling",
+			"emoji": ""
+		},
+		{
+			"text": "When everyone's inside, press E to say goodnight.",
+			"expression": "happy",
+			"emoji": ""
+		}
+	])
 	day_counter.text = "Day " + str(NightManager.day_count)
 	gate_prompt1.hide()
 	gate_prompt2.hide()
