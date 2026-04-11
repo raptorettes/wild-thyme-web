@@ -136,6 +136,7 @@ func trigger_night(enclosure: Area2D):
 	any_grown_up = grown_up_babies.size() > 0
 
 	for baby in grown_up_babies:
+		var b = baby
 		baby.ready_to_grow_up.connect(_grow_up_cow, CONNECT_ONE_SHOT)
 		baby.grow_up_sequence()
 
@@ -206,7 +207,8 @@ func _check_for_grown_up_babies() -> Array:
 	return grown
 
 func _grow_up_cow(baby) -> void:
-	var adult_scene = load("res://characters/cow_graze.tscn")
+	var adult_scene = load("res://characters/cow.tscn")
+	print("growing up cow: ", baby.name)
 	if adult_scene == null:
 		print("Could not load adult cow scene!")
 		return
@@ -217,7 +219,8 @@ func _grow_up_cow(baby) -> void:
 	adult.days_in_herd = baby.days_in_herd
 	adult.herd_cohesion = baby.herd_cohesion
 	adult.skittishness = baby.skittishness
-	adult.favourite_spot = GameManager.get_random_spot()
+	adult.cow_name = baby.cow_name  # ← keep same name when growing up
+	adult.favourite_spot = GameManager.get_random_spot()  # ← gets spot on growing up
 	get_tree().current_scene.add_child(adult)
 	baby.queue_free()
 	print("A baby cow grew up!")
@@ -287,6 +290,9 @@ func _spawn_baby_cow(parent_cow):
 	)
 	baby.confidence = randf_range(0.2, 0.9)
 	baby.days_in_herd = 0
-	baby.favourite_spot = GameManager.get_random_spot()
+	baby.happiness = 0.7
+	baby.herd_cohesion = 0.6
+	# No favourite spot — babies don't have one yet
+	# Name assigned in baby cow _ready() automatically
 	get_tree().current_scene.add_child(baby)
 	print("A baby cow was born near ", parent_cow.name)

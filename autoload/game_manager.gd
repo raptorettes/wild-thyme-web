@@ -16,3 +16,26 @@ func get_arrival_position(spot: Vector2) -> Vector2:
 		randf_range(-spot_radius, spot_radius),
 		randf_range(-spot_radius, spot_radius)
 	)
+# In GameManager
+var cow_names: Array[String] = [
+	"Clover", "Bramble", "Thistle", "Meadow", "Sorrel",
+	"Juniper", "Fern", "Nettle", "Moss", "Hazel",
+	"Briar", "Rowan", "Sage", "Wren", "Blossom",
+	"Dulcie", "Myrtle", "Ember", "Dew", "Lark",
+	"Chicory", "Sedge", "Yarrow", "Goosegrass",
+	"Orache", "Theorem", "Solstice", "Tangent", "Equinox", "Liminal",
+	"Penumbra", "Remnant", "Augur", "Omen", "Portent", "Lacuna",
+	"Consequential", "Tangential", "Zenith", "Nadir", "Perigee",
+	"Azimuth", "Flux", "Axiom", "Sigil", "Apehlion",
+]
+var used_names: Array[String] = []
+
+func get_cow_name() -> String:
+	if cow_names.is_empty():
+		# Refill from used names when exhausted
+		cow_names = used_names.duplicate()
+		used_names.clear()
+	var name_pick = cow_names[randi() % cow_names.size()]
+	cow_names.erase(name_pick)
+	used_names.append(name_pick)
+	return name_pick

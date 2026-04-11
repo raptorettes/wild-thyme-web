@@ -18,6 +18,7 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 @export var confidence: float = 0.5
 @export var herd_cohesion: float = 0.5
 @export var is_wanderer: bool = false
+@export var cow_name: String = ""
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -32,7 +33,8 @@ func _ready():
 	await get_tree().process_frame
 	if favourite_spot == Vector2.ZERO:
 		favourite_spot = GameManager.get_random_spot()
-	print(name, " favourite spot: ", favourite_spot)
+	if cow_name == "":
+		cow_name = GameManager.get_cow_name()
 
 func _physics_process(_delta):
 	if current_state == COW_STATE.SLEEPING:
@@ -168,3 +170,11 @@ func get_effective_cohesion() -> float:
 	var happiness_modifier = happiness * 0.3
 	var experience_modifier = clamp(days_in_herd * 0.02, 0.0, 0.3)
 	return clamp(base + happiness_modifier + experience_modifier, 0.0, 1.0)
+
+func receive_interaction():
+	$BTPlayer.set_active(false)
+	set_behaviour_state("love")
+	state_machine.travel(get_anim("love"))
+	# Resume after a few seconds
+	await get_tree().create_timer(2.0).timeout
+	$BTPlayer.set_active(true)

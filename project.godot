@@ -24,6 +24,7 @@ NightOverlay="*uid://si32fjl5d70g"
 GameManager="*uid://o2h8573jvc7n"
 CursorManager="uid://dosb3u53hyi76"
 HerdManager="*uid://rv0k86ghxxv8"
+MessageBox="*uid://xxn6xbwbrxe0"
 
 [display]
 

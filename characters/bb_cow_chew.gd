@@ -21,6 +21,7 @@ signal found_cow
 @export var confidence: float = 0.5 # effects lead cow, born with a number
 @export var herd_cohesion: float = 0.6 # 
 @export var is_wanderer: bool = false
+@export var cow_name: String = ""
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -33,9 +34,8 @@ var is_sleeping: bool = false
 func _ready():
 	randomize()
 	await get_tree().process_frame
-	if favourite_spot == Vector2.ZERO:
-		favourite_spot = GameManager.get_random_spot()
-	print(name, " favourite spot: ", favourite_spot)
+	if cow_name == "":
+		cow_name = GameManager.get_cow_name()
 
 func _physics_process(_delta):
 	if current_state == COW_STATE.SLEEPING:
@@ -72,12 +72,19 @@ func _physics_process(_delta):
 func grow_up_sequence():
 	var bt = $BTPlayer
 	bt.set_active(false)
-	for i in range(5):
-		sprite.visible = false
-		await get_tree().create_timer(0.15).timeout
-		sprite.visible = true
-		await get_tree().create_timer(0.15).timeout
-	sprite.visible = false
+	
+	# Flash white then normal several times
+	for i in range(4):
+		sprite.modulate = Color.WHITE  # already white/normal
+		await get_tree().create_timer(0.1).timeout
+		sprite.modulate = Color(10, 10, 10, 1)  # very bright white flash
+		await get_tree().create_timer(0.1).timeout
+	
+	# Hold white
+	sprite.modulate = Color(10, 10, 10, 1)
+	await get_tree().create_timer(0.2).timeout
+	
+	# Signal NightManager to do the scene swap
 	emit_signal("ready_to_grow_up", self)
 
 func set_behaviour_state(state_name: String):
@@ -98,6 +105,7 @@ func get_anim(state_name: String) -> String:
 		"rest": return "rest"
 		"chew": return "chew"
 		"bounce": return "bounce"
+		"love": return "love"
 		_: return "idle_right"
 
 func apply_night_happiness(slept_safely: bool, chickens_present: bool):
@@ -187,3 +195,11 @@ func get_effective_cohesion() -> float:
 	var happiness_modifier = happiness * 0.3
 	var experience_modifier = clamp(days_in_herd * 0.02, 0.0, 0.3)
 	return clamp(base + happiness_modifier + experience_modifier, 0.0, 1.0)
+
+func receive_interaction():
+	$BTPlayer.set_active(false)
+	set_behaviour_state("love")
+	state_machine.travel(get_anim("love"))
+	# Resume after a few seconds
+	await get_tree().create_timer(2.0).timeout
+	$BTPlayer.set_active(true)
