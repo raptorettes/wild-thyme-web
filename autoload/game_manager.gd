@@ -22,11 +22,7 @@ var cow_names: Array[String] = [
 	"Juniper", "Fern", "Nettle", "Moss", "Hazel",
 	"Briar", "Rowan", "Sage", "Wren", "Blossom",
 	"Dulcie", "Myrtle", "Ember", "Dew", "Lark",
-	"Chicory", "Sedge", "Yarrow", "Goosegrass",
-	"Orache", "Theorem", "Solstice", "Tangent", "Equinox", "Liminal",
-	"Penumbra", "Remnant", "Augur", "Omen", "Portent", "Lacuna",
-	"Consequential", "Tangential", "Zenith", "Nadir", "Perigee",
-	"Azimuth", "Flux", "Axiom", "Sigil", "Apehlion",
+	"Chicory", "Sedge", "Yarrow", "Fennel", 
 ]
 var used_names: Array[String] = []
 

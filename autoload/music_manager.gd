@@ -43,7 +43,7 @@ func _ready():
 	player.finished.connect(_on_audio_finished)
 	# Start with one specific chill track
 	current_category = CATEGORY.CHILL
-	current_track_index = 2  # chill-beam.ogg
+	current_track_index = 3  # chill-beam.ogg
 	play_current_track()
 
 func play_current_track():

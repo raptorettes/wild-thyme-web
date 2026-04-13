@@ -22,7 +22,7 @@ NightManager="*uid://1pn34hgwfjsn"
 DialogueBox="*uid://dotcec1xg4smu"
 NightOverlay="*uid://si32fjl5d70g"
 GameManager="*uid://o2h8573jvc7n"
-CursorManager="uid://dosb3u53hyi76"
+CursorManager="*uid://dosb3u53hyi76"
 HerdManager="*uid://rv0k86ghxxv8"
 MessageBox="*uid://xxn6xbwbrxe0"
 

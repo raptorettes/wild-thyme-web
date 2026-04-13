@@ -48,12 +48,12 @@ func _ready():
 			"emoji": ""
 		},
 		{
-			"text": "Guide them toward their resting spot using your mouse.",
+			"text": "Guide them toward their sleeping spot using your mouse.",
 			"expression": "smiling",
 			"emoji": ""
 		},
 		{
-			"text": "When everyone's inside, press E to say goodnight.",
+			"text": "When everyone's inside, press E to rest for the night.",
 			"expression": "happy",
 			"emoji": ""
 		}
