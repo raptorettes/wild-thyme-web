@@ -320,7 +320,7 @@ radius = 12.0
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_wbjck"]
 
-[node name="bb_cow" type="CharacterBody2D" unique_id=1245950768]
+[node name="bb_cow" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "baby", "cows"]]
 input_pickable = true
 script = ExtResource("1_jxnyl")
 move_speed = 25.0

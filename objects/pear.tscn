@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://buqc5p6cimpad"]
+
+[ext_resource type="Script" uid="uid://cfrqk2dk827pe" path="res://objects/pickup.gd" id="1_qnkqt"]
+[ext_resource type="Texture2D" uid="uid://b28ydjq2yt6lb" path="res://assets/Objects/pear.png" id="3_ybq7g"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4uxp7"]
+radius = 5.0
+
+[node name="Pear" type="Area2D" unique_id=176108950 groups=["pickup_item"]]
+script = ExtResource("1_qnkqt")
+item_name = "pear"
+item_texture = ExtResource("3_ybq7g")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=978272734]
+texture = ExtResource("3_ybq7g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=903711470]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_4uxp7")

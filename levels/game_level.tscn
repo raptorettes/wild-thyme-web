@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://bqnkurorwa6ft" path="res://assets/Tilesets/Building parts/Wooden_House_Roof_Tilset.png" id="9_n7yt8"]
 [ext_resource type="Texture2D" uid="uid://bxbi6sb540k3r" path="res://assets/Tilesets/Building parts/door animation sprites.png" id="10_876hk"]
 [ext_resource type="Texture2D" uid="uid://cg2mmcbmmwobp" path="res://assets/Tilesets/Building parts/Wooden_Bridge_v2.png" id="10_o8r0f"]
+[ext_resource type="PackedScene" uid="uid://ewhc7c08paxa" path="res://objects/apple.tscn" id="11_643jo"]
 [ext_resource type="Texture2D" uid="uid://1tqphsooi1kl" path="res://assets/Tilesets/Building parts/Animal Structures/Barn structures.png" id="12_4edbn"]
 [ext_resource type="Texture2D" uid="uid://b6o3sg11til85" path="res://assets/Tilesets/Building parts/Animal Structures/Chikcen_Houses.png" id="13_876hk"]
 [ext_resource type="Texture2D" uid="uid://doy6vabwv3tic" path="res://assets/Tilesets/Building parts/Animal Structures/Water tray.png" id="14_vgcik"]
@@ -31,6 +32,8 @@
 [ext_resource type="PackedScene" uid="uid://dhs5rvhek7u36" path="res://characters/cow_pink.tscn" id="28_643jo"]
 [ext_resource type="PackedScene" uid="uid://bs43m35h6xpe6" path="res://characters/cow_green.tscn" id="29_hrrti"]
 [ext_resource type="PackedScene" uid="uid://bjmih0gxehn6m" path="res://characters/cow_blue.tscn" id="30_txx3f"]
+[ext_resource type="PackedScene" uid="uid://buqc5p6cimpad" path="res://objects/pear.tscn" id="33_hrrti"]
+[ext_resource type="PackedScene" uid="uid://bq7xp2uc66oil" path="res://objects/yellow-fleur.tscn" id="34_txx3f"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qmvb7"]
 texture = ExtResource("1_d65c1")
@@ -573,8 +576,17 @@ tile_set = SubResource("TileSet_3n7cs")
 
 [node name="ground-plants" type="TileMapLayer" parent="NON Y SORT" unique_id=370182394]
 z_index = -1
-tile_map_data = PackedByteArray("AAACAAIAAAAEAAQAAAAPAAEAAgAEAAAAAAAPAAIAAgAAAAAAAAAQAAAAAgADAAAAAAAQAAEAAgAFAAAAAAALAAMAAgADAAAAAAAPAAQAAgAAAAAAAAAcAAQAAgAEAAQAAAAdAAUAAgAEAAQAAAAdAAIAAgAGAAQAAAAeAAQAAgAGAAQAAAAfAAMAAgAHAAQAAAABAAwAAgAAAAIAAAALAAwAAgACAAIAAAAPAAoAAgACAAIAAAD+/wMAAAADAAQAAAABAAIAAAADAAIAAAABAAMAAAAHAAIAAAAJAAMAAAAAAAIAAAD9/wcAAAAHAAIAAAD8/wgAAAAAAAIAAAD7/wcAAAAAAAIAAAAJAAIAAAAEAAIAAAD9/wMAAAAEAAQAAAD9/wEAAAAEAAQAAAD8/wIAAAACAAQAAAD//wsAAgACAAIAAADt//L/AgACAAIAAADy//b/AgACAAIAAADg//b/AgACAAIAAADe//n/AgACAAIAAADh//D/AgABAAIAAADw//j/AgAIAAEAAADi//H/AgAJAAMAAADh//z/AgAKAAQAAADo/+//AgABAAMAAADx//X/AgABAAMAAADr/+7/AgADAAMAAADi//L/AgAAAAQAAADs//f/AgAAAAQAAADk//v/AgACAAIAAADl//X/AgACAAIAAADr//z/AgABAAIAAAATAOX/AgAEAAQAAAATAOb/AgAIAAQAAAAUAOf/AgABAAIAAAARAO3/AgAAAAEAAAASAO7/AgAAAAEAAAATAO//AgAAAAIAAAAVAO7/AgABAAMAAAAUAOz/AgAAAAIAAAAWAOz/AgABAAMAAAAUAO//AgAAAAIAAAAUAPL/AgAAAAIAAAATAPP/AgALAAQAAAARAPP/AgABAAEAAAAIAPD/AgACAAEAAAAHAO//AgAEAAQAAAAEAO3/AgAIAAMAAAACAOv/AgAFAAEAAAAGAO//AgAJAAMAAAAFAOj/AgAJAAMAAAAHAOb/AgABAAEAAAAHAOn/AgABAAMAAAANAOX/AgAFAAEAAAAQAOn/AgAEAAQAAAAMAOf/AgAAAAIAAAAJAPH/AgAJAAMAAAAIAPH/AgAKAAQAAAAOAPf/AgABAAEAAAAEAPD/AgAEAAQAAAAFAO3/AgAJAAMAAAAFAO7/AgAAAAIAAAAEAPH/AgALAAMAAAACAO7/AgAIAAMAAAAGAOv/AgALAAMAAAAHAOz/AgACAAEAAAAKAPL/AgABAAMAAAAQAPL/AgAEAAQAAAAPAPX/AgAAAAMAAAAPAPb/AgAAAAEAAAAQAPb/AgABAAEAAAARAPb/AgAIAAQAAAAXAPD/AgABAAEAAAAYAO//AgAAAAMAAAAXAOz/AgAIAAMAAAAVAOr/AgADAAEAAAAGAPb/AgADAAEAAAAPAOT/AgABAAIAAAAOAOT/AgAEAAQAAAANAOT/AgAKAAQAAAAMAOP/AgADAAMAAAADAOr/AAAGAAIAAAAFAOz/AAAGAAIAAAAGAOf/AAAGAAIAAAANAPH/AgADAAEAAAD//wIAAAABAAQAAAAQAOv/AgAKAAQAAAAKAOf/AgAAAAQAAAAQAO//AgALAAMAAAAJAO3/AgAAAAMAAAASAOr/AgACAAIAAAARAOf/AgACAAIAAAAOAOb/AgAKAAQAAADe//v/AgAAAAQAAADn//3/AgAAAAQAAAARAAEAAgABAAAAAAAUAAMAAgAAAAAAAAAJABMAAgABAAMAAAAJABQAAgAAAAMAAAAKABMAAgAAAAMAAAAKABQAAgABAAMAAAAKABUAAgAAAAMAAAALABMAAgADAAMAAAATABEAAgAEAAMAAAATABIAAgAGAAMAAAATABMAAgACAAIAAAAUABIAAgALAAMAAAAUABQAAgALAAQAAAAVABMAAgAIAAMAAAAVABQAAgAIAAQAAAAVABUAAgAEAAQAAAAWABEAAgAHAAMAAAAWABIAAgALAAQAAAAWABMAAgAIAAQAAAAXABQAAgAHAAQAAAAYABMAAgAGAAQAAAABABAAAgAHAAMAAAA=")
+tile_map_data = PackedByteArray("AAACAAIAAAAEAAQAAAAPAAEAAgAEAAAAAAAPAAIAAgAAAAAAAAAQAAAAAgADAAAAAAAQAAEAAgAFAAAAAAALAAMAAgADAAAAAAAPAAQAAgAAAAAAAAAcAAQAAgAEAAQAAAAdAAUAAgAEAAQAAAAdAAIAAgAGAAQAAAAeAAQAAgAGAAQAAAAfAAMAAgAHAAQAAAABAAwAAgAAAAIAAAALAAwAAgACAAIAAAAPAAoAAgACAAIAAAABAAIAAAADAAIAAAAJAAIAAAAEAAIAAAD8/wIAAAACAAQAAAD//wsAAgACAAIAAADt//L/AgACAAIAAADy//b/AgACAAIAAADg//b/AgACAAIAAADe//n/AgACAAIAAADh//D/AgABAAIAAADw//j/AgAIAAEAAADi//H/AgAJAAMAAADh//z/AgAKAAQAAADo/+//AgABAAMAAADx//X/AgABAAMAAADr/+7/AgADAAMAAADi//L/AgAAAAQAAADs//f/AgAAAAQAAADk//v/AgACAAIAAADl//X/AgACAAIAAADr//z/AgABAAIAAAATAOX/AgAEAAQAAAATAOb/AgAIAAQAAAAUAOf/AgABAAIAAAARAO3/AgAAAAEAAAASAO7/AgAAAAEAAAATAO//AgAAAAIAAAAVAO7/AgABAAMAAAAUAOz/AgAAAAIAAAAWAOz/AgABAAMAAAAUAO//AgAAAAIAAAAUAPL/AgAAAAIAAAATAPP/AgALAAQAAAARAPP/AgABAAEAAAAIAPD/AgACAAEAAAAHAO//AgAEAAQAAAAEAO3/AgAIAAMAAAACAOv/AgAFAAEAAAAGAO//AgAJAAMAAAAFAOj/AgAJAAMAAAAHAOb/AgABAAEAAAAHAOn/AgABAAMAAAANAOX/AgAFAAEAAAAQAOn/AgAEAAQAAAAMAOf/AgAAAAIAAAAJAPH/AgAJAAMAAAAIAPH/AgAKAAQAAAAOAPf/AgABAAEAAAAEAPD/AgAEAAQAAAAFAO3/AgAJAAMAAAAFAO7/AgAAAAIAAAAEAPH/AgALAAMAAAACAO7/AgAIAAMAAAAGAOv/AgALAAMAAAAHAOz/AgACAAEAAAAKAPL/AgABAAMAAAAQAPL/AgAEAAQAAAAPAPX/AgAAAAMAAAAPAPb/AgAAAAEAAAAQAPb/AgABAAEAAAARAPb/AgAIAAQAAAAXAPD/AgABAAEAAAAYAO//AgAAAAMAAAAXAOz/AgAIAAMAAAAVAOr/AgADAAEAAAAGAPb/AgADAAEAAAAPAOT/AgABAAIAAAAOAOT/AgAEAAQAAAANAOT/AgAKAAQAAAAMAOP/AgADAAMAAAANAPH/AgADAAEAAAAQAOv/AgAKAAQAAAAKAOf/AgAAAAQAAAAQAO//AgALAAMAAAAJAO3/AgAAAAMAAAASAOr/AgACAAIAAAARAOf/AgACAAIAAAAOAOb/AgAKAAQAAADe//v/AgAAAAQAAADn//3/AgAAAAQAAAARAAEAAgABAAAAAAAUAAMAAgAAAAAAAAAJABMAAgABAAMAAAAJABQAAgAAAAMAAAAKABMAAgAAAAMAAAAKABQAAgABAAMAAAAKABUAAgAAAAMAAAALABMAAgADAAMAAAATABEAAgAEAAMAAAATABIAAgAGAAMAAAATABMAAgACAAIAAAAUABIAAgALAAMAAAAUABQAAgALAAQAAAAVABMAAgAIAAMAAAAVABQAAgAIAAQAAAAVABUAAgAEAAQAAAAWABEAAgAHAAMAAAAWABIAAgALAAQAAAAWABMAAgAIAAQAAAAXABQAAgAHAAQAAAAYABMAAgAGAAQAAAABABAAAgAHAAMAAAD9/wEAAAAEAAQAAAD9/wMAAAAEAAQAAAD+/wMAAAADAAQAAAD//wIAAAABAAQAAAA=")
 tile_set = ExtResource("3_876hk")
+
+[node name="Apple" parent="NON Y SORT" unique_id=176108950 instance=ExtResource("11_643jo")]
+position = Vector2(-35, 123)
+
+[node name="Apple2" parent="NON Y SORT" unique_id=1152313008 instance=ExtResource("11_643jo")]
+position = Vector2(364, 135)
+
+[node name="Apple3" parent="NON Y SORT" unique_id=1496074719 instance=ExtResource("11_643jo")]
+position = Vector2(-40, 162)
 
 [node name="building_ground" type="TileMapLayer" parent="." unique_id=1935323339]
 y_sort_enabled = true
@@ -598,11 +610,11 @@ tile_set = ExtResource("3_876hk")
 [node name="objects" type="Node2D" parent="." unique_id=1164560747]
 position = Vector2(-6, -5)
 
-[node name="chest" parent="objects" unique_id=1204285106 instance=ExtResource("23_4edbn")]
+[node name="chest" parent="objects" unique_id=1204285106 groups=["chests"] instance=ExtResource("23_4edbn")]
 y_sort_enabled = true
 position = Vector2(356, 284)
 
-[node name="chest2" parent="objects" unique_id=2025068130 instance=ExtResource("23_4edbn")]
+[node name="chest2" parent="objects" unique_id=2025068130 groups=["chests"] instance=ExtResource("23_4edbn")]
 y_sort_enabled = true
 position = Vector2(229, 27)
 
@@ -825,8 +837,20 @@ position = Vector2(172, -328)
 [node name="Cow4" parent="." unique_id=579990778 groups=["animals", "cows"] instance=ExtResource("30_txx3f")]
 position = Vector2(198, -346)
 
-[node name="Cow5" parent="." unique_id=1378661284 groups=["animals", "cows"] instance=ExtResource("22_2bx2d")]
+[node name="Cow5" parent="." unique_id=1378661284 instance=ExtResource("22_2bx2d")]
 position = Vector2(262, -344)
 
-[node name="bb_cow" parent="." unique_id=1332065716 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
+[node name="bb_cow" parent="." unique_id=1332065716 instance=ExtResource("25_vgcik")]
 position = Vector2(247, -320)
+
+[node name="Apple" parent="." unique_id=1136079555 instance=ExtResource("11_643jo")]
+position = Vector2(241, -253)
+
+[node name="Pear" parent="." unique_id=1029424776 instance=ExtResource("33_hrrti")]
+position = Vector2(213, -243)
+
+[node name="YellowFleur" parent="." unique_id=1029968855 instance=ExtResource("34_txx3f")]
+position = Vector2(261, -233)
+
+[node name="YellowFleur2" parent="." unique_id=798653056 instance=ExtResource("34_txx3f")]
+position = Vector2(237, -221)

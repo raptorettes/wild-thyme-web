@@ -24,9 +24,10 @@ NightOverlay="*uid://si32fjl5d70g"
 GameManager="*uid://o2h8573jvc7n"
 CursorManager="*uid://dosb3u53hyi76"
 HerdManager="*uid://rv0k86ghxxv8"
-MessageBox="*uid://xxn6xbwbrxe0"
 GameEvents="*uid://bl1h2dxje4asp"
 DayCounter="*uid://wwp1lj81bytu"
+Inventory="*uid://dcvmrm3ml03ux"
+MessageBox="*uid://xxn6xbwbrxe0"
 
 [display]
 
@@ -46,6 +47,8 @@ animals=""
 favourite_spot=""
 enclosure_exit=""
 attraction_point=""
+pickup_item=""
+chests=""
 
 [input]
 

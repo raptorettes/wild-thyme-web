@@ -48,7 +48,8 @@ var cow_names: Array[String] = [
 	"Briar", "Rowan", "Sage", "Wren", "Blossom",
 	"Dulcie", "Myrtle", "Ember", "Dew", "Lark",
 	"Chicory", "Sedge", "Yarrow", "Fennel", "Dill",
-	"Pumpkin", "Pear", "Apple", "Moss",
+	"Pumpkin", "Pear", "Apple", "Moss", "Pancake",
+	"Blueberry", "Strawberry",
 ]
 var used_names: Array[String] = []
 

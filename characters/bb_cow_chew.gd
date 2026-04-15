@@ -10,9 +10,9 @@ signal found_cow
 @export var mouse_flee_radius: float = 50.0
 @export var player_flee_radius: float = 80.0
 @export var happiness: float = 0.7
-@export var happiness_gain_per_night: float = 0.1
+@export var happiness_gain_per_night: float = 0.3
 @export var happiness_loss_per_night: float = 0.04
-@export var happiness_chicken_penalty: float = 0.05
+@export var happiness_chicken_penalty: float = 0.03
 @export var favourite_spot: Vector2 = Vector2.ZERO
 @export var get_down_duration: float = 0.6
 @export var get_up_duration: float = 0.8
@@ -148,7 +148,7 @@ func go_to_sleep():
 
 func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 	is_sleeping = false
-	var delay = randf_range(0.0, 3.0)
+	var delay = randf_range(0.5, 8.0)
 	await get_tree().create_timer(delay).timeout
 	state_machine.travel("get_up")
 	await get_tree().create_timer(get_up_duration).timeout
@@ -203,9 +203,36 @@ func get_effective_cohesion() -> float:
 	return clamp(base + happiness_modifier + experience_modifier, 0.0, 1.0)
 
 func receive_interaction():
+	if Inventory.is_holding("star"):
+		# Baby cows can't give birth!
+		DialogueBox.show_message(
+			"This little one is too young for that.",
+			"talking",
+			""
+		)
+		return
+	
+	if not Inventory.is_empty():
+		happiness += Inventory.held_happiness_boost
+		happiness = clamp(happiness, 0.0, 1.0)
+		Inventory.use_item()
+		set_behaviour_state("love")
+		state_machine.travel(get_anim("love"))
+		$BTPlayer.set_active(false)
+		await get_tree().create_timer(2.0).timeout
+		$BTPlayer.set_active(true)
+		return
+	
+	# No item — just bounce
+	$BTPlayer.set_active(false)
+	set_behaviour_state("bounce")
+	state_machine.travel(get_anim("bounce"))
+	await get_tree().create_timer(2.0).timeout
+	$BTPlayer.set_active(true)
+	
+func play_name_reaction():
 	$BTPlayer.set_active(false)
 	set_behaviour_state("love")
 	state_machine.travel(get_anim("love"))
-	# Resume after a few seconds
 	await get_tree().create_timer(2.0).timeout
 	$BTPlayer.set_active(true)

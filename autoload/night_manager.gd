@@ -2,9 +2,9 @@ extends Node
 
 # Tuning vars — lower for testing!
 @export var days_happy_needed_for_birth: int = 1
-@export var birth_happiness_threshold: float = 0.75
+@export var birth_happiness_threshold: float = 0.5
 @export var baby_outside_herd_penalty: float = 0.15
-@export var sleep_duration: float = 5.0
+@export var sleep_duration: float = 4.0
 
 # State
 var day_count: int = 1
@@ -114,9 +114,6 @@ func trigger_night(enclosure: Area2D):
 		any_grown_up
 	)
 	
-	if birth_cow != null:
-		_spawn_baby_cow(birth_cow)
-	
 	day_count += 1
 	
 	# PHASE 1 — start overlay and animals simultaneously
@@ -145,6 +142,9 @@ func trigger_night(enclosure: Area2D):
 
 	await get_tree().create_timer(sleep_duration).timeout
 	
+	if birth_cow != null:
+		_spawn_baby_cow(birth_cow)
+	
 	# PHASE 3 — fade out then wake animals
 	NightOverlay.start_fade_out()
 	await NightOverlay.night_sequence_finished
@@ -167,8 +167,8 @@ func trigger_night(enclosure: Area2D):
 			if _is_in_enclosure(animal):
 			# Was inside — walk to exit
 				var spread_exit = exit_pos + Vector2(
-					randf_range(-25.0, 25.0),
-					randf_range(-25.0, 25.0)
+					randf_range(-60.0, 60.0),
+					randf_range(-60.0, 60.0)
 				)
 				animal.wake_up(spread_exit)
 			else:
@@ -202,7 +202,7 @@ func _check_for_grown_up_babies() -> Array:
 	var grown = []
 	var babies = get_tree().get_nodes_in_group("baby")
 	for baby in babies:
-		if baby.days_in_herd >= 3:
+		if baby.days_in_herd >= 2:
 			grown.append(baby)
 	return grown
 
@@ -304,6 +304,13 @@ func _spawn_baby_cow(parent_cow):
 	baby.happiness = 0.7
 	baby.herd_cohesion = 0.6
 	get_tree().current_scene.add_child(baby)
+	print("=== BABY COW BORN ===")
+	print("position: ", baby.global_position)
+	print("happiness: ", baby.happiness)
+	print("herd_cohesion: ", baby.herd_cohesion)
+	print("has BTPlayer: ", baby.has_node("BTPlayer"))
+	print("BTPlayer active: ", baby.get_node("BTPlayer").active if baby.has_node("BTPlayer") else "NO BTPLAYER")
+	print("groups: ", baby.get_groups())
 	
 	# Wait for full initialisation then swap texture
 	await get_tree().process_frame
@@ -318,4 +325,3 @@ func _spawn_baby_cow(parent_cow):
 	]
 	var tex = baby_textures[randi() % baby_textures.size()]
 	baby.sprite.texture = tex
-	baby.cow_texture = tex

@@ -2,11 +2,12 @@ extends BTAction
 
 func _tick(delta: float) -> int:
 	var animal = scene_root
-	var mouse_pos = animal.get_global_mouse_position()
 	
 	var player = animal.get_tree().get_first_node_in_group("player")
 	if player == null:
 		return SUCCESS
+	
+	var mouse_pos = player.world_mouse_pos
 	
 	var dist_to_player = animal.global_position.distance_to(player.global_position)
 	if dist_to_player > animal.player_flee_radius:
@@ -18,7 +19,6 @@ func _tick(delta: float) -> int:
 		HerdManager.clear_panic(animal)
 		return SUCCESS
 	
-	# Register panic so nearby cows can react
 	HerdManager.register_panic(animal)
 	
 	var flee_dir = (animal.global_position - mouse_pos).normalized()

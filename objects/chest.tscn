@@ -7,11 +7,18 @@ size = Vector2(16, 13)
 
 [node name="Chest" type="StaticBody2D" unique_id=1204285106]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=956750032]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1018754438]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_36laa")
+
+[node name="ClosedSprite" type="Sprite2D" parent="." unique_id=956750032]
 texture = ExtResource("1_ld6i3")
 hframes = 5
 vframes = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1018754438]
-position = Vector2(0, 1.5)
-shape = SubResource("RectangleShape2D_36laa")
+[node name="OpenSprite" type="Sprite2D" parent="." unique_id=1514560486]
+visible = false
+texture = ExtResource("1_ld6i3")
+hframes = 5
+vframes = 2
+frame = 2

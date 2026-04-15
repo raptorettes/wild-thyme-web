@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdb62ddaveksl"
-path="res://.godot/imported/speech_bubble_grey.png-dbccb6f41af606cc90b28d8ca1cbe1ce.ctex"
+uid="uid://cjcdcbqmyg6x"
+path="res://.godot/imported/mush-pink.png-1ca1907de9f3a9fc76ce4250e724ed33.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/emojis-free/speech_bubble_grey.png"
-dest_files=["res://.godot/imported/speech_bubble_grey.png-dbccb6f41af606cc90b28d8ca1cbe1ce.ctex"]
+source_file="res://assets/Objects/mush-pink.png"
+dest_files=["res://.godot/imported/mush-pink.png-1ca1907de9f3a9fc76ce4250e724ed33.ctex"]
 
 [params]
 

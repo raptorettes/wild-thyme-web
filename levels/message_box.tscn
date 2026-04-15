@@ -308,6 +308,7 @@ animations = [{
 }]
 
 [node name="MessageBox" type="CanvasLayer" unique_id=710762976]
+layer = 11
 script = ExtResource("1_4jibi")
 
 [node name="Control" type="Control" parent="." unique_id=1702734611]

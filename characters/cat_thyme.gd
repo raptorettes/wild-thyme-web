@@ -10,9 +10,6 @@ extends CharacterBody2D
 var facing_direction: Vector2 = Vector2(0, 1)
 var world_mouse_pos: Vector2 = Vector2.ZERO
 
-func _process(_delta):
-	world_mouse_pos = get_global_mouse_position()
-	
 func _ready() -> void:
 	update_anamation_parameters(starting_direction)
 	NightManager.night_started.connect(_on_night_started)
@@ -20,12 +17,17 @@ func _ready() -> void:
 	DialogueBox.message_shown.connect(_on_dialogue_shown)
 	DialogueBox.message_dismissed.connect(_on_dialogue_dismissed)
 
+func _process(_delta):
+	var new_mouse = get_global_mouse_position()
+	if abs(new_mouse.x - world_mouse_pos.x) > 100:
+		print("LARGE MOUSE JUMP: ", world_mouse_pos, " -> ", new_mouse)
+	world_mouse_pos = new_mouse
+
 func _physics_process(_delta):
 	var input_direction = Vector2(
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	).normalized()
-	
 	update_anamation_parameters(input_direction)
 	velocity = input_direction * move_speed
 	move_and_slide()
@@ -34,36 +36,45 @@ func _physics_process(_delta):
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_F:
-			_try_interact_with_cow()
+			_try_interact()
 
-func _try_interact_with_cow():
-	print("trying to interact")
-	var all_animals = get_tree().get_nodes_in_group("cows") + get_tree().get_nodes_in_group("baby")
-	print("animals found: ", all_animals.size())
-	var best_cow = null
+func _try_interact():
+	# Find best interactable in facing direction
+	var best_target = null
 	var best_score = -1.0
 	
-	for animal in all_animals:
-		var to_animal = animal.global_position - global_position
-		var dist = to_animal.length()
-		print(animal.name, " dist: ", dist, " interact_distance: ", interact_distance)
+	# Check all interactables — cows, chests, items
+	var all_targets = []
+	all_targets.append_array(get_tree().get_nodes_in_group("cows"))
+	all_targets.append_array(get_tree().get_nodes_in_group("baby"))
+	all_targets.append_array(get_tree().get_nodes_in_group("chest"))
+	all_targets.append_array(get_tree().get_nodes_in_group("pickup_item"))
+	
+	for target in all_targets:
+		var to_target = target.global_position - global_position
+		var dist = to_target.length()
 		if dist > interact_distance:
 			continue
-		var dot = to_animal.normalized().dot(facing_direction.normalized())
-		print(animal.name, " dot: ", dot)
+		var dot = to_target.normalized().dot(facing_direction.normalized())
 		if dot > 0.3:
 			if dot > best_score:
 				best_score = dot
-				best_cow = animal
+				best_target = target
 	
-	print("best cow: ", best_cow)
-	if best_cow != null:
-		MessageBox.show_cow_name(best_cow.cow_name, "happy")
+	if best_target == null:
+		return
 	
-	
-	if best_cow != null:
-		best_cow.receive_interaction()
-		MessageBox.show_cow_name(best_cow.cow_name, "happy")
+	# Handle based on what we're facing
+	if best_target.is_in_group("cows") or best_target.is_in_group("baby"):
+		if Inventory.is_empty():
+			MessageBox.show_cow_name(best_target.cow_name, "happy")
+			best_target.play_name_reaction()
+		else:
+			best_target.receive_interaction()
+	elif best_target.is_in_group("chest"):
+		best_target.interact()
+	elif best_target.is_in_group("pickup_item"):
+		best_target.interact()
 
 func update_anamation_parameters(move_input: Vector2):
 	if move_input != Vector2.ZERO:
@@ -78,17 +89,21 @@ func pick_new_state():
 		state_machine.travel("Idle")
 
 func _on_dialogue_shown():
+	print("dialogue shown — disabling player")
 	set_physics_process(false)
 	set_process_input(false)
 
 func _on_dialogue_dismissed():
+	print("dialogue dismissed — enabling player")
 	set_physics_process(true)
 	set_process_input(true)
 
 func _on_night_started():
+	print("NIGHT STARTED - world_mouse_pos: ", world_mouse_pos)
 	set_physics_process(false)
 	set_process_input(false)
 
 func _on_morning_started(message: String, baby_born: bool, cow_grown_up: bool):
+	print("MORNING STARTED - world_mouse_pos: ", world_mouse_pos)
 	set_physics_process(true)
 	set_process_input(true)

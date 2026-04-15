@@ -7,7 +7,7 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 @export var mouse_flee_radius: float = 40.0
 @export var player_flee_radius: float = 70.0
 @export var happiness: float = 0.5
-@export var happiness_gain_per_night: float = 0.1
+@export var happiness_gain_per_night: float = 0.3
 @export var happiness_loss_per_night: float = 0.08
 @export var happiness_chicken_penalty: float = 0.05
 @export var favourite_spot: Vector2 = Vector2.ZERO
@@ -27,6 +27,7 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 
 var current_state: COW_STATE = COW_STATE.IDLE
 var is_sleeping: bool = false
+var birth_ready: bool = false
 
 func _ready():
 	randomize()
@@ -131,7 +132,7 @@ func go_to_sleep():
 
 func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 	is_sleeping = false
-	var delay = randf_range(0.0, 3.0)
+	var delay = randf_range(0.5, 8.0)
 	await get_tree().create_timer(delay).timeout
 	state_machine.travel("get_up")
 	await get_tree().create_timer(get_up_duration).timeout
@@ -180,9 +181,40 @@ func get_effective_cohesion() -> float:
 	return clamp(base + happiness_modifier + experience_modifier, 0.0, 1.0)
 
 func receive_interaction():
+	if Inventory.is_holding("star"):
+		birth_ready = true
+		Inventory.use_item()
+		DialogueBox.show_message(
+			"The cow nuzzles the star gently...",
+			"love", ""
+		)
+		return
+	
+	if not Inventory.is_empty():
+		happiness += Inventory.held_happiness_boost
+		happiness = clamp(happiness, 0.0, 1.0)
+		_update_flee_radius()
+		var mat = sprite.material as ShaderMaterial
+		if mat:
+			mat.set_shader_parameter("saturation", happiness)
+		Inventory.use_item()
+		set_behaviour_state("love")
+		state_machine.travel(get_anim("love"))
+		$BTPlayer.set_active(false)
+		await get_tree().create_timer(2.0).timeout
+		$BTPlayer.set_active(true)
+		return
+	
+	# No item — just show name
 	$BTPlayer.set_active(false)
 	set_behaviour_state("love")
 	state_machine.travel(get_anim("love"))
-	# Resume after a few seconds
+	await get_tree().create_timer(2.0).timeout
+	$BTPlayer.set_active(true)
+
+func play_name_reaction():
+	$BTPlayer.set_active(false)
+	set_behaviour_state("love")
+	state_machine.travel(get_anim("love"))
 	await get_tree().create_timer(2.0).timeout
 	$BTPlayer.set_active(true)
