@@ -50,6 +50,8 @@ func get_herd_center() -> Vector2:
 	var total = Vector2.ZERO
 	var count = 0
 	for cow in cows:
+		if not cow.get("is_wanderer") != null:
+			continue
 		if not cow.is_wanderer:
 			total += cow.global_position
 			count += 1
@@ -59,8 +61,15 @@ func get_herd_center() -> Vector2:
 
 func get_nearby_cows(position: Vector2, radius: float) -> Array:
 	var cows = get_tree().get_nodes_in_group("cows")
-	return cows.filter(func(c): return c.global_position.distance_to(position) < radius and not c.is_wanderer)
-
+	var result = []
+	for cow in cows:
+		if cow.get("is_wanderer") == null:
+			print("MISSING SCRIPT on: ", cow.name, " type: ", cow.get_class(), " script: ", cow.get_script())
+			continue
+		if cow.global_position.distance_to(position) < radius and not cow.is_wanderer:
+			result.append(cow)
+	return result
+	
 func register_panic(cow) -> void:
 	panicking_cows[cow.get_instance_id()] = {
 		"position": cow.global_position,

@@ -8,9 +8,17 @@ extends CharacterBody2D
 @onready var state_machine = animation_tree.get("parameters/playback")
 
 var facing_direction: Vector2 = Vector2(0, 1)
+var world_mouse_pos: Vector2 = Vector2.ZERO
 
+func _process(_delta):
+	world_mouse_pos = get_global_mouse_position()
+	
 func _ready() -> void:
 	update_anamation_parameters(starting_direction)
+	NightManager.night_started.connect(_on_night_started)
+	NightManager.morning_started.connect(_on_morning_started)
+	DialogueBox.message_shown.connect(_on_dialogue_shown)
+	DialogueBox.message_dismissed.connect(_on_dialogue_dismissed)
 
 func _physics_process(_delta):
 	var input_direction = Vector2(
@@ -68,3 +76,19 @@ func pick_new_state():
 		state_machine.travel("Walk")
 	else:
 		state_machine.travel("Idle")
+
+func _on_dialogue_shown():
+	set_physics_process(false)
+	set_process_input(false)
+
+func _on_dialogue_dismissed():
+	set_physics_process(true)
+	set_process_input(true)
+
+func _on_night_started():
+	set_physics_process(false)
+	set_process_input(false)
+
+func _on_morning_started(message: String, baby_born: bool, cow_grown_up: bool):
+	set_physics_process(true)
+	set_process_input(true)

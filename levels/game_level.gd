@@ -10,10 +10,8 @@ extends Node2D
 @onready var gate_prompt1 = $GatePrompt1
 @onready var gate_prompt2 = $GatePrompt2
 @onready var gate_prompt3 = $GatePrompt3
-@onready var day_counter = $DayCounter/Control/Label
 
 func _ready():
-	day_counter.text = "Day " + str(NightManager.day_count)
 	gate_prompt1.hide()
 	gate_prompt2.hide()
 	gate_prompt3.hide()
@@ -24,16 +22,12 @@ func _ready():
 		player.set_physics_process(false)
 		player.set_process_input(false)
 	
-	NightManager.night_started.connect(_on_night_started)
 	night_trigger1.body_entered.connect(_on_gate1_area_entered)
 	night_trigger1.body_exited.connect(_on_gate1_area_exited)
 	night_trigger2.body_entered.connect(_on_gate2_area_entered)
 	night_trigger2.body_exited.connect(_on_gate2_area_exited)
 	night_trigger3.body_entered.connect(_on_gate3_area_entered)
 	night_trigger3.body_exited.connect(_on_gate3_area_exited)
-	NightManager.morning_started.connect(_on_morning_started)
-	DialogueBox.message_shown.connect(_on_dialogue_shown)
-	DialogueBox.message_dismissed.connect(_on_dialogue_dismissed)
 	
 	# Show opening dialogue
 	DialogueBox.show_sequence([
@@ -84,66 +78,6 @@ func _on_gate3_area_exited(body):
 	if body.is_in_group("player"):
 		gate_prompt3.hide()
 
-	
-func _on_dialogue_shown():
-	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		player.set_process_input(false) # disable player input
-		player.set_physics_process(false) # stop player moving
-
-func _on_dialogue_dismissed():
-	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		player.set_process_input(true) # re-enable
-		player.set_physics_process(true)
-
-func _on_night_started():
-	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		player.set_physics_process(false)
-		player.set_process_input(false)
-	
-func _on_morning_started(message: String, baby_born: bool, cow_grown_up: bool):
-	day_counter.text = "Day " + str(NightManager.day_count)
-	var player = get_tree().get_first_node_in_group("player")
-	if player:
-		player.set_physics_process(true)
-		player.set_process_input(true)
-	
-	var expression = "talking"
-	var emoji = "day"
-	
-	if cow_grown_up:
-		expression = "super_excited"
-		emoji = "cow"
-	elif baby_born:
-		expression = "love_talk"
-		emoji = "cow"
-	elif message.contains("outside") or message.contains("tired"):
-		expression = "sad_talk"
-		emoji = "night"
-	elif message.contains("chicken"):
-		expression = "angry"
-		emoji = "chicken"
-	elif message.contains("beautiful") or message.contains("genuinely happy"):
-		expression = "super_excited"
-		emoji = "day"
-	else:
-		expression = "talking"
-		emoji = "day"
-	
-	DialogueBox.show_sequence([
-		{
-			"text": "Good morning! Let's see how everyone's doing.",
-			"expression": "happy",
-			"emoji": "day"
-		},
-		{
-			"text": message,
-			"expression": expression,
-			"emoji": emoji
-		}
-	])
 func _input(event):
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgev77rmkv5tt"
-path="res://.godot/imported/Free Cow Sprites.png-ca5b0f35995f542f8a8dcdcbe65730e2.ctex"
+uid="uid://dndcvwmy1mbo8"
+path="res://.godot/imported/blue-cow-sprites.png-9b513e47829d0d420c8ef6569f53ce8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Animals/Cow/Free Cow Sprites.png"
-dest_files=["res://.godot/imported/Free Cow Sprites.png-ca5b0f35995f542f8a8dcdcbe65730e2.ctex"]
+source_file="res://assets/Animals/Cow/blue-cow-sprites.png"
+dest_files=["res://.godot/imported/blue-cow-sprites.png-9b513e47829d0d420c8ef6569f53ce8d.ctex"]
 
 [params]
 

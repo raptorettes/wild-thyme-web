@@ -2,10 +2,35 @@ extends Node
 
 @export var spot_radius: float = 40.0
 
+#var cow_scenes: Array = [
+	#preload("res://characters/cow.tscn"),           # purple
+	#preload("res://characters/cow_blue.tscn"),
+	#preload("res://characters/cow_green.tscn"),
+	#preload("res://characters/cow_pink.tscn"),
+	##preload("res://characters/cow_brown.tscn"),
+	#preload("res://characters/cow_yellow.tscn"),
+#]
+#
+#var baby_cow_scenes: Array = [
+	#preload("res://characters/bb_cow.tscn"),        # purple
+	#preload("res://characters/bb_cow_blue.tscn"),
+	#preload("res://characters/bb_cow_green.tscn"),
+	#preload("res://characters/bb_cow_pink.tscn"),
+	##preload("res://assets/characters/bb_cow_brown.tscn"),
+	#preload("res://characters/bb_cow_yellow.tscn"),
+#]
+#
+#func get_random_cow_scene() -> PackedScene:
+	#return cow_scenes[randi() % cow_scenes.size()]
+#
+#func get_random_baby_scene() -> PackedScene:
+	#return baby_cow_scenes[randi() % baby_cow_scenes.size()]
+
 func get_all_spots() -> Array:
 	return get_tree().get_nodes_in_group("favourite_spot")
 	
 func get_random_spot() -> Vector2:
+	
 	var spots = get_all_spots()
 	if spots.is_empty():
 		return Vector2.ZERO
@@ -22,7 +47,8 @@ var cow_names: Array[String] = [
 	"Juniper", "Fern", "Nettle", "Moss", "Hazel",
 	"Briar", "Rowan", "Sage", "Wren", "Blossom",
 	"Dulcie", "Myrtle", "Ember", "Dew", "Lark",
-	"Chicory", "Sedge", "Yarrow", "Fennel", 
+	"Chicory", "Sedge", "Yarrow", "Fennel", "Dill",
+	"Pumpkin", "Pear", "Apple", "Moss",
 ]
 var used_names: Array[String] = []
 

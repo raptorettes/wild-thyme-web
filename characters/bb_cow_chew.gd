@@ -22,6 +22,7 @@ signal found_cow
 @export var herd_cohesion: float = 0.6 # 
 @export var is_wanderer: bool = false
 @export var cow_name: String = ""
+@export var color_variant: String = "purple"
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -32,6 +33,11 @@ var current_state: COW_STATE = COW_STATE.IDLE
 var is_sleeping: bool = false
 
 func _ready():
+	## Assign random color on birth
+	#cow_texture = GameManager.get_random_cow_texture()
+	#sprite.texture = cow_texture
+	#if cow_texture != null:
+		#sprite.texture = cow_texture
 	randomize()
 	await get_tree().process_frame
 	if cow_name == "":

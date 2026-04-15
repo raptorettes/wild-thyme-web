@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b1xmnf3axc7wn"
-path="res://.godot/imported/Light cow animations.png-716bdbc3f3118b55a98a3eeea04b449f.ctex"
+uid="uid://yl0eddjoh5un"
+path="res://.godot/imported/baby-cow-green.png-4cef2aa419917f0fdad8b3c2d8b8b0a3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Animals/Cow/Light cow animations.png"
-dest_files=["res://.godot/imported/Light cow animations.png-716bdbc3f3118b55a98a3eeea04b449f.ctex"]
+source_file="res://assets/Animals/Cow_Baby/baby-cow-green.png"
+dest_files=["res://.godot/imported/baby-cow-green.png-4cef2aa419917f0fdad8b3c2d8b8b0a3.ctex"]
 
 [params]
 

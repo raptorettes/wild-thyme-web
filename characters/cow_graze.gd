@@ -35,11 +35,19 @@ func _ready():
 		favourite_spot = GameManager.get_random_spot()
 	if cow_name == "":
 		cow_name = GameManager.get_cow_name()
+	## Apply random hue
+	#var mat = sprite.material as ShaderMaterial
+	#if mat:
+		##mat.set_shader_parameter("hue_shift", randf())
+		#mat.set_shader_parameter("saturation", happiness)
+
 
 func _physics_process(_delta):
 	if current_state == COW_STATE.SLEEPING:
 		velocity = Vector2.ZERO
 		move_and_slide()
+	if sprite.frame_coords.x >= sprite.hframes:
+		print("OUT OF BOUNDS! cow: ", name, " state: ", current_state, " frame: ", sprite.frame_coords)
 		return
 	
 	var is_stationary = current_state == COW_STATE.REST or \

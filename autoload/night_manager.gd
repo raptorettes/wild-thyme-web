@@ -206,12 +206,24 @@ func _check_for_grown_up_babies() -> Array:
 			grown.append(baby)
 	return grown
 
+var baby_cow_scenes: Array = [
+	preload("res://characters/bb_cow.tscn"),
+	#preload("res://characters/bb_cow_blue.tscn"),
+	#preload("res://characters/bb_cow_green.tscn"),
+	#preload("res://characters/bb_cow_pink.tscn"),
+	##preload("res://characters/bb_cow_brown.tscn"),
+	#preload("res://characters/bb_cow_yellow.tscn"),
+]
+
+func get_random_baby_scene() -> PackedScene:
+	return baby_cow_scenes[randi() % baby_cow_scenes.size()]
+
 func _grow_up_cow(baby) -> void:
-	var adult_scene = load("res://characters/cow.tscn")
-	print("growing up cow: ", baby.name)
+	# Match adult color to baby color
+	var adult_scene_path = "res://characters/cow_" + baby.color_variant + ".tscn"
+	var adult_scene = load(adult_scene_path)
 	if adult_scene == null:
-		print("Could not load adult cow scene!")
-		return
+		adult_scene = load("res://characters/cow.tscn")  # fallback to purple
 	var adult = adult_scene.instantiate()
 	adult.global_position = baby.global_position
 	adult.happiness = baby.happiness
@@ -219,11 +231,10 @@ func _grow_up_cow(baby) -> void:
 	adult.days_in_herd = baby.days_in_herd
 	adult.herd_cohesion = baby.herd_cohesion
 	adult.skittishness = baby.skittishness
-	adult.cow_name = baby.cow_name  # ← keep same name when growing up
-	adult.favourite_spot = GameManager.get_random_spot()  # ← gets spot on growing up
+	adult.cow_name = baby.cow_name
+	adult.favourite_spot = GameManager.get_random_spot()
 	get_tree().current_scene.add_child(adult)
 	baby.queue_free()
-	print("A baby cow grew up!")
 
 func _get_herd_happiness(all_animals: Array) -> float:
 	if all_animals.is_empty():
@@ -292,7 +303,19 @@ func _spawn_baby_cow(parent_cow):
 	baby.days_in_herd = 0
 	baby.happiness = 0.7
 	baby.herd_cohesion = 0.6
-	# No favourite spot — babies don't have one yet
-	# Name assigned in baby cow _ready() automatically
 	get_tree().current_scene.add_child(baby)
-	print("A baby cow was born near ", parent_cow.name)
+	
+	# Wait for full initialisation then swap texture
+	await get_tree().process_frame
+	await get_tree().process_frame
+	var baby_textures = [
+		load("res://assets/Animals/Cow_Baby/baby-cow-blue.png"),
+		load("res://assets/Animals/Cow_Baby/baby-cow-green.png"),
+		load("res://assets/Animals/Cow_Baby/baby-cow-pink.png"),
+		load("res://assets/Animals/Cow_Baby/baby-cow-brown.png"),
+		load("res://assets/Animals/Cow_Baby/baby-cow-yellow.png"),
+		load("res://assets/Animals/Cow_Baby/baby purple cow animations sprites.png"),
+	]
+	var tex = baby_textures[randi() % baby_textures.size()]
+	baby.sprite.texture = tex
+	baby.cow_texture = tex

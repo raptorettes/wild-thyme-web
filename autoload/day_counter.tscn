@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://wwp1lj81bytu"]
+
+[ext_resource type="Script" uid="uid://bp6i0lx2bscgm" path="res://autoload/day_counter.gd" id="1_glbkc"]
+[ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="2_7ewl5"]
+
+[node name="DayCounter" type="CanvasLayer" unique_id=1406034540]
+script = ExtResource("1_glbkc")
+
+[node name="Control" type="Control" parent="." unique_id=672277460]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="Control" unique_id=573804149]
+layout_mode = 0
+offset_left = 69.0
+offset_top = 51.0
+offset_right = 433.0
+offset_bottom = 242.0
+scale = Vector2(3, 3)
+theme_override_colors/font_color = Color(0.9137255, 0.7921569, 0.5764706, 1)
+theme_override_colors/font_outline_color = Color(0.8509804, 0.5294118, 0.48235294, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/font = ExtResource("2_7ewl5")
+theme_override_font_sizes/font_size = 16
+text = "DAY 1"
