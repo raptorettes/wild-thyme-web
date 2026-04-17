@@ -31,8 +31,8 @@ MessageBox="*uid://xxn6xbwbrxe0"
 
 [display]
 
-window/size/viewport_width=1920
-window/size/viewport_height=1080
+window/size/viewport_width=1280
+window/size/viewport_height=720
 window/stretch/mode="canvas_items"
 window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="uid://1oq333hy4p1"

@@ -19,8 +19,6 @@ func _ready() -> void:
 
 func _process(_delta):
 	var new_mouse = get_global_mouse_position()
-	if abs(new_mouse.x - world_mouse_pos.x) > 100:
-		print("LARGE MOUSE JUMP: ", world_mouse_pos, " -> ", new_mouse)
 	world_mouse_pos = new_mouse
 
 func _physics_process(_delta):

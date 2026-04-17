@@ -27,9 +27,21 @@ script = ExtResource("3_u1mq5")
 [sub_resource type="BTAction" id="BTAction_wqi5g"]
 script = ExtResource("4_aq1ci")
 
+[sub_resource type="BTAction" id="BTAction_wyeeb"]
+script = ExtResource("1_2wcc0")
+
+[sub_resource type="BTAction" id="BTAction_8m06y"]
+script = ExtResource("1_2wcc0")
+
+[sub_resource type="BTAction" id="BTAction_7urmg"]
+script = ExtResource("1_2wcc0")
+
+[sub_resource type="BTAction" id="BTAction_81qfr"]
+script = ExtResource("1_2wcc0")
+
 [sub_resource type="BTSequence" id="BTSequence_wyeeb"]
 custom_name = "herd panic"
-children = [SubResource("BTCondition_48fud"), SubResource("BTAction_wqi5g")]
+children = [SubResource("BTCondition_48fud"), SubResource("BTAction_wqi5g"), SubResource("BTAction_wyeeb"), SubResource("BTAction_8m06y"), SubResource("BTAction_7urmg"), SubResource("BTAction_81qfr")]
 
 [sub_resource type="BTAction" id="BTAction_ym1yg"]
 script = ExtResource("2_lpmjd")

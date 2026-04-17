@@ -328,15 +328,15 @@ mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control" unique_id=45407614]
 layout_mode = 0
-offset_left = -17.5
-offset_top = -177.0
-offset_right = 627.49994
-offset_bottom = -5.0
+offset_left = -3.0
+offset_top = -145.0
+offset_right = 641.99994
+offset_bottom = 27.0
 mouse_filter = 2
 texture = ExtResource("2_c7c0k")
 
 [node name="Portrait" type="AnimatedSprite2D" parent="Control" unique_id=1916543930]
-position = Vector2(67.5, -95)
+position = Vector2(82, -63)
 scale = Vector2(2.7343755, 2.7343755)
 sprite_frames = SubResource("SpriteFrames_uma00")
 animation = &"sleep"
@@ -351,10 +351,10 @@ animation = &"baby_cow"
 
 [node name="Label" type="Label" parent="Control" unique_id=197933314]
 layout_mode = 0
-offset_left = 161.0
-offset_top = -115.0
-offset_right = 586.0
-offset_bottom = -53.0
+offset_left = 175.5
+offset_top = -83.0
+offset_right = 600.5
+offset_bottom = -21.0
 theme_override_colors/font_outline_color = Color(0.5647059, 0.38431373, 0.3647059, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("5_olg2w")

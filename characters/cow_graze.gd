@@ -16,7 +16,7 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 @export var skittishness: float = 0.1  # 0=very calm, 1=very skittish
 @export var days_in_herd: int = 0
 @export var confidence: float = 0.5
-@export var herd_cohesion: float = 0.5
+@export var herd_cohesion: float = 0.0
 @export var is_wanderer: bool = false
 @export var cow_name: String = ""
 
@@ -44,12 +44,11 @@ func _ready():
 
 
 func _physics_process(_delta):
+	# Sleeping — do nothing else
 	if current_state == COW_STATE.SLEEPING:
 		velocity = Vector2.ZERO
 		move_and_slide()
-	if sprite.frame_coords.x >= sprite.hframes:
-		print("OUT OF BOUNDS! cow: ", name, " state: ", current_state, " frame: ", sprite.frame_coords)
-		return
+		return 
 	
 	var is_stationary = current_state == COW_STATE.REST or \
 		current_state == COW_STATE.GRAZE or \
@@ -60,8 +59,8 @@ func _physics_process(_delta):
 	if is_stationary:
 		velocity = Vector2.ZERO
 	
-	# Avoidance runs in all non-sleeping states
-	if current_state != COW_STATE.FLEE and current_state != COW_STATE.SLEEPING:
+	# Player avoidance — not during flee
+	if current_state != COW_STATE.FLEE:
 		var player = get_tree().get_first_node_in_group("player")
 		if player:
 			var dist_to_player = global_position.distance_to(player.global_position)
@@ -69,11 +68,9 @@ func _physics_process(_delta):
 				var push_away = (global_position - player.global_position).normalized()
 				var push_strength = 1.0 - (dist_to_player / 25.0)
 				if is_stationary:
-					# Stationary cows get a tiny nudge only
 					velocity += push_away * push_strength * 5.0
 				else:
-					# Walking cows get stronger push
-					velocity = velocity.lerp(push_away * push_strength * 1, 0.3)
+					velocity = velocity.lerp(push_away * push_strength * 1.0, 0.3)
 	
 	move_and_slide()
 

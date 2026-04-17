@@ -10,6 +10,5 @@ func _tick(_delta: float) -> int:
 	var mouse_pos = player.world_mouse_pos
 	var dist_to_mouse = cow.global_position.distance_to(mouse_pos)
 	if dist_to_mouse < cow.mouse_flee_radius:
-		print("COW FLEEING - mouse: ", mouse_pos, " cow: ", cow.global_position, " dist: ", dist_to_mouse)
 		return SUCCESS
 	return FAILURE

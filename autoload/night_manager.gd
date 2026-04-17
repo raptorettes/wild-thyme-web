@@ -270,7 +270,7 @@ func _build_morning_message(inside: int, outside: int, babies_outside: int, chic
 	if cow_grown_up:
 		return "One of your calves has grown up overnight. The herd welcomes a new adult."
 	if birth_cow != null:
-		return "You wake up to a surprise — a baby cow was born in the night! The herd seems happier."
+		return "You wake up to a surprise — a baby was born in the night!"
 	if babies_outside > 0:
 		if babies_outside == 1:
 			return "A baby was left outside last night. The herd spent the night calling to it, and are now a bit anxious and unsettled this morning."
@@ -319,7 +319,6 @@ func _spawn_baby_cow(parent_cow):
 		load("res://assets/Animals/Cow_Baby/baby-cow-blue.png"),
 		load("res://assets/Animals/Cow_Baby/baby-cow-green.png"),
 		load("res://assets/Animals/Cow_Baby/baby-cow-pink.png"),
-		load("res://assets/Animals/Cow_Baby/baby-cow-brown.png"),
 		load("res://assets/Animals/Cow_Baby/baby-cow-yellow.png"),
 		load("res://assets/Animals/Cow_Baby/baby purple cow animations sprites.png"),
 	]

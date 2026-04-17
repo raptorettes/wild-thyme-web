@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d276orayguhv1"
-path="res://.godot/imported/Inventory_Block.png-dd4afa7c155dc9f89475f658f3c5d9b5.ctex"
+uid="uid://8o1b44yh1o5f"
+path="res://.godot/imported/Inventory_Block.png-66161a7cb255a2c00831764b9092cf02.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/emojis-free/emoji style ui/Inventory_Block.png"
-dest_files=["res://.godot/imported/Inventory_Block.png-dd4afa7c155dc9f89475f658f3c5d9b5.ctex"]
+source_file="res://assets/UI/Inventory_Block.png"
+dest_files=["res://.godot/imported/Inventory_Block.png-66161a7cb255a2c00831764b9092cf02.ctex"]
 
 [params]
 
