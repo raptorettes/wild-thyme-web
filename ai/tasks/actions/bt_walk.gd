@@ -30,43 +30,43 @@ func _pick_direction(animal) -> void:
 	var random_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
 	var final_dir = random_dir
 	
-	# Check if player is nearby — disable biases if so
-	var player = animal.get_tree().get_first_node_in_group("player")
-	var player_nearby = false
-	if player and animal.get("player_flee_radius") != null:
-		var dist = animal.global_position.distance_to(player.global_position)
-		if dist < animal.player_flee_radius:
-			player_nearby = true
-	
-	var use_biases = _escape_attempts < 2 and not player_nearby
-	
-	if use_biases and animal.get("is_wanderer") != null and not animal.is_wanderer:
-		# Pull toward herd center
-		var herd_center = HerdManager.get_herd_center()
-		if herd_center != null and herd_center != Vector2.ZERO:
-			var dist_to_herd = animal.global_position.distance_to(herd_center)
-			if dist_to_herd > 80.0:
-				var toward_herd = (herd_center - animal.global_position).normalized()
-				var cohesion_bias = clamp(dist_to_herd / 400.0, 0.1, 0.5) * animal.get_effective_cohesion()
-				final_dir = final_dir.lerp(toward_herd, cohesion_bias).normalized()
-		
-		# Pull toward lead cow
-		var lead = HerdManager.current_lead
-		if lead != null and lead != animal and is_instance_valid(lead):
-			var dist_to_lead = animal.global_position.distance_to(lead.global_position)
-			if dist_to_lead > 100.0:
-				var toward_lead = (lead.global_position - animal.global_position).normalized()
-				final_dir = final_dir.lerp(toward_lead, 0.2 * animal.get_effective_cohesion()).normalized()
-	
-	# Favourite spot pull — disabled when stuck or player nearby
-	if use_biases and animal.get("favourite_spot") != null and animal.favourite_spot != Vector2.ZERO:
-		var dist_to_spot = animal.global_position.distance_to(animal.favourite_spot)
-		if dist_to_spot > 50.0:
-			var toward_spot = (animal.favourite_spot - animal.global_position).normalized()
-			var spot_bias = clamp(dist_to_spot / 500.0, 0.05, 0.2)
-			final_dir = final_dir.lerp(toward_spot, spot_bias).normalized()
-	
-	_direction = final_dir
+	## Check if player is nearby — disable biases if so
+	#var player = animal.get_tree().get_first_node_in_group("player")
+	#var player_nearby = false
+	#if player and animal.get("player_flee_radius") != null:
+		#var dist = animal.global_position.distance_to(player.global_position)
+		#if dist < animal.player_flee_radius:
+			#player_nearby = true
+	#
+	#var use_biases = _escape_attempts < 2 and not player_nearby
+	#
+	#if use_biases and animal.get("is_wanderer") != null and not animal.is_wanderer:
+		## Pull toward herd center
+		#var herd_center = HerdManager.get_herd_center()
+		#if herd_center != null and herd_center != Vector2.ZERO:
+			#var dist_to_herd = animal.global_position.distance_to(herd_center)
+			#if dist_to_herd > 80.0:
+				#var toward_herd = (herd_center - animal.global_position).normalized()
+				#var cohesion_bias = clamp(dist_to_herd / 400.0, 0.1, 0.5) * animal.get_effective_cohesion()
+				#final_dir = final_dir.lerp(toward_herd, cohesion_bias).normalized()
+		#
+		## Pull toward lead cow
+		#var lead = HerdManager.current_lead
+		#if lead != null and lead != animal and is_instance_valid(lead):
+			#var dist_to_lead = animal.global_position.distance_to(lead.global_position)
+			#if dist_to_lead > 100.0:
+				#var toward_lead = (lead.global_position - animal.global_position).normalized()
+				#final_dir = final_dir.lerp(toward_lead, 0.2 * animal.get_effective_cohesion()).normalized()
+	#
+	## Favourite spot pull — disabled when stuck or player nearby
+	#if use_biases and animal.get("favourite_spot") != null and animal.favourite_spot != Vector2.ZERO:
+		#var dist_to_spot = animal.global_position.distance_to(animal.favourite_spot)
+		#if dist_to_spot > 50.0:
+			#var toward_spot = (animal.favourite_spot - animal.global_position).normalized()
+			#var spot_bias = clamp(dist_to_spot / 500.0, 0.05, 0.2)
+			#final_dir = final_dir.lerp(toward_spot, spot_bias).normalized()
+	#
+	#_direction = final_dir
 
 func _tick(delta: float) -> int:
 	var animal = scene_root
@@ -127,7 +127,7 @@ func _tick(delta: float) -> int:
 			separation += push
 	
 	if separation.length() > 0:
-		move_dir = (move_dir + separation * 0.2).normalized()
+		move_dir = (move_dir + separation * 0.1).normalized()
 	
 	# Player avoidance — personal space bubble
 	var player = animal.get_tree().get_first_node_in_group("player")

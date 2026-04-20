@@ -18,8 +18,7 @@ func _ready() -> void:
 	DialogueBox.message_dismissed.connect(_on_dialogue_dismissed)
 
 func _process(_delta):
-	var new_mouse = get_global_mouse_position()
-	world_mouse_pos = new_mouse
+	world_mouse_pos = get_global_mouse_position()
 
 func _physics_process(_delta):
 	var input_direction = Vector2(
@@ -87,21 +86,17 @@ func pick_new_state():
 		state_machine.travel("Idle")
 
 func _on_dialogue_shown():
-	print("dialogue shown — disabling player")
 	set_physics_process(false)
 	set_process_input(false)
 
 func _on_dialogue_dismissed():
-	print("dialogue dismissed — enabling player")
 	set_physics_process(true)
 	set_process_input(true)
 
 func _on_night_started():
-	print("NIGHT STARTED - world_mouse_pos: ", world_mouse_pos)
 	set_physics_process(false)
 	set_process_input(false)
 
 func _on_morning_started(message: String, baby_born: bool, cow_grown_up: bool):
-	print("MORNING STARTED - world_mouse_pos: ", world_mouse_pos)
 	set_physics_process(true)
 	set_process_input(true)

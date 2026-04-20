@@ -64,7 +64,6 @@ func get_nearby_cows(position: Vector2, radius: float) -> Array:
 	var result = []
 	for cow in cows:
 		if cow.get("is_wanderer") == null:
-			print("MISSING SCRIPT on: ", cow.name, " type: ", cow.get_class(), " script: ", cow.get_script())
 			continue
 		if cow.global_position.distance_to(position) < radius and not cow.is_wanderer:
 			result.append(cow)

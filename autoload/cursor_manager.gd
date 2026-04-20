@@ -6,7 +6,6 @@ var cursor_pos: Vector2 = Vector2.ZERO
 func _ready():
 	cursor_pos = get_viewport().get_visible_rect().size / 2.0
 	Input.warp_mouse(Vector2(200, 200))
-	print("warped to 200,200")
 
 func _process(delta):
 	if Input.get_connected_joypads().is_empty():

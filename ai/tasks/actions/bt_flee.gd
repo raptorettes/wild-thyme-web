@@ -9,13 +9,9 @@ func _tick(delta: float) -> int:
 	
 	var mouse_pos = player.world_mouse_pos
 	
-	var dist_to_player = animal.global_position.distance_to(player.global_position)
-	if dist_to_player > animal.player_flee_radius:
-		HerdManager.clear_panic(animal)
-		return SUCCESS
-	
+	# Only stop fleeing when mouse is far enough away
 	var dist_to_mouse = animal.global_position.distance_to(mouse_pos)
-	if dist_to_mouse > animal.mouse_flee_radius:
+	if dist_to_mouse > animal.mouse_flee_radius * 1.5:  # slightly larger radius to stop
 		HerdManager.clear_panic(animal)
 		return SUCCESS
 	

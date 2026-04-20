@@ -63,7 +63,6 @@ func _on_gate1_area_exited(body):
 
 func _on_gate2_area_entered(body):
 	if body.is_in_group("player"):
-		print("showing gate prompt 2")
 		gate_prompt2.show()
 
 func _on_gate2_area_exited(body):

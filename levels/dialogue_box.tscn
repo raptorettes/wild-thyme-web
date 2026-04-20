@@ -308,6 +308,7 @@ animations = [{
 }]
 
 [node name="DialogueBox" type="CanvasLayer" unique_id=710762976]
+layer = 5
 script = ExtResource("1_x08i3")
 
 [node name="Control" type="Control" parent="." unique_id=1702734611]

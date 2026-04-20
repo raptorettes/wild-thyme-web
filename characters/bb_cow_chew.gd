@@ -16,10 +16,10 @@ signal found_cow
 @export var favourite_spot: Vector2 = Vector2.ZERO
 @export var get_down_duration: float = 0.6
 @export var get_up_duration: float = 0.8
-@export var skittishness: float = 0.3  # 0=very calm, 1=very skittish
+@export var skittishness: float = 0.0  # 0=very calm, 1=very skittish
 @export var days_in_herd: int = 0 # effects lead cow that chooses favorite spot
 @export var confidence: float = 0.5 # effects lead cow, born with a number
-@export var herd_cohesion: float = 0.6 # 
+@export var herd_cohesion: float = 0.0 # 
 @export var is_wanderer: bool = false
 @export var cow_name: String = ""
 @export var color_variant: String = "purple"

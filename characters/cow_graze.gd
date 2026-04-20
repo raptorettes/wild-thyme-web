@@ -13,7 +13,7 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 @export var favourite_spot: Vector2 = Vector2.ZERO
 @export var get_down_duration: float = 0.6
 @export var get_up_duration: float = 0.8
-@export var skittishness: float = 0.1  # 0=very calm, 1=very skittish
+@export var skittishness: float = 0.0  # 0=very calm, 1=very skittish
 @export var days_in_herd: int = 0
 @export var confidence: float = 0.5
 @export var herd_cohesion: float = 0.0

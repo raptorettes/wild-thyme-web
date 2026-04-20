@@ -325,7 +325,6 @@ input_pickable = true
 script = ExtResource("1_jxnyl")
 move_speed = 25.0
 player_flee_radius = 60.0
-herd_cohesion = 0.3
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 position = Vector2(-1, -13)
