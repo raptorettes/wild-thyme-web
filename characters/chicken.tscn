@@ -295,6 +295,7 @@ animations = [{
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_hexpo"]
 
 [node name="Chicken" type="CharacterBody2D" unique_id=775685339]
+collision_layer = 2
 input_pickable = true
 script = ExtResource("1_hexpo")
 player_flee_radius = 40.0

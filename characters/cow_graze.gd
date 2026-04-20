@@ -36,6 +36,7 @@ func _ready():
 		favourite_spot = GameManager.get_random_spot()
 	if cow_name == "":
 		cow_name = GameManager.get_cow_name()
+	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	## Apply random hue
 	#var mat = sprite.material as ShaderMaterial
 	#if mat:
@@ -103,17 +104,17 @@ func apply_night_happiness(slept_safely: bool, chickens_present: bool):
 	if chickens_present:
 		happiness -= happiness_chicken_penalty
 	happiness = clamp(happiness, 0.0, 1.0)
-	_update_flee_radius()
+	#_update_flee_radius()
 
-func _update_flee_radius():
-	if happiness < 0.3:
-		player_flee_radius = 120.0
-	elif happiness < 0.6:
-		player_flee_radius = 80.0
-	elif happiness < 0.8:
-		player_flee_radius = 50.0
-	else:
-		player_flee_radius = 20.0
+#func _update_flee_radius():
+	#if happiness < 0.3:
+		#player_flee_radius = 120.0
+	#elif happiness < 0.6:
+		#player_flee_radius = 80.0
+	#elif happiness < 0.8:
+		#player_flee_radius = 50.0
+	#else:
+		#player_flee_radius = 20.0
 
 func go_to_sleep():
 	var bt = $BTPlayer
@@ -138,7 +139,7 @@ func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 	# Use nav agent to walk to exit then favourite spot
 	if exit_pos != Vector2.ZERO:
 		nav_agent.target_position = exit_pos
-		while global_position.distance_to(exit_pos) > 30.0:
+		while global_position.distance_to(exit_pos) > 40.0:
 			var next = nav_agent.get_next_path_position()
 			var dir = (next - global_position).normalized()
 			velocity = dir * move_speed
@@ -190,7 +191,7 @@ func receive_interaction():
 	if not Inventory.is_empty():
 		happiness += Inventory.held_happiness_boost
 		happiness = clamp(happiness, 0.0, 1.0)
-		_update_flee_radius()
+		#_update_flee_radius()
 		var mat = sprite.material as ShaderMaterial
 		if mat:
 			mat.set_shader_parameter("saturation", happiness)

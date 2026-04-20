@@ -321,7 +321,9 @@ radius = 12.0
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_wbjck"]
 
 [node name="bb_cow" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "baby", "cows"]]
+collision_layer = 2
 input_pickable = true
+motion_mode = 1
 script = ExtResource("1_jxnyl")
 move_speed = 25.0
 player_flee_radius = 60.0

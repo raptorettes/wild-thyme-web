@@ -99,7 +99,7 @@ func trigger_night(enclosure: Area2D):
 		for cow in all_cows:
 			cow.happiness -= baby_outside_herd_penalty
 			cow.happiness = clamp(cow.happiness, 0.0, 1.0)
-			cow._update_flee_radius()
+			#cow._update_flee_radius()
 	
 	var herd_happiness = _get_herd_happiness(all_animals)
 	var birth_cow = _check_for_birth(all_cows)
@@ -167,8 +167,8 @@ func trigger_night(enclosure: Area2D):
 			if _is_in_enclosure(animal):
 			# Was inside — walk to exit
 				var spread_exit = exit_pos + Vector2(
-					randf_range(-60.0, 60.0),
-					randf_range(-60.0, 60.0)
+					randf_range(-70.0, 70.0),
+					randf_range(-70.0, 70.0)
 				)
 				animal.wake_up(spread_exit)
 			else:
