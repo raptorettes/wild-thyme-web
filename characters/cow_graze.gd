@@ -36,7 +36,6 @@ func _ready():
 		favourite_spot = GameManager.get_random_spot()
 	if cow_name == "":
 		cow_name = GameManager.get_cow_name()
-	motion_mode = CharacterBody2D.MOTION_MODE_FLOATING
 	## Apply random hue
 	#var mat = sprite.material as ShaderMaterial
 	#if mat:

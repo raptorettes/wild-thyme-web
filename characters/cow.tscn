@@ -299,8 +299,9 @@ radius = 15.033297
 
 [node name="Cow" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
 collision_layer = 2
-motion_mode = 1
 script = ExtResource("1_5wucx")
+move_speed = 30.0
+flee_speed = 40.0
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
 path_desired_distance = 10.0

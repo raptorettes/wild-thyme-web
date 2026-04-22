@@ -36,7 +36,26 @@ func _update_facing(animal, direction: Vector2) -> void:
 
 func _pick_direction(animal) -> void:
 	var random_dir = Vector2(randf_range(-1, 1), randf_range(-1, 1)).normalized()
-	_direction = random_dir
+	var final_dir = random_dir
+	
+	# Check if player is nearby — disable cohesion if so
+	var player = animal.get_tree().get_first_node_in_group("player")
+	var player_nearby = false
+	if player and animal.get("player_flee_radius") != null:
+		if animal.global_position.distance_to(player.global_position) < animal.player_flee_radius:
+			player_nearby = true
+	
+	# Herd center pull — only when player is far away
+	if not player_nearby and animal.get("is_wanderer") != null and not animal.is_wanderer:
+		var herd_center = HerdManager.get_herd_center()
+		if herd_center != null and herd_center != Vector2.ZERO:
+			var dist_to_herd = animal.global_position.distance_to(herd_center)
+			if dist_to_herd > 100.0:
+				var toward_herd = (herd_center - animal.global_position).normalized()
+				var bias = clamp(dist_to_herd / 600.0, 0.0, 0.08)
+				final_dir = final_dir.lerp(toward_herd, bias).normalized()
+	
+	_direction = final_dir
 
 func _pick_wall_escape(animal) -> void:
 	var wall_normal = animal.get_wall_normal()

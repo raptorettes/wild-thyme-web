@@ -54,6 +54,7 @@ func _ready():
 	])
 
 func _on_gate1_area_entered(body):
+	print("gate1 entered: ", body.name, " groups: ", body.get_groups())
 	if body.is_in_group("player"):
 		gate_prompt1.show()
 

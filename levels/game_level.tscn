@@ -580,12 +580,10 @@ tile_set = ExtResource("3_876hk")
 
 [node name="building_ground" type="TileMapLayer" parent="." unique_id=1935323339]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAFAAMAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_4edbn")
 
 [node name="animal_houses" type="TileMapLayer" parent="." unique_id=411830405]
 y_sort_enabled = true
-tile_map_data = PackedByteArray("AAAIAPD/BQAAAAAAAAATAPT/BQAAAAEAAAAFAAMAAAAAAAAAAAAHAPP/BwAAAAAAAAAIAPP/BwABAAAAAAA=")
 tile_set = SubResource("TileSet_4edbn")
 
 [node name="fences" type="TileMapLayer" parent="." unique_id=1993394379]
@@ -758,16 +756,17 @@ text = "Press E to  rest"
 autowrap_mode = 3
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=21906100]
+visible = false
 position = Vector2(-2, -1)
 navigation_polygon = SubResource("NavigationPolygon_52gom")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1872238816]
-position = Vector2(162, -354)
+position = Vector2(174, -226)
 zoom = Vector2(4, 4)
 
-[node name="cat-thyme" parent="." unique_id=117357209 groups=["player"] instance=ExtResource("1_qc6i3")]
+[node name="cat-thyme" parent="." unique_id=117357209 instance=ExtResource("1_qc6i3")]
 y_sort_enabled = false
-position = Vector2(163, -356)
+position = Vector2(175, -228)
 
 [node name="RemoteTransform2D" type="RemoteTransform2D" parent="cat-thyme" unique_id=508694820]
 position = Vector2(-1, 2)
@@ -785,7 +784,7 @@ position = Vector2(205, -165)
 position = Vector2(270, -189)
 
 [node name="bb_cow" parent="." unique_id=1332065716 instance=ExtResource("25_vgcik")]
-position = Vector2(230, -383)
+position = Vector2(38, -223)
 
 [node name="Pear" parent="." unique_id=1029424776 instance=ExtResource("33_hrrti")]
 position = Vector2(99, -227)
@@ -882,32 +881,28 @@ position = Vector2(98, 28)
 
 [node name="Cow" parent="." unique_id=1245950768 instance=ExtResource("22_2bx2d")]
 light_mask = 2
-position = Vector2(188, -357)
+position = Vector2(28, -239)
 
-[node name="Cow2" parent="." unique_id=1649954505 groups=["animals", "cows"] instance=ExtResource("30_txx3f")]
-light_mask = 2
-position = Vector2(175, -330)
+[node name="Cow2" parent="." unique_id=1649954505 instance=ExtResource("30_txx3f")]
+position = Vector2(314, -308)
 move_speed = 20.0
 flee_speed = 35.0
 mouse_flee_radius = 40.0
 
-[node name="Cow3" parent="." unique_id=1852258914 groups=["animals", "cows"] instance=ExtResource("29_hrrti")]
-light_mask = 2
-position = Vector2(245, -350)
+[node name="Cow3" parent="." unique_id=1852258914 instance=ExtResource("29_hrrti")]
+position = Vector2(237, -209)
 move_speed = 20.0
 flee_speed = 35.0
 mouse_flee_radius = 40.0
 
-[node name="Cow4" parent="." unique_id=1491748847 groups=["animals", "cows"] instance=ExtResource("28_643jo")]
-light_mask = 2
-position = Vector2(255, -324)
+[node name="Cow4" parent="." unique_id=1491748847 instance=ExtResource("28_643jo")]
+position = Vector2(70, -168)
 move_speed = 20.0
 flee_speed = 35.0
 mouse_flee_radius = 40.0
 
-[node name="Cow5" parent="." unique_id=528822757 groups=["animals", "cows"] instance=ExtResource("27_hyadk")]
-light_mask = 2
-position = Vector2(216, -325)
+[node name="Cow5" parent="." unique_id=528822757 instance=ExtResource("27_hyadk")]
+position = Vector2(254, -161)
 move_speed = 20.0
 flee_speed = 35.0
 mouse_flee_radius = 40.0

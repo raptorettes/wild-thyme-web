@@ -297,9 +297,10 @@ radius = 15.033297
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_t8qks"]
 
-[node name="Cow" type="CharacterBody2D" unique_id=1245950768]
+[node name="Cow" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
+light_mask = 2
 script = ExtResource("1_7dsh1")
-move_speed = 25.0
+move_speed = 30.0
 flee_speed = 40.0
 mouse_flee_radius = 50.0
 
