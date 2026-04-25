@@ -514,14 +514,14 @@ texture = ExtResource("16_3n2a7")
 sources/0 = SubResource("TileSetAtlasSource_hrrti")
 sources/1 = SubResource("TileSetAtlasSource_txx3f")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_52gom"]
-size = Vector2(146.5, 120)
+[sub_resource type="CircleShape2D" id="CircleShape2D_hrrti"]
+radius = 72.249565
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3n2a7"]
 size = Vector2(26, 29)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vgcik"]
-size = Vector2(209, 149)
+[sub_resource type="CircleShape2D" id="CircleShape2D_txx3f"]
+radius = 95.524864
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dwws4"]
 size = Vector2(17.59375, 18.53125)
@@ -648,8 +648,10 @@ position = Vector2(-6, -5)
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enclosure1" unique_id=244251846]
-position = Vector2(214, -347)
-shape = SubResource("RectangleShape2D_52gom")
+position = Vector2(216.99998, -340.99997)
+rotation = 3.3383791
+scale = Vector2(0.9636519, 0.9636519)
+shape = SubResource("CircleShape2D_hrrti")
 
 [node name="NightTriggerArea1" type="Area2D" parent="." unique_id=254705965]
 position = Vector2(-44, -4)
@@ -690,8 +692,9 @@ metadata/_edit_use_anchors_ = true
 collision_mask = 6
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enclosure2" unique_id=1515270673]
-position = Vector2(-378.5, -104.5)
-shape = SubResource("RectangleShape2D_vgcik")
+position = Vector2(-378, -115.00001)
+rotation = -0.11209659
+shape = SubResource("CircleShape2D_txx3f")
 
 [node name="NightTriggerArea2" type="Area2D" parent="." unique_id=1682994989]
 collision_mask = 6

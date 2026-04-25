@@ -11,6 +11,10 @@ extends Node2D
 @onready var gate_prompt2 = $GatePrompt2
 @onready var gate_prompt3 = $GatePrompt3
 
+const maxZoom = Vector2(4,6)
+const minZoom = Vector2(2, 2)
+const zoomStep = Vector2(0.25, 0.25)
+
 func _ready():
 	gate_prompt1.hide()
 	gate_prompt2.hide()
@@ -79,40 +83,46 @@ func _on_gate3_area_exited(body):
 		gate_prompt3.hide()
 
 func _input(event):
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_ESCAPE:
-			if pause_menu.visible:
-				pause_menu.close()
-			else:
-				pause_menu.open()
-		if event.keycode == KEY_E:
-			if _player_near_gate1():
-				gate_prompt1.hide()
-				DialogueBox.show_message(
-					"Everyone's settling down for the night...",
-					"love",
-					""
-				)
-				await DialogueBox.message_dismissed
-				NightManager.trigger_night(enclosure1)
-			elif _player_near_gate2():
-				gate_prompt2.hide()
-				DialogueBox.show_message(
-					"Everyone's settling down...",
-					"love",
-					""
-				)
-				await DialogueBox.message_dismissed
-				NightManager.trigger_night(enclosure2)
-			elif _player_near_gate3():
-				gate_prompt3.hide()
-				DialogueBox.show_message(
-					"Everyone's settling down for the night...",
-					"love",
-					""
-				)
-				await DialogueBox.message_dismissed
-				NightManager.trigger_night(enclosure3)
+
+	if event.is_action("ui_page_up") and $Camera2D.zoom < maxZoom:
+		$Camera2D.zoom += zoomStep
+	if event.is_action("ui_page_down") and $Camera2D.zoom > minZoom:
+		$Camera2D.zoom -= zoomStep
+	if event is InputEventKey:	
+		if event.pressed:
+			if event.keycode == KEY_ESCAPE:
+				if pause_menu.visible:
+					pause_menu.close()
+				else:
+					pause_menu.open()
+			if event.keycode == KEY_E:
+				if _player_near_gate1():
+					gate_prompt1.hide()
+					DialogueBox.show_message(
+						"Everyone's settling down for the night...",
+						"love",
+						""
+					)
+					await DialogueBox.message_dismissed
+					NightManager.trigger_night(enclosure1)
+				elif _player_near_gate2():
+					gate_prompt2.hide()
+					DialogueBox.show_message(
+						"Everyone's settling down...",
+						"love",
+						""
+					)
+					await DialogueBox.message_dismissed
+					NightManager.trigger_night(enclosure2)
+				elif _player_near_gate3():
+					gate_prompt3.hide()
+					DialogueBox.show_message(
+						"Everyone's settling down for the night...",
+						"love",
+						""
+					)
+					await DialogueBox.message_dismissed
+					NightManager.trigger_night(enclosure3)
 
 func _player_near_gate1() -> bool:
 	var player = get_tree().get_first_node_in_group("player")
