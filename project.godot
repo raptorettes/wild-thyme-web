@@ -13,6 +13,8 @@ config_version=5
 config/name="wild-thyme"
 run/main_scene="uid://rftcf6km7fmx"
 config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/bg_color=Color(0.60784316, 0.83137256, 0.7647059, 1)
+boot_splash/image="uid://dgve4q1guiw1t"
 config/icon="res://icon.svg"
 
 [autoload]
@@ -33,8 +35,9 @@ MessageBox="*uid://xxn6xbwbrxe0"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/size/mode=2
+window/size/initial_position_type=4
+window/stretch/aspect="ignore"
 window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="uid://1oq333hy4p1"
 
@@ -136,3 +139,6 @@ textures/canvas_textures/default_texture_filter=0
 rendering_device/driver.windows="d3d12"
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
+viewport/hdr_2d=true
+anti_aliasing/quality/msaa_2d=2
+anti_aliasing/quality/use_debanding=true
