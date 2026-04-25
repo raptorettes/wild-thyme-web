@@ -182,7 +182,7 @@ func receive_interaction():
 		birth_ready = true
 		Inventory.use_item()
 		DialogueBox.show_message(
-			"The cow nuzzles the star gently...",
+			"They've never eaten that before!",
 			"love", ""
 		)
 		return

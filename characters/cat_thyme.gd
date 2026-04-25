@@ -39,7 +39,8 @@ func _try_interact():
 	# Find best interactable in facing direction
 	var best_target = null
 	var best_score = -1.0
-	
+	var chests = get_tree().get_nodes_in_group("chest")
+	print("chests found: ", chests.size())
 	# Check all interactables — cows, chests, items
 	var all_targets = []
 	all_targets.append_array(get_tree().get_nodes_in_group("cows"))

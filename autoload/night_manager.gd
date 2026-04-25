@@ -255,8 +255,12 @@ func _track_happy_days(cow, was_happy: bool):
 
 func _check_for_birth(all_cows: Array):
 	for cow in all_cows:
-		if cow.is_in_group("baby_cow"):
+		if cow.is_in_group("baby"):
 			continue
+		# Also check birth_ready for star item
+		if cow.get("birth_ready") != null and cow.birth_ready:
+			cow.birth_ready = false
+			return cow
 		var cow_id = cow.get_instance_id()
 		if days_happy_tracker.has(cow_id):
 			if days_happy_tracker[cow_id] >= days_happy_needed_for_birth:
@@ -266,19 +270,19 @@ func _check_for_birth(all_cows: Array):
 
 func _build_morning_message(inside: int, outside: int, babies_outside: int, chickens: bool, herd_happiness: float, birth_cow, cow_grown_up: bool) -> String:
 	if cow_grown_up and birth_cow != null:
-		return "What a night! A calf grew up and a new baby was born. The herd is growing!"
+		return "A calf grew up and a new baby was born. The herd is growing!"
 	if cow_grown_up:
 		return "One of your calves has grown up overnight. The herd welcomes a new adult."
 	if birth_cow != null:
 		return "You wake up to a surprise — a baby was born in the night!"
 	if babies_outside > 0:
 		if babies_outside == 1:
-			return "A baby was left outside last night. The herd spent the night calling to it, and are now a bit anxious and unsettled this morning."
+			return "A baby was left outside last night. The herd spent the night calling to it, and are now a bit anxious and unsettled."
 		else:
 			return str(babies_outside) + " babies were left outside! The herd is beside themselves. Make sure the little ones get in tonight."
 	if outside == 0 and not chickens:
 		if herd_happiness > 0.8:
-			return "Everyone slept well together last night. The herd seems genuinely happy this morning."
+			return "Everyone had a great sleep. The herd seems genuinely happy this morning."
 		else:
 			return "Everyone made it in last night. The herd rested well together."
 	elif outside == 0 and chickens:

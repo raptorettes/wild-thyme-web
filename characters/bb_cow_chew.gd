@@ -206,7 +206,7 @@ func receive_interaction():
 	if Inventory.is_holding("star"):
 		# Baby cows can't give birth!
 		DialogueBox.show_message(
-			"This little one is too young for that.",
+			"They're too little for that kind of magic.",
 			"talking",
 			""
 		)
