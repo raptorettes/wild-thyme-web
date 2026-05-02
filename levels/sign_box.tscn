@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bvfhw28vwwfg6"]
+
+[ext_resource type="Script" uid="uid://dunn0dx8tma0u" path="res://autoload/gate_prompt.gd" id="1_7r5fg"]
+[ext_resource type="FontFile" uid="uid://bvrdku2vkw66r" path="res://assets/UI/fonts/GrapeSoda.ttf" id="5_k1q0q"]
+
+[node name="GatePrompt" type="CanvasLayer" unique_id=710762976]
+layer = 5
+script = ExtResource("1_7r5fg")
+
+[node name="Control" type="Control" parent="." unique_id=1702734611]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -324.0
+offset_top = -71.0
+offset_right = -284.0
+offset_bottom = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="Control" unique_id=197933314]
+layout_mode = 0
+offset_left = 160.5
+offset_top = -115.0
+offset_right = 585.5
+offset_bottom = -53.0
+theme_override_colors/font_outline_color = Color(0.5647059, 0.38431373, 0.3647059, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("5_k1q0q")
+theme_override_font_sizes/font_size = 32
+autowrap_mode = 3

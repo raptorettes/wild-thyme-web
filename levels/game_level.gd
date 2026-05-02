@@ -7,20 +7,12 @@ extends Node2D
 @onready var night_trigger1 = $NightTriggerArea1
 @onready var night_trigger2 = $NightTriggerArea2
 @onready var night_trigger3 = $NightTriggerArea3
-@onready var gate_prompt1 = $GatePrompt1
-@onready var gate_prompt2 = $GatePrompt2
-@onready var gate_prompt3 = $GatePrompt3
 
-const maxZoom = Vector2(4,6)
+const maxZoom = Vector2(8, 8)
 const minZoom = Vector2(2, 2)
 const zoomStep = Vector2(0.25, 0.25)
 
 func _ready():
-	gate_prompt1.hide()
-	gate_prompt2.hide()
-	gate_prompt3.hide()
-	
-	# Disable player until opening dialogue dismissed
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
 		player.set_physics_process(false)
@@ -33,7 +25,6 @@ func _ready():
 	night_trigger3.body_entered.connect(_on_gate3_area_entered)
 	night_trigger3.body_exited.connect(_on_gate3_area_exited)
 	
-	# Show opening dialogue
 	DialogueBox.show_sequence([
 		{
 			"text": "There is a wild herd of cows scattered across the meadow.",
@@ -41,7 +32,7 @@ func _ready():
 			"emoji": ""
 		},
 		{
-			"text": "As night falls, they'll need somewhere safe to rest together.",
+			"text": "As night falls, they'll need somewhere to rest together.",
 			"expression": "love_talk",
 			"emoji": ""
 		},
@@ -58,71 +49,66 @@ func _ready():
 	])
 
 func _on_gate1_area_entered(body):
-	print("gate1 entered: ", body.name, " groups: ", body.get_groups())
 	if body.is_in_group("player"):
-		gate_prompt1.show()
+		GatePrompt.show_prompt("Press E to rest for the night")
 
 func _on_gate1_area_exited(body):
 	if body.is_in_group("player"):
-		gate_prompt1.hide()
+		GatePrompt.hide_prompt()
 
 func _on_gate2_area_entered(body):
 	if body.is_in_group("player"):
-		gate_prompt2.show()
+		GatePrompt.show_prompt("Press E to rest for the night")
 
 func _on_gate2_area_exited(body):
 	if body.is_in_group("player"):
-		gate_prompt2.hide()
+		GatePrompt.hide_prompt()
 
 func _on_gate3_area_entered(body):
 	if body.is_in_group("player"):
-		gate_prompt3.show()
+		GatePrompt.show_prompt("Press E to rest for the night")
 
 func _on_gate3_area_exited(body):
 	if body.is_in_group("player"):
-		gate_prompt3.hide()
+		GatePrompt.hide_prompt()
 
 func _input(event):
-
 	if event.is_action("ui_page_up") and $Camera2D.zoom < maxZoom:
 		$Camera2D.zoom += zoomStep
 	if event.is_action("ui_page_down") and $Camera2D.zoom > minZoom:
 		$Camera2D.zoom -= zoomStep
-	if event is InputEventKey:	
-		if event.pressed:
-			if event.keycode == KEY_ESCAPE:
-				if pause_menu.visible:
-					pause_menu.close()
-				else:
-					pause_menu.open()
-			if event.keycode == KEY_E:
-				if _player_near_gate1():
-					gate_prompt1.hide()
-					DialogueBox.show_message(
-						"Everyone's settling down for the night...",
-						"love",
-						""
-					)
-					await DialogueBox.message_dismissed
-					NightManager.trigger_night(enclosure1)
-				elif _player_near_gate2():
-					gate_prompt2.hide()
-					DialogueBox.show_message(
-						"Everyone's settling down...",
-						"love",
-						""
-					)
-					await DialogueBox.message_dismissed
-					NightManager.trigger_night(enclosure2)
-				elif _player_near_gate3():
-					gate_prompt3.hide()
-					DialogueBox.show_message(
-						"Everyone's settling down for the night...",
-						"love",
-						""
-					)
-					await DialogueBox.message_dismissed
-					NightManager.trigger_night(enclosure3)
+	
+	if event is InputEventKey and event.pressed:
+		if event.keycode == KEY_ESCAPE:
+			if pause_menu.visible:
+				pause_menu.close()
+			else:
+				pause_menu.open()
+		if event.keycode == KEY_E:
+			if _player_near_gate1():
+				GatePrompt.hide_prompt()
+				DialogueBox.show_message(
+					"Everyone's settling down for the night...",
+					"love", ""
+				)
+				await DialogueBox.message_dismissed
+				NightManager.trigger_night(enclosure1)
+			elif _player_near_gate2():
+				GatePrompt.hide_prompt()
+				DialogueBox.show_message(
+					"Everyone's settling down...",
+					"love", ""
+				)
+				await DialogueBox.message_dismissed
+				NightManager.trigger_night(enclosure2)
+			elif _player_near_gate3():
+				GatePrompt.hide_prompt()
+				DialogueBox.show_message(
+					"Everyone's settling down for the night...",
+					"love", ""
+				)
+				await DialogueBox.message_dismissed
+				NightManager.trigger_night(enclosure3)
 
 func _player_near_gate1() -> bool:
 	var player = get_tree().get_first_node_in_group("player")
@@ -134,8 +120,7 @@ func _player_near_gate2() -> bool:
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
 		return false
-	var result = player in night_trigger2.get_overlapping_bodies()
-	return result
+	return player in night_trigger2.get_overlapping_bodies()
 
 func _player_near_gate3() -> bool:
 	var player = get_tree().get_first_node_in_group("player")

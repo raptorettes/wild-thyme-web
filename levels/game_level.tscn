@@ -666,6 +666,7 @@ position = Vector2(217, -217)
 
 [node name="GatePrompt1" type="CanvasLayer" parent="." unique_id=699650921]
 layer = 3
+visible = false
 follow_viewport_enabled = true
 
 [node name="Label2" type="Label" parent="GatePrompt1" unique_id=1065767000]
@@ -708,6 +709,7 @@ position = Vector2(-387, -236)
 
 [node name="GatePrompt2" type="CanvasLayer" parent="." unique_id=1429354336]
 layer = 3
+visible = false
 follow_viewport_enabled = true
 
 [node name="Label" type="Label" parent="GatePrompt2" unique_id=183069389]
@@ -750,6 +752,7 @@ position = Vector2(236, 223)
 
 [node name="GatePrompt3" type="CanvasLayer" parent="." unique_id=102469643]
 layer = 3
+visible = false
 follow_viewport_enabled = true
 
 [node name="Label" type="Label" parent="GatePrompt3" unique_id=452991452]

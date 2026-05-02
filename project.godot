@@ -30,6 +30,7 @@ GameEvents="*uid://bl1h2dxje4asp"
 DayCounter="*uid://wwp1lj81bytu"
 Inventory="*uid://dcvmrm3ml03ux"
 MessageBox="*uid://xxn6xbwbrxe0"
+GatePrompt="*uid://ul8oiq86jiox"
 
 [display]
 

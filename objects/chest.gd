@@ -1,8 +1,8 @@
 extends StaticBody2D
 
 @export var chest_item: String = ""
-@export var empty_message: String = "You search through the old chest... it's empty."
-@export var item_message: String = "A star! It glimmers softly in your hand."
+@export var empty_message: String = "Surprise!... it's empty."
+@export var item_message: String = "A star fruit!"
 @export var respawn_days: int = 2
 
 @onready var closed_sprite = $ClosedSprite
