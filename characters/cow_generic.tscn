@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://brcyb8glo2cih" path="res://characters/cow_generic.gd" id="1_2k2mb"]
 [ext_resource type="Texture2D" uid="uid://cc10qlxyphodn" path="res://assets/Animals/Cow/purple-cow-sprites.png" id="2_vc6la"]
 [ext_resource type="BehaviorTree" uid="uid://q1ddoiy4u1l2" path="res://ai/trees/cow.tres" id="3_vwwy3"]
+[ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="4_vc6la"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wucx"]
 size = Vector2(14, 10)
@@ -299,6 +300,7 @@ radius = 15.033297
 
 [node name="CowGeneric" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
 light_mask = 2
+collision_layer = 2
 script = ExtResource("1_2k2mb")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
@@ -349,6 +351,14 @@ shape = SubResource("CircleShape2D_t8fki")
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=29846508]
 behavior_tree = ExtResource("3_vwwy3")
 blackboard_plan = SubResource("BlackboardPlan_t8qks")
+
+[node name="Label" type="Label" parent="." unique_id=1122131045]
+offset_left = 2.0
+offset_top = -7.0
+offset_right = 42.0
+offset_bottom = 16.0
+theme_override_fonts/font = ExtResource("4_vc6la")
+theme_override_font_sizes/font_size = 8
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="body_entered" from="LoveArea" to="." method="_on_love_area_body_entered"]

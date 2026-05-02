@@ -1,8 +1,7 @@
 extends CharacterBody2D
 
-@export var color_index: int = 0
-
 enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
+@export var color_index: int = 0
 
 @export var move_speed: float = 20
 @export var flee_speed: float = 35.0
@@ -24,7 +23,7 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
-@onready var sprite : Sprite2D = $Sprite2D
+@onready var sprite = $Sprite2D
 @onready var nav_agent = $NavigationAgent2D
 
 var current_state: COW_STATE = COW_STATE.IDLE
@@ -33,19 +32,24 @@ var birth_ready: bool = false
 
 func _ready():
 	randomize()
-	
 	match color_index:
 		1: sprite.texture = load("res://assets/Animals/Cow/green-cow-sprites.png")
 		2: sprite.texture = load("res://assets/Animals/Cow/blue-cow-sprites.png")
 		3: sprite.texture = load("res://assets/Animals/Cow/pink-cow-sprites.png")
 		4: sprite.texture = load("res://assets/Animals/Cow/yellow-cow-sprites.png")
 		5: sprite.texture = load("res://assets/Animals/Cow/purple-cow-sprites.png")
-	
+		
 	await get_tree().process_frame
 	if favourite_spot == Vector2.ZERO:
 		favourite_spot = GameManager.get_random_spot()
 	if cow_name == "":
 		cow_name = GameManager.get_cow_name()
+	## Apply random hue
+	#var mat = sprite.material as ShaderMaterial
+	#if mat:
+		##mat.set_shader_parameter("hue_shift", randf())
+		#mat.set_shader_parameter("saturation", happiness)
+
 
 func _physics_process(_delta):
 	# Sleeping — do nothing else
@@ -107,6 +111,17 @@ func apply_night_happiness(slept_safely: bool, chickens_present: bool):
 	if chickens_present:
 		happiness -= happiness_chicken_penalty
 	happiness = clamp(happiness, 0.0, 1.0)
+	#_update_flee_radius()
+
+#func _update_flee_radius():
+	#if happiness < 0.3:
+		#player_flee_radius = 120.0
+	#elif happiness < 0.6:
+		#player_flee_radius = 80.0
+	#elif happiness < 0.8:
+		#player_flee_radius = 50.0
+	#else:
+		#player_flee_radius = 20.0
 
 func go_to_sleep():
 	var bt = $BTPlayer
@@ -145,6 +160,16 @@ func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 				sprite.flip_h = false
 			
 			await get_tree().process_frame
+	
+		# Moved to limbo AI 
+		#if favourite_spot != Vector2.ZERO:
+		#var arrival = GameManager.get_arrival_position(favourite_spot)
+		#nav_agent.target_position = arrival
+		#while global_position.distance_to(arrival) > 30.0:
+			#var next = nav_agent.get_next_path_position()
+			#velocity = (next - global_position).normalized() * move_speed
+			#move_and_slide()
+			#await get_tree().process_frame
 	
 	# Restart behaviour tree
 	$BTPlayer.set_active(true)

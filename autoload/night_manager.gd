@@ -162,6 +162,8 @@ func trigger_night(enclosure: Area2D):
 			exit_pos = exit.global_position
 
 	# Wake all animals with exit position
+	# var cows = get_tree().root.find_children("*")
+	
 	var waking_animals = get_tree().get_nodes_in_group("animals")
 	for animal in waking_animals:
 		if animal.has_method("wake_up"):
