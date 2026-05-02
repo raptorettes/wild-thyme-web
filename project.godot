@@ -58,6 +58,7 @@ enclosure_exit=""
 attraction_point=""
 pickup_item=""
 chests=""
+nav_group=""
 
 [input]
 
