@@ -307,6 +307,8 @@ mouse_flee_radius = 50.0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
 path_desired_distance = 10.0
 target_desired_distance = 20.0
+path_postprocessing = 1
+debug_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 position = Vector2(0, -12)

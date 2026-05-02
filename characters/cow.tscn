@@ -306,8 +306,11 @@ flee_speed = 40.0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
 path_desired_distance = 10.0
 target_desired_distance = 20.0
-simplify_path = true
+path_postprocessing = 1
 path_search_max_distance = 30.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 position = Vector2(0, -12)

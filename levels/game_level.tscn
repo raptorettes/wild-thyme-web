@@ -21,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://doy6vabwv3tic" path="res://assets/Tilesets/Building parts/Animal Structures/Water tray.png" id="14_vgcik"]
 [ext_resource type="Texture2D" uid="uid://cjgajygk3c1q" path="res://assets/Tilesets/Building parts/Fences.png" id="15_dwws4"]
 [ext_resource type="Texture2D" uid="uid://xqwea6wcm3ed" path="res://assets/Tilesets/Building parts/Fence gates animation sprites .png" id="16_3n2a7"]
-[ext_resource type="PackedScene" uid="uid://duxpj77m1j6nd" path="res://characters/cow.tscn" id="22_2bx2d"]
 [ext_resource type="PackedScene" uid="uid://cfsfaeu0xjdgd" path="res://objects/chest.tscn" id="23_4edbn"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="23_o7lc7"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="24_u8278"]
@@ -36,6 +35,7 @@
 [ext_resource type="PackedScene" uid="uid://bjmih0gxehn6m" path="res://characters/cow_blue.tscn" id="30_txx3f"]
 [ext_resource type="PackedScene" uid="uid://buqc5p6cimpad" path="res://objects/pear.tscn" id="33_hrrti"]
 [ext_resource type="PackedScene" uid="uid://bq7xp2uc66oil" path="res://objects/yellow-fleur.tscn" id="34_txx3f"]
+[ext_resource type="PackedScene" uid="uid://c061c288yd648" path="res://characters/cow_purple.tscn" id="36_o7lc7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qmvb7"]
 texture = ExtResource("1_d65c1")
@@ -671,7 +671,7 @@ position = Vector2(196, -357)
 shape = SubResource("RectangleShape2D_3n2a7")
 
 [node name="EnclosureExit1" type="Node2D" parent="." unique_id=984199758 groups=["enclosure_exit"]]
-position = Vector2(217, -217)
+position = Vector2(60, -330)
 
 [node name="GatePrompt1" type="CanvasLayer" parent="." unique_id=699650921]
 layer = 3
@@ -784,7 +784,7 @@ navigation_polygon = SubResource("NavigationPolygon_52gom")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1872238816]
 physics_interpolation_mode = 1
 top_level = true
-position = Vector2(175, -228)
+position = Vector2(165, -346)
 zoom = Vector2(4, 4)
 limit_enabled = false
 
@@ -796,7 +796,7 @@ metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="FollowPlayerCam" type="Node2D" parent="." unique_id=999340384 node_paths=PackedStringArray("follow_target")]
 top_level = true
-position = Vector2(175, -228)
+position = Vector2(165, -346)
 script = ExtResource("24_u8278")
 priority = 1
 follow_mode = 2
@@ -819,7 +819,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="cat-thyme" parent="." unique_id=117357209 instance=ExtResource("1_qc6i3")]
 y_sort_enabled = false
-position = Vector2(175, -228)
+position = Vector2(165, -346)
 collision_mask = 3
 
 [node name="Pear" parent="." unique_id=1029424776 instance=ExtResource("33_hrrti")]
@@ -918,31 +918,29 @@ position = Vector2(98, 28)
 [node name="bb_cow" parent="." unique_id=1332065716 instance=ExtResource("25_vgcik")]
 position = Vector2(38, -223)
 
-[node name="Cow" parent="." unique_id=1245950768 instance=ExtResource("22_2bx2d")]
-light_mask = 2
-position = Vector2(28, -239)
-flee_speed = 43.0
-
 [node name="Cow2" parent="." unique_id=1649954505 instance=ExtResource("30_txx3f")]
-position = Vector2(314, -308)
+position = Vector2(241, -376)
 collision_layer = 2
 flee_speed = 43.0
 mouse_flee_radius = 40.0
 
+[node name="NavigationAgent2D" parent="Cow2" index="0" unique_id=1129224646]
+debug_enabled = true
+
 [node name="Cow3" parent="." unique_id=1852258914 instance=ExtResource("29_hrrti")]
-position = Vector2(237, -209)
+position = Vector2(256, -351)
 collision_layer = 2
 flee_speed = 43.0
 mouse_flee_radius = 40.0
 
 [node name="Cow4" parent="." unique_id=1491748847 instance=ExtResource("28_643jo")]
-position = Vector2(70, -168)
+position = Vector2(221, -351)
 collision_layer = 2
 flee_speed = 43.0
 mouse_flee_radius = 40.0
 
 [node name="Cow5" parent="." unique_id=528822757 instance=ExtResource("27_hyadk")]
-position = Vector2(254, -161)
+position = Vector2(178, -320)
 collision_layer = 2
 flee_speed = 43.0
 mouse_flee_radius = 40.0
@@ -981,3 +979,8 @@ position = Vector2(365, 327)
 
 [node name="Chicken11" parent="." unique_id=1331313043 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(462, 64)
+
+[node name="Cow" parent="." unique_id=1245950768 instance=ExtResource("36_o7lc7")]
+position = Vector2(190, -368)
+
+[editable path="Cow2"]
