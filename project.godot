@@ -37,7 +37,6 @@ PhantomCameraManager="*uid://duq6jhf6unyis"
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/size/mode=2
 window/size/initial_position_type=4
 window/stretch/aspect="ignore"
 window/stretch/scale_mode="integer"
