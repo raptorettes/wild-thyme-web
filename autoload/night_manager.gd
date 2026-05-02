@@ -49,7 +49,7 @@ func trigger_night(enclosure: Area2D):
 	# Check if same enclosure as last night
 	if enclosure == last_enclosure:
 		DialogueBox.show_message(
-			"The herd seems restless here tonight... maybe try the other meadow?",
+			"The herd seems restless here tonight... maybe try another meadow?",
 			"sad_talk",
 			""
 		)
@@ -57,6 +57,7 @@ func trigger_night(enclosure: Area2D):
 	
 	current_enclosure = enclosure
 	night_active = true
+	
 	emit_signal("night_started")
 	
 	var any_grown_up = false
@@ -116,7 +117,7 @@ func trigger_night(enclosure: Area2D):
 	
 	day_count += 1
 	
-	# PHASE 1 — start overlay and animals simultaneously
+	# PHASE 1 — start overlay and animals sleeping
 	NightOverlay.start_fade_in()
 	NightOverlay.play_crickets_and_music()
 	
@@ -128,7 +129,7 @@ func trigger_night(enclosure: Area2D):
 	# PHASE 2 — wait for last animal to settle then hold
 	await _wait_for_all_sleeping()
 
-	# Check for babies growing up during night darkness
+	# Check for babies growing up during night
 	var grown_up_babies = _check_for_grown_up_babies()
 	any_grown_up = grown_up_babies.size() > 0
 
@@ -172,7 +173,6 @@ func trigger_night(enclosure: Area2D):
 				)
 				animal.wake_up(spread_exit)
 			else:
-				# Was outside — just wake up where they are
 				animal.wake_up()
 	
 	await _wait_for_all_awake()

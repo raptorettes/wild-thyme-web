@@ -1,16 +1,13 @@
 extends Node2D
 
 @onready var pause_menu = $PauseMenu
-@onready var enclosure1 = $Enclosure1
-@onready var enclosure2 = $Enclosure2
-@onready var enclosure3 = $Enclosure3
+@onready var enclosure1 : Area2D = $Enclosure1
+@onready var enclosure2 : Area2D = $Enclosure2
+@onready var enclosure3 : Area2D = $Enclosure3
 @onready var night_trigger1 = $NightTriggerArea1
 @onready var night_trigger2 = $NightTriggerArea2
 @onready var night_trigger3 = $NightTriggerArea3
 
-const maxZoom = Vector2(8, 8)
-const minZoom = Vector2(2, 2)
-const zoomStep = Vector2(0.25, 0.25)
 
 func _ready():
 	var player = get_tree().get_first_node_in_group("player")
@@ -24,6 +21,11 @@ func _ready():
 	night_trigger2.body_exited.connect(_on_gate2_area_exited)
 	night_trigger3.body_entered.connect(_on_gate3_area_entered)
 	night_trigger3.body_exited.connect(_on_gate3_area_exited)
+	
+	NightManager.night_started.connect(_start_night)
+	
+	NightManager.morning_started.connect(_start_morning)
+	
 	
 	DialogueBox.show_sequence([
 		{
@@ -48,6 +50,12 @@ func _ready():
 		}
 	])
 
+func _start_night():
+	$NightCamera.priority = 2
+
+func _start_morning(message: String, baby_born: bool, cow_grown_up: bool):
+	$NightCamera.priority = 0
+	
 func _on_gate1_area_entered(body):
 	if body.is_in_group("player"):
 		GatePrompt.show_prompt("Press E to rest for the night")
@@ -73,10 +81,6 @@ func _on_gate3_area_exited(body):
 		GatePrompt.hide_prompt()
 
 func _input(event):
-	if event.is_action("ui_page_up") and $Camera2D.zoom < maxZoom:
-		$Camera2D.zoom += zoomStep
-	if event.is_action("ui_page_down") and $Camera2D.zoom > minZoom:
-		$Camera2D.zoom -= zoomStep
 	
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
@@ -86,29 +90,21 @@ func _input(event):
 				pause_menu.open()
 		if event.keycode == KEY_E:
 			if _player_near_gate1():
-				GatePrompt.hide_prompt()
-				DialogueBox.show_message(
-					"Everyone's settling down for the night...",
-					"love", ""
-				)
-				await DialogueBox.message_dismissed
-				NightManager.trigger_night(enclosure1)
+				_rest_message("Everyone's settling down for the night...", $Enclosure1, $Enclosure1/CollisionShape2D)
 			elif _player_near_gate2():
-				GatePrompt.hide_prompt()
-				DialogueBox.show_message(
-					"Everyone's settling down...",
-					"love", ""
-				)
-				await DialogueBox.message_dismissed
-				NightManager.trigger_night(enclosure2)
+				_rest_message("Everyone's settling down...", $Enclosure2, $Enclosure2/CollisionShape2D)
 			elif _player_near_gate3():
-				GatePrompt.hide_prompt()
-				DialogueBox.show_message(
-					"Everyone's settling down for the night...",
-					"love", ""
-				)
-				await DialogueBox.message_dismissed
-				NightManager.trigger_night(enclosure3)
+				_rest_message("Everyone's settling down for the night...", $Enclosure3, $Enclosure3/CollisionShape2D)
+				
+func _rest_message(message: String, node: Area2D, focusNode: CollisionShape2D):
+	GatePrompt.hide_prompt()
+	DialogueBox.show_message(
+		message,
+		"love", ""
+	)
+	await DialogueBox.message_dismissed
+	$NightCamera.follow_target = focusNode
+	NightManager.trigger_night(node)
 
 func _player_near_gate1() -> bool:
 	var player = get_tree().get_first_node_in_group("player")
