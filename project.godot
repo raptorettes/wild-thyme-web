@@ -31,6 +31,7 @@ DayCounter="*uid://wwp1lj81bytu"
 Inventory="*uid://dcvmrm3ml03ux"
 MessageBox="*uid://xxn6xbwbrxe0"
 GatePrompt="*uid://ul8oiq86jiox"
+PhantomCameraManager="*uid://duq6jhf6unyis"
 
 [display]
 
@@ -41,6 +42,10 @@ window/size/initial_position_type=4
 window/stretch/aspect="ignore"
 window/stretch/scale_mode="integer"
 mouse_cursor/custom_image="uid://1oq333hy4p1"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [global_group]
 
