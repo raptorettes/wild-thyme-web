@@ -542,6 +542,9 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(261, -460, 183, -460, 1
 [sub_resource type="Resource" id="Resource_a775j"]
 script = ExtResource("25_ujje3")
 
+[sub_resource type="Resource" id="Resource_o7lc7"]
+script = ExtResource("25_ujje3")
+
 [node name="GameLevel" type="Node2D" unique_id=931376677]
 y_sort_enabled = true
 script = ExtResource("1_3n2a7")
@@ -792,16 +795,27 @@ process_physics_priority = 300
 script = ExtResource("23_o7lc7")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="PhantomCamera2D" type="Node2D" parent="." unique_id=999340384 node_paths=PackedStringArray("follow_target")]
+[node name="FollowPlayerCam" type="Node2D" parent="." unique_id=999340384 node_paths=PackedStringArray("follow_target")]
 top_level = true
 position = Vector2(175, -228)
 script = ExtResource("24_u8278")
+priority = 1
 follow_mode = 2
 follow_target = NodePath("../cat-thyme")
 zoom = Vector2(4, 4)
 tween_resource = SubResource("Resource_a775j")
 follow_damping = true
 follow_damping_value = Vector2(0.3, 0.3)
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="NightCamera" type="Node2D" parent="." unique_id=128476981 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(210.99998, -345.99997)
+script = ExtResource("24_u8278")
+follow_mode = 2
+follow_target = NodePath("../Enclosure1/CollisionShape2D")
+zoom = Vector2(6, 6)
+tween_resource = SubResource("Resource_o7lc7")
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="cat-thyme" parent="." unique_id=117357209 instance=ExtResource("1_qc6i3")]
