@@ -1,8 +1,8 @@
-[gd_scene format=3 uid="uid://c061c288yd648"]
+[gd_scene format=3 uid="uid://cbaqi5jmi17cc"]
 
-[ext_resource type="Script" uid="uid://bc1h18fil04wu" path="res://characters/cow_graze.gd" id="1_dg1ru"]
-[ext_resource type="Texture2D" uid="uid://cc10qlxyphodn" path="res://assets/Animals/Cow/purple-cow-sprites.png" id="2_dg1ru"]
-[ext_resource type="BehaviorTree" uid="uid://q1ddoiy4u1l2" path="res://ai/trees/cow.tres" id="3_ijovn"]
+[ext_resource type="Script" uid="uid://brcyb8glo2cih" path="res://characters/cow_generic.gd" id="1_2k2mb"]
+[ext_resource type="Texture2D" uid="uid://cc10qlxyphodn" path="res://assets/Animals/Cow/purple-cow-sprites.png" id="2_vc6la"]
+[ext_resource type="BehaviorTree" uid="uid://q1ddoiy4u1l2" path="res://ai/trees/cow.tres" id="3_vwwy3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wucx"]
 size = Vector2(14, 10)
@@ -299,22 +299,21 @@ radius = 15.033297
 
 [node name="CowGeneric" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
 light_mask = 2
-script = ExtResource("1_dg1ru")
-move_speed = 30.0
-flee_speed = 40.0
-mouse_flee_radius = 50.0
+script = ExtResource("1_2k2mb")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
 path_desired_distance = 10.0
 target_desired_distance = 20.0
 path_postprocessing = 1
 avoidance_enabled = true
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0, 0, 1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
-unique_name_in_owner = true
 light_mask = 2
 position = Vector2(0, -12)
-texture = ExtResource("2_dg1ru")
+texture = ExtResource("2_vc6la")
 hframes = 8
 vframes = 8
 
@@ -348,7 +347,7 @@ position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_t8fki")
 
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=29846508]
-behavior_tree = ExtResource("3_ijovn")
+behavior_tree = ExtResource("3_vwwy3")
 blackboard_plan = SubResource("BlackboardPlan_t8qks")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

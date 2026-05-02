@@ -28,14 +28,10 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="25_ujje3"]
 [ext_resource type="PackedScene" uid="uid://epvi6v6e0j6y" path="res://characters/bb_cow.tscn" id="25_vgcik"]
 [ext_resource type="FontFile" uid="uid://bvrdku2vkw66r" path="res://assets/UI/fonts/GrapeSoda.ttf" id="27_52gom"]
-[ext_resource type="PackedScene" uid="uid://y5lb5parkar5" path="res://characters/cow_yellow.tscn" id="27_hyadk"]
 [ext_resource type="PackedScene" uid="uid://dx6m8ghifwkfb" path="res://characters/chicken.tscn" id="28_52gom"]
-[ext_resource type="PackedScene" uid="uid://dhs5rvhek7u36" path="res://characters/cow_pink.tscn" id="28_643jo"]
-[ext_resource type="PackedScene" uid="uid://bs43m35h6xpe6" path="res://characters/cow_green.tscn" id="29_hrrti"]
-[ext_resource type="PackedScene" uid="uid://bjmih0gxehn6m" path="res://characters/cow_blue.tscn" id="30_txx3f"]
+[ext_resource type="PackedScene" uid="uid://cbaqi5jmi17cc" path="res://characters/cow_generic.tscn" id="32_643jo"]
 [ext_resource type="PackedScene" uid="uid://buqc5p6cimpad" path="res://objects/pear.tscn" id="33_hrrti"]
 [ext_resource type="PackedScene" uid="uid://bq7xp2uc66oil" path="res://objects/yellow-fleur.tscn" id="34_txx3f"]
-[ext_resource type="PackedScene" uid="uid://c061c288yd648" path="res://characters/cow_purple.tscn" id="36_o7lc7"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qmvb7"]
 texture = ExtResource("1_d65c1")
@@ -778,6 +774,7 @@ text = "Press E to  rest"
 autowrap_mode = 3
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=21906100]
+visible = false
 position = Vector2(-2, -1)
 navigation_polygon = SubResource("NavigationPolygon_52gom")
 
@@ -918,33 +915,6 @@ position = Vector2(98, 28)
 [node name="bb_cow" parent="." unique_id=1332065716 instance=ExtResource("25_vgcik")]
 position = Vector2(38, -223)
 
-[node name="Cow2" parent="." unique_id=1649954505 instance=ExtResource("30_txx3f")]
-position = Vector2(241, -376)
-collision_layer = 2
-flee_speed = 43.0
-mouse_flee_radius = 40.0
-
-[node name="NavigationAgent2D" parent="Cow2" index="0" unique_id=1129224646]
-debug_enabled = true
-
-[node name="Cow3" parent="." unique_id=1852258914 instance=ExtResource("29_hrrti")]
-position = Vector2(256, -351)
-collision_layer = 2
-flee_speed = 43.0
-mouse_flee_radius = 40.0
-
-[node name="Cow4" parent="." unique_id=1491748847 instance=ExtResource("28_643jo")]
-position = Vector2(221, -351)
-collision_layer = 2
-flee_speed = 43.0
-mouse_flee_radius = 40.0
-
-[node name="Cow5" parent="." unique_id=528822757 instance=ExtResource("27_hyadk")]
-position = Vector2(178, -320)
-collision_layer = 2
-flee_speed = 43.0
-mouse_flee_radius = 40.0
-
 [node name="Chicken" parent="." unique_id=775685339 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(-183, -193)
 mouse_flee_radius = 150.0
@@ -980,7 +950,107 @@ position = Vector2(365, 327)
 [node name="Chicken11" parent="." unique_id=1331313043 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(462, 64)
 
-[node name="Cow" parent="." unique_id=1245950768 instance=ExtResource("36_o7lc7")]
-position = Vector2(190, -368)
+[node name="CowGeneric" parent="." unique_id=1245950768 instance=ExtResource("32_643jo")]
+position = Vector2(185, -368)
+color_index = null
+move_speed = null
+flee_speed = null
+mouse_flee_radius = null
+player_flee_radius = null
+happiness = null
+happiness_gain_per_night = null
+happiness_loss_per_night = null
+happiness_chicken_penalty = null
+favourite_spot = null
+get_down_duration = null
+get_up_duration = null
+skittishness = null
+days_in_herd = null
+confidence = null
+herd_cohesion = null
+is_wanderer = null
+cow_name = null
 
-[editable path="Cow2"]
+[node name="CowGeneric2" parent="." unique_id=503232674 instance=ExtResource("32_643jo")]
+position = Vector2(229, -381)
+color_index = 1
+move_speed = null
+flee_speed = null
+mouse_flee_radius = null
+player_flee_radius = null
+happiness = null
+happiness_gain_per_night = null
+happiness_loss_per_night = null
+happiness_chicken_penalty = null
+favourite_spot = null
+get_down_duration = null
+get_up_duration = null
+skittishness = null
+days_in_herd = null
+confidence = null
+herd_cohesion = null
+is_wanderer = null
+cow_name = null
+
+[node name="CowGeneric3" parent="." unique_id=2075048169 instance=ExtResource("32_643jo")]
+position = Vector2(254, -346)
+color_index = 2
+move_speed = null
+flee_speed = null
+mouse_flee_radius = null
+player_flee_radius = null
+happiness = null
+happiness_gain_per_night = null
+happiness_loss_per_night = null
+happiness_chicken_penalty = null
+favourite_spot = null
+get_down_duration = null
+get_up_duration = null
+skittishness = null
+days_in_herd = null
+confidence = null
+herd_cohesion = null
+is_wanderer = null
+cow_name = null
+
+[node name="CowGeneric4" parent="." unique_id=123489348 instance=ExtResource("32_643jo")]
+position = Vector2(225, -310)
+color_index = 3
+move_speed = null
+flee_speed = null
+mouse_flee_radius = null
+player_flee_radius = null
+happiness = null
+happiness_gain_per_night = null
+happiness_loss_per_night = null
+happiness_chicken_penalty = null
+favourite_spot = null
+get_down_duration = null
+get_up_duration = null
+skittishness = null
+days_in_herd = null
+confidence = null
+herd_cohesion = null
+is_wanderer = null
+cow_name = null
+
+[node name="CowGeneric5" parent="." unique_id=1161394192 instance=ExtResource("32_643jo")]
+position = Vector2(183, -306)
+color_index = 4
+move_speed = null
+flee_speed = null
+mouse_flee_radius = null
+player_flee_radius = null
+happiness = null
+happiness_gain_per_night = null
+happiness_loss_per_night = null
+happiness_chicken_penalty = null
+favourite_spot = null
+get_down_duration = null
+get_up_duration = null
+skittishness = null
+days_in_herd = null
+confidence = null
+herd_cohesion = null
+is_wanderer = null
+cow_name = null
