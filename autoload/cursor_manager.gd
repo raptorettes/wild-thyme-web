@@ -9,8 +9,9 @@ func _ready():
 
 func _process(delta):
 	if Input.get_connected_joypads().is_empty():
+		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		return
-	
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	var joy_input = Vector2(
 		Input.get_action_strength("cursor_right") - Input.get_action_strength("cursor_left"),
 		Input.get_action_strength("cursor_down") - Input.get_action_strength("cursor_up")
@@ -31,4 +32,5 @@ func _process(delta):
 	mouse_event.relative = joy_input * cursor_speed * delta
 	Input.parse_input_event(mouse_event)
 	
+	print("at", screen_pos)
 	Input.warp_mouse(screen_pos)
