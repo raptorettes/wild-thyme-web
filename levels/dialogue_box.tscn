@@ -308,6 +308,7 @@ animations = [{
 }]
 
 [node name="DialogueBox" type="CanvasLayer" unique_id=710762976]
+layer = 5
 script = ExtResource("1_x08i3")
 
 [node name="Control" type="Control" parent="." unique_id=1702734611]
@@ -317,23 +318,25 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -284.5
-offset_top = -219.0
-offset_right = -244.5
-offset_bottom = -179.0
+offset_left = -324.0
+offset_top = -71.0
+offset_right = -284.0
+offset_bottom = -31.0
 grow_horizontal = 2
 grow_vertical = 0
 mouse_filter = 2
 
 [node name="TextureRect" type="TextureRect" parent="Control" unique_id=45407614]
 layout_mode = 0
-offset_right = 644.99994
-offset_bottom = 172.0
+offset_left = -17.5
+offset_top = -177.0
+offset_right = 627.49994
+offset_bottom = -5.0
 mouse_filter = 2
 texture = ExtResource("2_k3d8c")
 
 [node name="Portrait" type="AnimatedSprite2D" parent="Control" unique_id=1916543930]
-position = Vector2(85, 82)
+position = Vector2(67.5, -95)
 scale = Vector2(2.7343755, 2.7343755)
 sprite_frames = SubResource("SpriteFrames_uma00")
 animation = &"sleep"
@@ -348,10 +351,10 @@ animation = &"baby_cow"
 
 [node name="Label" type="Label" parent="Control" unique_id=197933314]
 layout_mode = 0
-offset_left = 177.0
-offset_top = 55.0
-offset_right = 602.0
-offset_bottom = 117.0
+offset_left = 159.5
+offset_top = -122.0
+offset_right = 584.5
+offset_bottom = -60.0
 theme_override_colors/font_outline_color = Color(0.5647059, 0.38431373, 0.3647059, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("6_k3d8c")

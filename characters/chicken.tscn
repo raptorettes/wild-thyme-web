@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b2mjxnisrnxsb" path="res://assets/Animals/Chicken/chicken default.png" id="1_gn1oa"]
 [ext_resource type="Script" uid="uid://cck1n23nhfsm3" path="res://characters/chicken.gd" id="1_hexpo"]
+[ext_resource type="BehaviorTree" uid="uid://q6thhx3cfc31" path="res://ai/trees/chicken.tres" id="3_b7ce8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hexpo"]
 size = Vector2(10, 6.25)
@@ -291,12 +292,15 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_hexpo"]
+
 [node name="Chicken" type="CharacterBody2D" unique_id=775685339]
+collision_layer = 2
 input_pickable = true
 script = ExtResource("1_hexpo")
-flee_speed = 60.0
-mouse_flee_radius = 80.0
-player_flee_radius = 60.0
+move_speed = 45.0
+flee_speed = 50.0
+player_flee_radius = 40.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=355742702]
 position = Vector2(1, -6)
@@ -322,14 +326,12 @@ libraries/ = SubResource("AnimationLibrary_b7ce8")
 position = Vector2(1, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=914103000]
-visible = false
 position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_hexpo")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1012196709]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2011395488]
-visible = false
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_b7ce8")
 
@@ -339,5 +341,11 @@ sprite_frames = SubResource("SpriteFrames_h043g")
 animation = &"flap"
 frame = 3
 frame_progress = 1.0
+
+[node name="BTPlayer" type="BTPlayer" parent="." unique_id=336855930]
+behavior_tree = ExtResource("3_b7ce8")
+blackboard_plan = SubResource("BlackboardPlan_hexpo")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1669450514]
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

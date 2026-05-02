@@ -1,0 +1,84 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://q1ddoiy4u1l2"]
+
+[ext_resource type="Script" uid="uid://c8ha6mfq53842" path="res://ai/tasks/actions/bt_walk.gd" id="1_2wcc0"]
+[ext_resource type="Script" uid="uid://c5f0dees6qgah" path="res://ai/tasks/conditions/bt_check_mouse_nearby.gd" id="1_u1mq5"]
+[ext_resource type="Script" uid="uid://br3r41e0cwfef" path="res://ai/tasks/actions/bt_graze.gd" id="2_lpmjd"]
+[ext_resource type="Script" uid="uid://y7533e26c1c6" path="res://ai/tasks/actions/bt_flee.gd" id="2_y616i"]
+[ext_resource type="Script" uid="uid://6kafldyhiiqk" path="res://ai/tasks/actions/bt_play_idle.gd" id="3_qqtlw"]
+[ext_resource type="Script" uid="uid://ddbngs5f38hye" path="res://ai/tasks/conditions/check_herd_panic.gd" id="3_u1mq5"]
+[ext_resource type="Script" uid="uid://bvxvgox0iubh0" path="res://ai/tasks/actions/bt_flee_from_panic.gd" id="4_aq1ci"]
+[ext_resource type="Script" uid="uid://rn5d413leyg1" path="res://ai/tasks/actions/bt_rest.gd" id="4_y616i"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ui7ju"]
+
+[sub_resource type="BTCondition" id="BTCondition_mxkk4"]
+script = ExtResource("1_u1mq5")
+
+[sub_resource type="BTAction" id="BTAction_48fud"]
+script = ExtResource("2_y616i")
+
+[sub_resource type="BTSequence" id="BTSequence_wqi5g"]
+custom_name = "flee"
+children = [SubResource("BTCondition_mxkk4"), SubResource("BTAction_48fud")]
+
+[sub_resource type="BTCondition" id="BTCondition_48fud"]
+script = ExtResource("3_u1mq5")
+
+[sub_resource type="BTAction" id="BTAction_wqi5g"]
+script = ExtResource("4_aq1ci")
+
+[sub_resource type="BTAction" id="BTAction_wyeeb"]
+script = ExtResource("1_2wcc0")
+
+[sub_resource type="BTAction" id="BTAction_8m06y"]
+script = ExtResource("1_2wcc0")
+
+[sub_resource type="BTAction" id="BTAction_7urmg"]
+script = ExtResource("1_2wcc0")
+
+[sub_resource type="BTAction" id="BTAction_81qfr"]
+script = ExtResource("1_2wcc0")
+
+[sub_resource type="BTSequence" id="BTSequence_wyeeb"]
+custom_name = "herd panic"
+children = [SubResource("BTCondition_48fud"), SubResource("BTAction_wqi5g"), SubResource("BTAction_wyeeb"), SubResource("BTAction_8m06y"), SubResource("BTAction_7urmg"), SubResource("BTAction_81qfr")]
+
+[sub_resource type="BTAction" id="BTAction_ym1yg"]
+script = ExtResource("2_lpmjd")
+
+[sub_resource type="BTAction" id="BTAction_lpmjd"]
+script = ExtResource("4_y616i")
+
+[sub_resource type="BTAction" id="BTAction_u1mq5"]
+script = ExtResource("1_2wcc0")
+
+[sub_resource type="BTAction" id="BTAction_y616i"]
+script = ExtResource("3_qqtlw")
+
+[sub_resource type="BTSequence" id="BTSequence_aq1ci"]
+custom_name = "wander"
+children = [SubResource("BTAction_u1mq5"), SubResource("BTAction_y616i")]
+
+[sub_resource type="BTAction" id="BTAction_aq1ci"]
+script = ExtResource("1_2wcc0")
+
+[sub_resource type="BTAction" id="BTAction_mxkk4"]
+script = ExtResource("3_qqtlw")
+
+[sub_resource type="BTSequence" id="BTSequence_48fud"]
+custom_name = "wander"
+children = [SubResource("BTAction_aq1ci"), SubResource("BTAction_mxkk4")]
+
+[sub_resource type="BTRandomSelector" id="BTRandomSelector_mxkk4"]
+children = [SubResource("BTAction_ym1yg"), SubResource("BTAction_lpmjd"), SubResource("BTSequence_aq1ci"), SubResource("BTSequence_48fud")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_u1mq5"]
+children = [SubResource("BTSequence_wqi5g"), SubResource("BTSequence_wyeeb"), SubResource("BTRandomSelector_mxkk4")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_gycl0"]
+forever = true
+children = [SubResource("BTDynamicSelector_u1mq5")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ui7ju")
+root_task = SubResource("BTRepeat_gycl0")

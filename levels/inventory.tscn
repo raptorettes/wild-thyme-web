@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dcvmrm3ml03ux"]
+
+[ext_resource type="Script" uid="uid://hqp0ntn0gd2s" path="res://autoload/inventory.gd" id="1_cy83c"]
+[ext_resource type="Texture2D" uid="uid://8o1b44yh1o5f" path="res://assets/UI/Inventory_Block.png" id="2_dtxov"]
+[ext_resource type="AudioStream" uid="uid://bsjkrmdk8m3r6" path="res://assets/music/sfx/pickup.mp3" id="3_dtxov"]
+
+[node name="Inventory" type="CanvasLayer" unique_id=149810857]
+layer = 4
+script = ExtResource("1_cy83c")
+
+[node name="Control" type="Control" parent="." unique_id=1311458326]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 29.0
+offset_top = -127.0
+offset_right = 141.0
+offset_bottom = -30.0
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control" unique_id=895073883]
+layout_mode = 0
+offset_left = 6.0
+offset_top = -104.0
+offset_right = 179.0
+offset_bottom = 69.0
+texture = ExtResource("2_dtxov")
+
+[node name="Item" type="TextureRect" parent="Control/TextureRect" unique_id=1882667560]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 37.0
+offset_right = 136.0
+offset_bottom = 140.0
+expand_mode = 2
+stretch_mode = 5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=958986819]
+stream = ExtResource("3_dtxov")
+volume_db = -5.0

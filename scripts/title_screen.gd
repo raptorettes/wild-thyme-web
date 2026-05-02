@@ -47,32 +47,5 @@ func _start_game():
 	var tween = create_tween()
 	tween.tween_property(canvas_container, "modulate:a", 0.0, 0.4)
 	tween.tween_callback(func():
-		visible = false
-		DialogueBox.show_sequence([
-		{
-			"text": "There is a wild herd of cows scattered across the meadow.",
-			"expression": "talking",
-			"emoji": ""
-		},
-		{
-			"text": "As night falls, they'll need somewhere safe to rest together.",
-			"expression": "love_talk",
-			"emoji": ""
-		},
-		{
-			"text": "Guide them toward the enclosure using your mouse.",
-			"expression": "smiling",
-			"emoji": ""
-		},
-		{
-			"text": "When everyone's inside, press E to say goodnight.",
-			"expression": "happy",
-			"emoji": ""
-		}
-	])
-		# Enable player
-		var player = get_tree().get_first_node_in_group("player")
-		if player:
-			player.set_physics_process(true)
-			player.set_process_input(true)
-)
+		get_tree().change_scene_to_file("res://levels/game_level.tscn")
+	)

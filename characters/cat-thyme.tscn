@@ -238,8 +238,9 @@ states/Walk/node = SubResource("AnimationNodeBlendSpace2D_pipb8")
 states/Walk/position = Vector2(511, 100)
 transitions = ["Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_nsm2p"), "Walk", "Idle", SubResource("AnimationNodeStateMachineTransition_4mvfo"), "Start", "Idle", SubResource("AnimationNodeStateMachineTransition_hnds0")]
 
-[node name="CharacterBody2D" type="CharacterBody2D" unique_id=117357209]
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=117357209 groups=["player"]]
 y_sort_enabled = true
+collision_layer = 4
 script = ExtResource("1_dkbiv")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=814850010]

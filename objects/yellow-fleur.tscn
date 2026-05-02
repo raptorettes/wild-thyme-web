@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://bq7xp2uc66oil"]
+
+[ext_resource type="Script" uid="uid://cfrqk2dk827pe" path="res://objects/pickup.gd" id="1_bniyv"]
+[ext_resource type="Texture2D" uid="uid://dc1pgufq3tn0e" path="res://assets/Objects/yellow-fleur.png" id="2_bniyv"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4uxp7"]
+radius = 5.0
+
+[node name="YellowFleur" type="Area2D" unique_id=176108950 groups=["pickup_item"]]
+script = ExtResource("1_bniyv")
+item_name = "yellow fleur"
+item_texture = ExtResource("2_bniyv")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=978272734]
+texture = ExtResource("2_bniyv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=903711470]
+shape = SubResource("CircleShape2D_4uxp7")

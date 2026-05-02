@@ -1,17 +1,38 @@
 [gd_scene format=3 uid="uid://cfsfaeu0xjdgd"]
 
+[ext_resource type="Script" uid="uid://dl5u3bry6niv" path="res://objects/chest.gd" id="1_36laa"]
 [ext_resource type="Texture2D" uid="uid://df4aj1ijbkhlk" path="res://assets/Tilesets/Building parts/Chest.png" id="1_ld6i3"]
+[ext_resource type="AudioStream" uid="uid://ch7byqapymi0d" path="res://assets/music/sfx/ui-pop.ogg" id="3_4pq6m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_36laa"]
 size = Vector2(16, 13)
 
-[node name="Chest" type="StaticBody2D" unique_id=1204285106]
+[sub_resource type="CircleShape2D" id="CircleShape2D_1f6nr"]
+radius = 13.152946
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=956750032]
-texture = ExtResource("1_ld6i3")
-hframes = 5
-vframes = 2
+[node name="Chest" type="StaticBody2D" unique_id=1204285106 groups=["chests"]]
+script = ExtResource("1_36laa")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1018754438]
 position = Vector2(0, 1.5)
 shape = SubResource("RectangleShape2D_36laa")
+
+[node name="ClosedSprite" type="Sprite2D" parent="." unique_id=956750032]
+texture = ExtResource("1_ld6i3")
+hframes = 5
+vframes = 2
+
+[node name="OpenSprite" type="Sprite2D" parent="." unique_id=1514560486]
+visible = false
+texture = ExtResource("1_ld6i3")
+hframes = 5
+vframes = 2
+frame = 2
+
+[node name="InteractArea" type="Area2D" parent="." unique_id=29469551]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractArea" unique_id=952313554]
+shape = SubResource("CircleShape2D_1f6nr")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=267389050]
+stream = ExtResource("3_4pq6m")

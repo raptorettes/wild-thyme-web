@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://ewhc7c08paxa"]
+
+[ext_resource type="Script" uid="uid://cfrqk2dk827pe" path="res://objects/pickup.gd" id="1_goap3"]
+[ext_resource type="Texture2D" uid="uid://d1gvng1c3n337" path="res://assets/Objects/apple.png" id="2_nrjlr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4uxp7"]
+radius = 5.0
+
+[node name="Apple" type="Area2D" unique_id=176108950 groups=["pickup_item"]]
+script = ExtResource("1_goap3")
+item_name = "apple"
+item_texture = ExtResource("2_nrjlr")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=978272734]
+texture = ExtResource("2_nrjlr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=903711470]
+shape = SubResource("CircleShape2D_4uxp7")
