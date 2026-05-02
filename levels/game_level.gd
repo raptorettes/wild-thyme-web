@@ -73,10 +73,10 @@ func _on_gate3_area_exited(body):
 		GatePrompt.hide_prompt()
 
 func _input(event):
-	if event.is_action("ui_page_up") and $Camera2D.zoom < maxZoom:
-		$Camera2D.zoom += zoomStep
-	if event.is_action("ui_page_down") and $Camera2D.zoom > minZoom:
-		$Camera2D.zoom -= zoomStep
+	#if event.is_action("ui_page_up") and $Camera2D.zoom < maxZoom:
+		#$Camera2D.zoom += zoomStep
+	#if event.is_action("ui_page_down") and $Camera2D.zoom > minZoom:
+		#$Camera2D.zoom -= zoomStep
 	
 	if event is InputEventKey and event.pressed:
 		if event.keycode == KEY_ESCAPE:
