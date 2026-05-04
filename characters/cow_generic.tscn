@@ -304,8 +304,9 @@ collision_layer = 2
 script = ExtResource("1_2k2mb")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
-path_desired_distance = 10.0
+path_desired_distance = 24.0
 target_desired_distance = 20.0
+path_max_distance = 64.0
 path_postprocessing = 1
 avoidance_enabled = true
 debug_enabled = true

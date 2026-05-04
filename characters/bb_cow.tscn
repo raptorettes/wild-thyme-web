@@ -363,6 +363,5 @@ behavior_tree = ExtResource("3_ukr8t")
 blackboard_plan = SubResource("BlackboardPlan_wbjck")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=127740589]
-path_postprocessing = 1
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

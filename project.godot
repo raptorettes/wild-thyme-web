@@ -147,6 +147,10 @@ cursor_down={
 ]
 }
 
+[navigation]
+
+2d/merge_rasterizer_cell_scale=0.5
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
