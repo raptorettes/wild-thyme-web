@@ -152,7 +152,7 @@ func trigger_night(enclosure: Area2D):
 	
 	# Get exit point BEFORE waking animals
 	var exit_pos = Vector2.ZERO
-	exit_pos = get_nearest_node_in_group("enclosure_exit", enclosure.position).global_position
+	exit_pos = get_nearest_node_in_group("enclosure_exit", enclosure.global_position).global_position
 	
 	# Wake all animals with exit position
 	# var cows = get_tree().root.find_children("*")

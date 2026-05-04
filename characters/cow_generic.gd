@@ -137,7 +137,7 @@ func go_to_sleep():
 
 func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 	is_sleeping = false
-	var delay = randf_range(0.5, 8.0)
+	var delay = randf_range(0.5, 6.0)
 	await get_tree().create_timer(delay).timeout
 	state_machine.travel("get_up")
 	await get_tree().create_timer(get_up_duration).timeout
