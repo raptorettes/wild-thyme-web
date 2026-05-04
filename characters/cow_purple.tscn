@@ -297,7 +297,7 @@ radius = 15.033297
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_t8qks"]
 
-[node name="Cow" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
+[node name="CowGeneric" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
 light_mask = 2
 script = ExtResource("1_dg1ru")
 move_speed = 30.0
@@ -307,8 +307,11 @@ mouse_flee_radius = 50.0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
 path_desired_distance = 10.0
 target_desired_distance = 20.0
+path_postprocessing = 1
+avoidance_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
+unique_name_in_owner = true
 light_mask = 2
 position = Vector2(0, -12)
 texture = ExtResource("2_dg1ru")

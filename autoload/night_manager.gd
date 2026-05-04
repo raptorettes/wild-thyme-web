@@ -152,16 +152,11 @@ func trigger_night(enclosure: Area2D):
 	
 	# Get exit point BEFORE waking animals
 	var exit_pos = Vector2.ZERO
-	var exits = get_tree().get_nodes_in_group("enclosure_exit")
-	for exit in exits:
-		if exit.name == "EnclosureExit1" and current_enclosure.name == "Enclosure1":
-			exit_pos = exit.global_position
-		elif exit.name == "EnclosureExit2" and current_enclosure.name == "Enclosure2":
-			exit_pos = exit.global_position
-		elif exit.name == "EnclosureExit3" and current_enclosure.name == "Enclosure3":
-			exit_pos = exit.global_position
-
+	exit_pos = get_nearest_node_in_group("enclosure_exit", enclosure.global_position).global_position
+	
 	# Wake all animals with exit position
+	# var cows = get_tree().root.find_children("*")
+	
 	var waking_animals = get_tree().get_nodes_in_group("animals")
 	for animal in waking_animals:
 		if animal.has_method("wake_up"):
@@ -308,13 +303,6 @@ func _spawn_baby_cow(parent_cow):
 	baby.happiness = 0.7
 	baby.herd_cohesion = 0.6
 	get_tree().current_scene.add_child(baby)
-	print("=== BABY COW BORN ===")
-	print("position: ", baby.global_position)
-	print("happiness: ", baby.happiness)
-	print("herd_cohesion: ", baby.herd_cohesion)
-	print("has BTPlayer: ", baby.has_node("BTPlayer"))
-	print("BTPlayer active: ", baby.get_node("BTPlayer").active if baby.has_node("BTPlayer") else "NO BTPLAYER")
-	print("groups: ", baby.get_groups())
 	
 	# Wait for full initialisation then swap texture
 	await get_tree().process_frame
@@ -328,3 +316,8 @@ func _spawn_baby_cow(parent_cow):
 	]
 	var tex = baby_textures[randi() % baby_textures.size()]
 	baby.sprite.texture = tex
+	
+func get_nearest_node_in_group(group, position):
+	var nodes = get_tree().get_nodes_in_group(group)
+	nodes.sort_custom( func(a,b): return a.global_position.distance_to(position)<b.global_position.distance_to(position) )
+	return nodes[0]

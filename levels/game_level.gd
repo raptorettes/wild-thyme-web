@@ -89,11 +89,11 @@ func _input(event):
 			else:
 				pause_menu.open()
 		if event.keycode == KEY_E:
-			if _player_near_gate1():
+			if _player_in_area(night_trigger1):
 				_rest_message("Everyone's settling down for the night...", $Enclosure1, $Enclosure1/CollisionShape2D)
-			elif _player_near_gate2():
+			elif _player_in_area(night_trigger2):
 				_rest_message("Everyone's settling down...", $Enclosure2, $Enclosure2/CollisionShape2D)
-			elif _player_near_gate3():
+			elif _player_in_area(night_trigger3):
 				_rest_message("Everyone's settling down for the night...", $Enclosure3, $Enclosure3/CollisionShape2D)
 				
 func _rest_message(message: String, node: Area2D, focusNode: CollisionShape2D):
@@ -106,23 +106,11 @@ func _rest_message(message: String, node: Area2D, focusNode: CollisionShape2D):
 	$NightCamera.follow_target = focusNode
 	NightManager.trigger_night(node)
 
-func _player_near_gate1() -> bool:
+func _player_in_area(area: Area2D) -> bool:
 	var player = get_tree().get_first_node_in_group("player")
 	if player == null:
 		return false
-	return player in night_trigger1.get_overlapping_bodies()
-
-func _player_near_gate2() -> bool:
-	var player = get_tree().get_first_node_in_group("player")
-	if player == null:
-		return false
-	return player in night_trigger2.get_overlapping_bodies()
-
-func _player_near_gate3() -> bool:
-	var player = get_tree().get_first_node_in_group("player")
-	if player == null:
-		return false
-	return player in night_trigger3.get_overlapping_bodies()
+	return player in area.get_overlapping_bodies()
 
 func _on_bb_cow_found_cow() -> void:
 	$TheLabels/TheLabel.text = "FOUND THE COW"

@@ -306,6 +306,11 @@ flee_speed = 40.0
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
 path_desired_distance = 10.0
 target_desired_distance = 20.0
+path_postprocessing = 1
+path_search_max_distance = 30.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(1, 0, 0, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 position = Vector2(0, -12)
@@ -328,14 +333,12 @@ anim_player = NodePath("../AnimationPlayer")
 [node name="Timer" type="Timer" parent="." unique_id=2131740869]
 
 [node name="LoveArea" type="Area2D" parent="." unique_id=1886024902]
-visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LoveArea" unique_id=2098283078]
-position = Vector2(1, 4)
+position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_5wucx")
 
 [node name="CowDetector" type="Area2D" parent="." unique_id=48888518]
-visible = false
 position = Vector2(0, -11)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=970503130]

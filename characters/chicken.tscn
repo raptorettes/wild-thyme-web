@@ -347,5 +347,6 @@ behavior_tree = ExtResource("3_b7ce8")
 blackboard_plan = SubResource("BlackboardPlan_hexpo")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1669450514]
+path_postprocessing = 1
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
