@@ -1,9 +1,13 @@
-[gd_scene format=3 uid="uid://cbaqi5jmi17cc"]
+[gd_scene format=3 uid="uid://4gpa0f74sqc1"]
 
-[ext_resource type="Script" uid="uid://brcyb8glo2cih" path="res://characters/cow_generic.gd" id="1_2k2mb"]
-[ext_resource type="Texture2D" uid="uid://cc10qlxyphodn" path="res://assets/Animals/Cow/purple-cow-sprites.png" id="2_vc6la"]
-[ext_resource type="BehaviorTree" uid="uid://q1ddoiy4u1l2" path="res://ai/trees/cow.tres" id="3_vwwy3"]
-[ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="4_vc6la"]
+[ext_resource type="Script" uid="uid://ocgxy6xwd55j" path="res://characters/cow_herdable.gd" id="1_rl5um"]
+[ext_resource type="Texture2D" uid="uid://cc10qlxyphodn" path="res://assets/Animals/Cow/purple-cow-sprites.png" id="2_bkqrt"]
+[ext_resource type="Script" uid="uid://bnstdpl1kngws" path="res://ai/tasks/actions/pick_wander_destination.gd" id="3_bkqrt"]
+[ext_resource type="Script" uid="uid://c5f0dees6qgah" path="res://ai/tasks/conditions/bt_check_mouse_nearby.gd" id="3_whvud"]
+[ext_resource type="Script" uid="uid://bhie7s0yu5fhk" path="res://ai/tasks/actions/pick_flee_destination.gd" id="4_2vl37"]
+[ext_resource type="Script" uid="uid://b22uf88petnxk" path="res://ai/tasks/actions/bt_herdable_flee.gd" id="4_10l4l"]
+[ext_resource type="Script" uid="uid://bft2sbny71am5" path="res://ai/tasks/actions/walk_to_destination.gd" id="4_i7h0f"]
+[ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="4_whvud"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vc6la"]
 radius = 6.0
@@ -296,17 +300,59 @@ radius = 24.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_t8fki"]
 radius = 15.033297
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_bkqrt"]
+
+[sub_resource type="BTCondition" id="BTCondition_2vl37"]
+script = ExtResource("3_whvud")
+
+[sub_resource type="BTAction" id="BTAction_e4ek4"]
+custom_name = "PickFleeDestination"
+script = ExtResource("4_2vl37")
+flee_distance = 50.0
+
+[sub_resource type="BTAction" id="BTAction_2vl37"]
+script = ExtResource("4_10l4l")
+flee_speed = 40.0
+
+[sub_resource type="BTSequence" id="BTSequence_e4ek4"]
+custom_name = "Flee"
+children = [SubResource("BTCondition_2vl37"), SubResource("BTAction_e4ek4"), SubResource("BTAction_2vl37")]
+
+[sub_resource type="BTAction" id="BTAction_2r2sf"]
+script = ExtResource("3_bkqrt")
+
+[sub_resource type="BTAction" id="BTAction_10l4l"]
+script = ExtResource("4_i7h0f")
+
+[sub_resource type="BTSequence" id="BTSequence_60ou7"]
+custom_name = "Wander"
+children = [SubResource("BTAction_2r2sf"), SubResource("BTAction_10l4l")]
+
+[sub_resource type="BTSelector" id="BTSelector_whvud"]
+children = [SubResource("BTSequence_60ou7")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_iws4x"]
+children = [SubResource("BTSequence_e4ek4"), SubResource("BTSelector_whvud")]
+
+[sub_resource type="BTRepeat" id="BTRepeat_whvud"]
+forever = true
+children = [SubResource("BTDynamicSelector_iws4x")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_2vl37"]
+blackboard_plan = SubResource("BlackboardPlan_bkqrt")
+root_task = SubResource("BTRepeat_whvud")
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_t8qks"]
 
-[node name="CowGeneric" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
+[node name="CowHerdable" type="CharacterBody2D" unique_id=1245950768 groups=["animals"]]
 light_mask = 2
 collision_layer = 2
-script = ExtResource("1_2k2mb")
+script = ExtResource("1_rl5um")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
 path_postprocessing = 1
 simplify_path = true
-simplify_epsilon = 0.584
+simplify_epsilon = 5.064
 radius = 0.01
 debug_enabled = true
 debug_use_custom = true
@@ -315,7 +361,7 @@ debug_path_custom_color = Color(0, 0, 1, 1)
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 light_mask = 2
 position = Vector2(0, -12)
-texture = ExtResource("2_vc6la")
+texture = ExtResource("2_bkqrt")
 hframes = 8
 vframes = 8
 
@@ -349,7 +395,7 @@ position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_t8fki")
 
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=29846508]
-behavior_tree = ExtResource("3_vwwy3")
+behavior_tree = SubResource("BehaviorTree_2vl37")
 blackboard_plan = SubResource("BlackboardPlan_t8qks")
 
 [node name="Label" type="Label" parent="." unique_id=1122131045]
@@ -357,7 +403,7 @@ offset_left = 2.0
 offset_top = -7.0
 offset_right = 42.0
 offset_bottom = 16.0
-theme_override_fonts/font = ExtResource("4_vc6la")
+theme_override_fonts/font = ExtResource("4_whvud")
 theme_override_font_sizes/font_size = 8
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

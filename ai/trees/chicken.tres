@@ -8,6 +8,11 @@
 [ext_resource type="Script" uid="uid://6kafldyhiiqk" path="res://ai/tasks/actions/bt_play_idle.gd" id="6_kbybk"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_b7ce8"]
+var/nav_region/name = &"nav_region"
+var/nav_region/type = 22
+var/nav_region/value = NodePath("")
+var/nav_region/hint = 0
+var/nav_region/hint_string = ""
 
 [sub_resource type="BTCondition" id="BTCondition_608vt"]
 script = ExtResource("1_kbybk")

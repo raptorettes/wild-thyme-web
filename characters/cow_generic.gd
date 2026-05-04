@@ -3,7 +3,7 @@ extends CharacterBody2D
 enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 @export var color_index: int = 0
 
-@export var move_speed: float = 20
+@export var move_speed: float = 10
 @export var flee_speed: float = 35.0
 @export var mouse_flee_radius: float = 40.0
 @export var player_flee_radius: float = 70.0
@@ -20,15 +20,17 @@ enum COW_STATE { IDLE, WALK, REST, GRAZE, CHEW, LOVE, FLEE, SLEEPING }
 @export var herd_cohesion: float = 0.0
 @export var is_wanderer: bool = false
 @export var cow_name: String = ""
+@export var target_distance: int = 20
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
 @onready var sprite = $Sprite2D
-@onready var nav_agent = $NavigationAgent2D
+@onready var nav_agent : NavigationAgent2D = $NavigationAgent2D
 
 var current_state: COW_STATE = COW_STATE.IDLE
 var is_sleeping: bool = false
 var birth_ready: bool = false
+var direction: Vector2 = Vector2.ZERO
 
 func _ready():
 	randomize()
@@ -66,7 +68,15 @@ func _physics_process(_delta):
 	
 	if is_stationary:
 		velocity = Vector2.ZERO
-	
+		
+	if current_state == COW_STATE.WALK:
+		if direction.x == 0:
+			sprite.flip_h = true
+		elif direction.x < 0:
+			sprite.flip_h = true
+		elif direction.x > 0:
+			sprite.flip_h = false
+
 	# Player avoidance — not during flee
 	if current_state != COW_STATE.FLEE:
 		var player = get_tree().get_first_node_in_group("player")
@@ -79,7 +89,6 @@ func _physics_process(_delta):
 					velocity += push_away * push_strength * 5.0
 				else:
 					velocity = velocity.lerp(push_away * push_strength * 1.0, 0.3)
-	
 	move_and_slide()
 
 func set_behaviour_state(state_name: String):
@@ -135,6 +144,20 @@ func go_to_sleep():
 	state_machine.travel("sleep")
 	is_sleeping = true
 
+func has_reached(pos: Vector2 = Vector2.ZERO):
+	if pos != Vector2.ZERO:
+		return global_position.distance_to(pos) > target_distance
+
+func move_toward(pos: Vector2 = Vector2.ZERO): 
+	if pos != Vector2.ZERO:
+		nav_agent.target_position = pos
+		while global_position.distance_to(pos) > target_distance:
+			direction = (nav_agent.get_next_path_position() - global_position).normalized()
+			velocity = direction * move_speed
+
+			move_and_slide()
+			await get_tree().process_frame
+
 func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 	is_sleeping = false
 	var delay = randf_range(0.5, 6.0)
@@ -151,14 +174,6 @@ func wake_up(exit_pos: Vector2 = Vector2.ZERO):
 			var dir = (next - global_position).normalized()
 			velocity = dir * move_speed
 			move_and_slide()
-			
-			# Play walk animation
-			state_machine.travel(get_anim("walk"))
-			if dir.x < 0:
-				sprite.flip_h = true
-			elif dir.x > 0:
-				sprite.flip_h = false
-			
 			await get_tree().process_frame
 	
 		# Moved to limbo AI 

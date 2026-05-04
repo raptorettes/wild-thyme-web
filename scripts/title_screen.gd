@@ -33,7 +33,7 @@ func _ready():
 func _input(event):
 	if not can_start:
 		return
-	if event is InputEventKey and event.pressed:
+	if event is InputEventKey and event.is_pressed():
 		_start_game()
 	elif event is InputEventMouseButton and event.pressed:
 		_start_game()

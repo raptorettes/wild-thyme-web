@@ -2,6 +2,7 @@ extends BTAction
 
 var _timeout: float = 0.0
 @export var max_walk_time: float = 8.0
+@export var move_speed: float = 20.0
 
 func _enter() -> void:
 	_timeout = 0.0
@@ -21,7 +22,7 @@ func _tick(delta: float) -> int:
 	var direction = (next_pos - cow.global_position).normalized()
 	
 	cow.velocity = direction * cow.move_speed
-	cow.current_state = cow.COW_STATE.WALK
+	cow.move_speed = move_speed
 	cow.state_machine.travel("walk_right")
 	
 	if direction.x < 0:
