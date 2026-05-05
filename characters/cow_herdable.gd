@@ -13,6 +13,7 @@ var favourite_spot : Vector2 = Vector2.ZERO
 var is_fleeing : bool = false
 @export var move_speed = 30.0
 @export var flee_speed = 45.0
+@export var skittishness = 1.0
 
 func _ready() -> void:
 	randomize()

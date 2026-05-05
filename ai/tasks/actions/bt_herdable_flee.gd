@@ -41,10 +41,10 @@ func _tick(delta: float) -> int:
 	var clamped_angle = clamp(angle_to_flee, -max_rad, max_rad)
 	var move_dir = nav_dir.rotated(clamped_angle)
 
-	animal.velocity = move_dir * animal.flee_speed
+	animal.velocity = move_dir * (animal.flee_speed * animal.skittishness)
 	animal.move_and_slide()
 
-	if move_dir.x < 0:
+	if move_dir.x <= 0:
 		animal.sprite.flip_h = true
 	elif move_dir.x > 0:
 		animal.sprite.flip_h = false
@@ -76,5 +76,6 @@ func _draw_debug(animal: Node2D, nav_dir: Vector2, flee_dir: Vector2, move_dir: 
 func _exit() -> void:
 	var animal = scene_root
 	animal.is_fleeing = false
-	animal.state_machine.travel("idle")
+	animal.skittishness = 1.0
+	animal.state_machine.travel("idle_right")
 	animal.anim_player.speed_scale = 1.0

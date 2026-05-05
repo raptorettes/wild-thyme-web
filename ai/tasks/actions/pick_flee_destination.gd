@@ -11,7 +11,8 @@ func _tick(_delta: float) -> int:
 
 	var mouse_pos = player.world_mouse_pos
 	var flee_dir = (cow.global_position - mouse_pos).normalized()
-	var target = cow.global_position + flee_dir * flee_distance
+	var target = cow.global_position + flee_dir * (flee_distance * cow.skittishness)
 
 	cow.nav_agent.target_position = target
+	cow.skittishness *= 1.05
 	return SUCCESS

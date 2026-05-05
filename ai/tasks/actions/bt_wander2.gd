@@ -14,9 +14,8 @@ func _enter() -> void:
 
 func _tick(delta: float) -> Status:
 	if _cow.is_navigation_finished():
-		_cow.set_anim_state("idle")
 		return SUCCESS
 	return RUNNING
 
 func _exit() -> void:
-	_cow.set_anim_state("idle")
+	_cow.set_anim_state("idle_right")

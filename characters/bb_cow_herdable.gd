@@ -12,6 +12,7 @@ var favourite_spot : Vector2 = Vector2.ZERO
 var is_fleeing : bool = false
 @export var move_speed = 45.0
 @export var flee_speed = 60.0
+@export var skittishness = 1.0
 
 	
 func move_to(target: Vector2) -> void:
