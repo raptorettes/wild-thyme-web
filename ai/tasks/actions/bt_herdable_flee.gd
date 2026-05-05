@@ -9,7 +9,7 @@ extends BTAction
 var _elapsed: float = 0.0
 
 func _enter() -> void:
-	_elapsed = 0.0
+	_elapsed = 0.0 + randf_range(-0.3, 0.3) #jitter
 
 func _tick(delta: float) -> int:
 	_elapsed += delta
