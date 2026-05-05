@@ -1,0 +1,66 @@
+[gd_resource type="BehaviorTree" format=3 uid="uid://delb5mdr08qse"]
+
+[ext_resource type="Script" uid="uid://c5f0dees6qgah" path="res://ai/tasks/conditions/bt_check_mouse_nearby.gd" id="1_kply4"]
+[ext_resource type="Script" uid="uid://bhie7s0yu5fhk" path="res://ai/tasks/actions/pick_flee_destination.gd" id="2_31j51"]
+[ext_resource type="Script" uid="uid://b22uf88petnxk" path="res://ai/tasks/actions/bt_herdable_flee.gd" id="3_qs0f7"]
+[ext_resource type="Script" uid="uid://bnstdpl1kngws" path="res://ai/tasks/actions/pick_wander_destination.gd" id="4_3rh1n"]
+[ext_resource type="Script" uid="uid://bft2sbny71am5" path="res://ai/tasks/actions/walk_to_destination.gd" id="5_meec1"]
+[ext_resource type="Script" uid="uid://c5k3knxu5ibgh" path="res://ai/tasks/actions/bt_herdable_graze.gd" id="6_j4rqc"]
+
+[sub_resource type="BTCondition" id="BTCondition_37re4"]
+script = ExtResource("1_kply4")
+mouse_flee_radius = 80.0
+
+[sub_resource type="BTAction" id="BTAction_6r6wg"]
+custom_name = "PickFleeDestination"
+script = ExtResource("2_31j51")
+flee_distance = 70.0
+
+[sub_resource type="BTAction" id="BTAction_chj05"]
+script = ExtResource("3_qs0f7")
+veer = 60.0
+debug = false
+max_flee_duration = 1.8
+
+[sub_resource type="BTSequence" id="BTSequence_qqu62"]
+custom_name = "Flee"
+children = [SubResource("BTCondition_37re4"), SubResource("BTAction_6r6wg"), SubResource("BTAction_chj05")]
+
+[sub_resource type="BTAction" id="BTAction_iltto"]
+script = ExtResource("4_3rh1n")
+
+[sub_resource type="BTAction" id="BTAction_qysnh"]
+script = ExtResource("5_meec1")
+
+[sub_resource type="BTSequence" id="BTSequence_jq0je"]
+custom_name = "Wander"
+children = [SubResource("BTAction_iltto"), SubResource("BTAction_qysnh")]
+metadata/_weight_ = 0.25
+
+[sub_resource type="BTDelay" id="BTDelay_qyi4b"]
+seconds = 0.5
+children = [SubResource("BTSequence_jq0je")]
+metadata/_weight_ = 0.25
+
+[sub_resource type="BTAction" id="BTAction_cmsco"]
+script = ExtResource("6_j4rqc")
+
+[sub_resource type="BTSequence" id="BTSequence_v7tq0"]
+custom_name = "Graze"
+children = [SubResource("BTAction_cmsco")]
+
+[sub_resource type="BTDelay" id="BTDelay_132q5"]
+seconds = 0.5
+children = [SubResource("BTSequence_v7tq0")]
+
+[sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_il4qt"]
+children = [SubResource("BTDelay_qyi4b"), SubResource("BTDelay_132q5")]
+
+[sub_resource type="BTSequence" id="BTSequence_a2sip"]
+children = [SubResource("BTProbabilitySelector_il4qt")]
+
+[sub_resource type="BTDynamicSelector" id="BTDynamicSelector_p1ebh"]
+children = [SubResource("BTSequence_qqu62"), SubResource("BTSequence_a2sip")]
+
+[resource]
+root_task = SubResource("BTDynamicSelector_p1ebh")

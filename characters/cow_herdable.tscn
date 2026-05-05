@@ -1,9 +1,9 @@
-[gd_scene format=3 uid="uid://cbaqi5jmi17cc"]
+[gd_scene format=3 uid="uid://4gpa0f74sqc1"]
 
-[ext_resource type="Script" uid="uid://brcyb8glo2cih" path="res://characters/cow_generic.gd" id="1_2k2mb"]
-[ext_resource type="Texture2D" uid="uid://cc10qlxyphodn" path="res://assets/Animals/Cow/purple-cow-sprites.png" id="2_vc6la"]
-[ext_resource type="BehaviorTree" uid="uid://q1ddoiy4u1l2" path="res://ai/trees/cow.tres" id="3_vwwy3"]
-[ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="4_vc6la"]
+[ext_resource type="Script" uid="uid://ocgxy6xwd55j" path="res://characters/cow_herdable.gd" id="1_rl5um"]
+[ext_resource type="Texture2D" uid="uid://cc10qlxyphodn" path="res://assets/Animals/Cow/purple-cow-sprites.png" id="2_bkqrt"]
+[ext_resource type="BehaviorTree" uid="uid://delb5mdr08qse" path="res://ai/trees/bst_basic_cow.tres" id="3_rl5um"]
+[ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="4_whvud"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_vc6la"]
 radius = 6.0
@@ -288,7 +288,7 @@ states/sleep/position = Vector2(1253, 87)
 states/walk_right/node = SubResource("AnimationNodeAnimation_t8fki")
 states/walk_right/position = Vector2(480, 100)
 transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_t8qks"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_unut8"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_0h17f"), "walk_right", "graze_right", SubResource("AnimationNodeStateMachineTransition_s32nw"), "graze_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_3j5tr"), "graze_right", "chew", SubResource("AnimationNodeStateMachineTransition_fh3vp"), "chew", "graze_right", SubResource("AnimationNodeStateMachineTransition_rg7hg"), "chew", "rest", SubResource("AnimationNodeStateMachineTransition_r3n4y"), "rest", "chew", SubResource("AnimationNodeStateMachineTransition_b66ct"), "rest", "love", SubResource("AnimationNodeStateMachineTransition_3l2yh"), "love", "rest", SubResource("AnimationNodeStateMachineTransition_87ri1"), "love", "get_down", SubResource("AnimationNodeStateMachineTransition_wfo2c"), "get_down", "love", SubResource("AnimationNodeStateMachineTransition_y4opc"), "get_down", "sleep", SubResource("AnimationNodeStateMachineTransition_pfofr"), "sleep", "get_down", SubResource("AnimationNodeStateMachineTransition_owtl3"), "sleep", "get_up", SubResource("AnimationNodeStateMachineTransition_q7cx5"), "get_up", "sleep", SubResource("AnimationNodeStateMachineTransition_mdegj")]
-graph_offset = Vector2(696.3287, 0)
+graph_offset = Vector2(-25.892906, 58.13407)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5wucx"]
 radius = 24.0
@@ -296,26 +296,43 @@ radius = 24.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_t8fki"]
 radius = 15.033297
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_bkqrt"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_i7h0f"]
+
+[sub_resource type="BTSubtree" id="BTSubtree_whvud"]
+subtree = ExtResource("3_rl5um")
+blackboard_plan = SubResource("BlackboardPlan_i7h0f")
+
+[sub_resource type="BTRepeat" id="BTRepeat_whvud"]
+forever = true
+children = [SubResource("BTSubtree_whvud")]
+
+[sub_resource type="BehaviorTree" id="BehaviorTree_2vl37"]
+blackboard_plan = SubResource("BlackboardPlan_bkqrt")
+root_task = SubResource("BTRepeat_whvud")
+
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_t8qks"]
 
-[node name="CowGeneric" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
+[node name="CowHerdable" type="CharacterBody2D" unique_id=1245950768]
 light_mask = 2
 collision_layer = 2
-script = ExtResource("1_2k2mb")
+collision_mask = 7
+script = ExtResource("1_rl5um")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
+path_desired_distance = 10.0
+path_max_distance = 200.0
 path_postprocessing = 1
-simplify_path = true
-simplify_epsilon = 0.584
-radius = 0.01
+avoidance_enabled = true
+radius = 30.83
+time_horizon_obstacles = 0.67
 debug_enabled = true
-debug_use_custom = true
-debug_path_custom_color = Color(0, 0, 1, 1)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 light_mask = 2
 position = Vector2(0, -12)
-texture = ExtResource("2_vc6la")
+texture = ExtResource("2_bkqrt")
 hframes = 8
 vframes = 8
 
@@ -349,7 +366,7 @@ position = Vector2(0, 4)
 shape = SubResource("CircleShape2D_t8fki")
 
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=29846508]
-behavior_tree = ExtResource("3_vwwy3")
+behavior_tree = SubResource("BehaviorTree_2vl37")
 blackboard_plan = SubResource("BlackboardPlan_t8qks")
 
 [node name="Label" type="Label" parent="." unique_id=1122131045]
@@ -357,7 +374,7 @@ offset_left = 2.0
 offset_top = -7.0
 offset_right = 42.0
 offset_bottom = 16.0
-theme_override_fonts/font = ExtResource("4_vc6la")
+theme_override_fonts/font = ExtResource("4_whvud")
 theme_override_font_sizes/font_size = 8
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

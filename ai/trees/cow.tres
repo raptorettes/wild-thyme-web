@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ddbngs5f38hye" path="res://ai/tasks/conditions/check_herd_panic.gd" id="3_u1mq5"]
 [ext_resource type="Script" uid="uid://bvxvgox0iubh0" path="res://ai/tasks/actions/bt_flee_from_panic.gd" id="4_aq1ci"]
 [ext_resource type="Script" uid="uid://rn5d413leyg1" path="res://ai/tasks/actions/bt_rest.gd" id="4_y616i"]
+[ext_resource type="Script" uid="uid://ddiqj5u563n26" path="res://ai/tasks/actions/bt_wander.gd" id="8_y616i"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ui7ju"]
 
@@ -20,6 +21,7 @@ script = ExtResource("2_y616i")
 [sub_resource type="BTSequence" id="BTSequence_wqi5g"]
 custom_name = "flee"
 children = [SubResource("BTCondition_mxkk4"), SubResource("BTAction_48fud")]
+_enabled = false
 
 [sub_resource type="BTCondition" id="BTCondition_48fud"]
 script = ExtResource("3_u1mq5")
@@ -28,28 +30,32 @@ script = ExtResource("3_u1mq5")
 script = ExtResource("4_aq1ci")
 
 [sub_resource type="BTAction" id="BTAction_wyeeb"]
-script = ExtResource("1_2wcc0")
+script = ExtResource("8_y616i")
 
 [sub_resource type="BTAction" id="BTAction_8m06y"]
-script = ExtResource("1_2wcc0")
+script = ExtResource("8_y616i")
 
 [sub_resource type="BTAction" id="BTAction_7urmg"]
-script = ExtResource("1_2wcc0")
-
-[sub_resource type="BTAction" id="BTAction_81qfr"]
-script = ExtResource("1_2wcc0")
+script = ExtResource("8_y616i")
 
 [sub_resource type="BTSequence" id="BTSequence_wyeeb"]
 custom_name = "herd panic"
-children = [SubResource("BTCondition_48fud"), SubResource("BTAction_wqi5g"), SubResource("BTAction_wyeeb"), SubResource("BTAction_8m06y"), SubResource("BTAction_7urmg"), SubResource("BTAction_81qfr")]
+children = [SubResource("BTCondition_48fud"), SubResource("BTAction_wqi5g"), SubResource("BTAction_wyeeb"), SubResource("BTAction_8m06y"), SubResource("BTAction_7urmg")]
+_enabled = false
 
 [sub_resource type="BTAction" id="BTAction_ym1yg"]
+_enabled = false
 script = ExtResource("2_lpmjd")
 
 [sub_resource type="BTAction" id="BTAction_lpmjd"]
+_enabled = false
 script = ExtResource("4_y616i")
 
+[sub_resource type="BTAction" id="BTAction_qhxsr"]
+script = ExtResource("8_y616i")
+
 [sub_resource type="BTAction" id="BTAction_u1mq5"]
+_enabled = false
 script = ExtResource("1_2wcc0")
 
 [sub_resource type="BTAction" id="BTAction_y616i"]
@@ -57,7 +63,7 @@ script = ExtResource("3_qqtlw")
 
 [sub_resource type="BTSequence" id="BTSequence_aq1ci"]
 custom_name = "wander"
-children = [SubResource("BTAction_u1mq5"), SubResource("BTAction_y616i")]
+children = [SubResource("BTAction_qhxsr"), SubResource("BTAction_u1mq5"), SubResource("BTAction_y616i")]
 
 [sub_resource type="BTAction" id="BTAction_aq1ci"]
 script = ExtResource("1_2wcc0")
@@ -68,6 +74,7 @@ script = ExtResource("3_qqtlw")
 [sub_resource type="BTSequence" id="BTSequence_48fud"]
 custom_name = "wander"
 children = [SubResource("BTAction_aq1ci"), SubResource("BTAction_mxkk4")]
+_enabled = false
 
 [sub_resource type="BTRandomSelector" id="BTRandomSelector_mxkk4"]
 children = [SubResource("BTAction_ym1yg"), SubResource("BTAction_lpmjd"), SubResource("BTSequence_aq1ci"), SubResource("BTSequence_48fud")]

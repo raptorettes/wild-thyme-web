@@ -12,8 +12,8 @@ func is_attracted(animal_tag: String) -> bool:
 		return false
 	return tags.has("all") or tags.has(animal_tag)
 
-func get_strength_at(position: Vector2) -> float:
-	var dist = global_position.distance_to(position)
+func get_strength_at(pos: Vector2) -> float:
+	var dist = global_position.distance_to(pos)
 	if dist > radius:
 		return 0.0
 	# Strength falls off with distance
