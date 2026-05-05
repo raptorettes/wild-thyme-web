@@ -1,24 +1,28 @@
 extends BTAction
 
 var _timeout: float = 0.0
+var cow : CharacterBody2D = null
+var nav_agent : NavigationAgent2D = null
+
 @export var max_walk_time: float = 8.0
 @export var move_speed: float = 20.0
 
 func _enter() -> void:
+	
+	cow = scene_root
+	nav_agent = cow.nav_agent
+	
 	_timeout = 0.0
 
 func _tick(delta: float) -> int:
-	var cow = scene_root
-	var agent = cow.nav_agent
-	
 	_timeout += delta
 	
 	# Give up after max_walk_time regardless
-	if agent.is_navigation_finished() or _timeout >= max_walk_time:
+	if nav_agent.is_navigation_finished() or _timeout >= max_walk_time:
 		cow.velocity = Vector2.ZERO
 		return SUCCESS
 	
-	var next_pos = agent.get_next_path_position()
+	var next_pos = nav_agent.get_next_path_position()
 	var direction = (next_pos - cow.global_position).normalized()
 	
 	cow.velocity = direction * cow.move_speed
@@ -31,3 +35,6 @@ func _tick(delta: float) -> int:
 		cow.sprite.flip_h = false
 	
 	return RUNNING
+	
+func _exit() -> void:
+	cow.state_machine.travel("idle")
