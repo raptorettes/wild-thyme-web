@@ -11,6 +11,7 @@ var _chewing: bool = false
 func _enter() -> void:
 	var animal = scene_root
 	_duration = randf_range(min_time, max_time)
+	animal.nav_agent.target_position = animal.global_position
 	_timer = 0.0
 	_chewing = false
 	animal.state_machine.travel("graze_right")

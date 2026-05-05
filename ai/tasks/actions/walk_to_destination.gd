@@ -38,3 +38,4 @@ func _tick(delta: float) -> int:
 	
 func _exit() -> void:
 	cow.state_machine.travel("idle")
+	cow.nav_agent.target_position = cow.global_position

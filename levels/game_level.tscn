@@ -886,20 +886,25 @@ position = Vector2(365, 327)
 [node name="Chicken11" parent="." unique_id=1331313043 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(462, 64)
 
-[node name="CowHerdable" parent="." unique_id=171070726 instance=ExtResource("32_hrrti")]
+[node name="CowHerdable" parent="." unique_id=171070726 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
 position = Vector2(-376, -88)
+navigation_region = NodePath("../NavigationRegion2D")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1558688391]
 navigation_polygon = SubResource("NavigationPolygon_643jo")
 
-[node name="CowHerdable2" parent="." unique_id=1245950768 instance=ExtResource("32_hrrti")]
+[node name="CowHerdable2" parent="." unique_id=1245950768 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
 position = Vector2(-395, -116)
+navigation_region = NodePath("../NavigationRegion2D")
 
-[node name="CowHerdable3" parent="." unique_id=1145862563 instance=ExtResource("32_hrrti")]
+[node name="CowHerdable3" parent="." unique_id=1145862563 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
 position = Vector2(-374, -139)
+navigation_region = NodePath("../NavigationRegion2D")
 
-[node name="CowHerdable4" parent="." unique_id=1320082858 instance=ExtResource("32_hrrti")]
+[node name="CowHerdable4" parent="." unique_id=1320082858 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
 position = Vector2(-341, -100)
+navigation_region = NodePath("../NavigationRegion2D")
 
-[node name="CowHerdable5" parent="." unique_id=1208513473 instance=ExtResource("32_hrrti")]
+[node name="CowHerdable5" parent="." unique_id=1208513473 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
 position = Vector2(-388, -172)
+navigation_region = NodePath("../NavigationRegion2D")

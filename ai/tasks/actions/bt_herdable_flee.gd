@@ -77,4 +77,5 @@ func _draw_debug(animal: Node2D, nav_dir: Vector2, flee_dir: Vector2, move_dir: 
 func _exit() -> void:
 	var animal = scene_root
 	animal.is_fleeing = false
+	animal.state_machine.travel("idle")
 	animal.anim_player.speed_scale = 1.0

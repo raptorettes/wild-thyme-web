@@ -331,6 +331,11 @@ custom_name = "Wander"
 children = [SubResource("BTAction_2r2sf"), SubResource("BTAction_10l4l")]
 metadata/_weight_ = 0.25
 
+[sub_resource type="BTDelay" id="BTDelay_2vl37"]
+seconds = 0.5
+children = [SubResource("BTSequence_60ou7")]
+metadata/_weight_ = 0.25
+
 [sub_resource type="BTAction" id="BTAction_60ou7"]
 script = ExtResource("8_2vl37")
 
@@ -338,11 +343,18 @@ script = ExtResource("8_2vl37")
 custom_name = "Graze"
 children = [SubResource("BTAction_60ou7")]
 
+[sub_resource type="BTDelay" id="BTDelay_2r2sf"]
+seconds = 0.5
+children = [SubResource("BTSequence_iws4x")]
+
 [sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_2vl37"]
-children = [SubResource("BTSequence_60ou7"), SubResource("BTSequence_iws4x")]
+children = [SubResource("BTDelay_2vl37"), SubResource("BTDelay_2r2sf")]
+
+[sub_resource type="BTSequence" id="BTSequence_ssuix"]
+children = [SubResource("BTProbabilitySelector_2vl37")]
 
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_iws4x"]
-children = [SubResource("BTSequence_e4ek4"), SubResource("BTProbabilitySelector_2vl37")]
+children = [SubResource("BTSequence_e4ek4"), SubResource("BTSequence_ssuix")]
 
 [sub_resource type="BTRepeat" id="BTRepeat_whvud"]
 forever = true
@@ -360,7 +372,7 @@ collision_layer = 2
 script = ExtResource("1_rl5um")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
-target_desired_distance = 5.0
+path_desired_distance = 10.0
 path_max_distance = 200.0
 path_postprocessing = 1
 simplify_path = true
