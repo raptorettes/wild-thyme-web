@@ -1,6 +1,6 @@
 extends BTAction
 
-@export var flee_distance: float = 35.0
+@export var flee_distance: float = 55.0
 
 func _tick(_delta: float) -> int:
 	var cow = agent  # use agent, not scene_root
