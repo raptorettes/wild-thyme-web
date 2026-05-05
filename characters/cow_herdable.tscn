@@ -304,15 +304,16 @@ radius = 15.033297
 
 [sub_resource type="BTCondition" id="BTCondition_2vl37"]
 script = ExtResource("3_whvud")
+mouse_flee_radius = 50.0
 
 [sub_resource type="BTAction" id="BTAction_e4ek4"]
 custom_name = "PickFleeDestination"
 script = ExtResource("4_2vl37")
-flee_distance = 50.0
 
 [sub_resource type="BTAction" id="BTAction_2vl37"]
 script = ExtResource("4_10l4l")
-flee_speed = 40.0
+flee_speed = 45.0
+veer = 60.0
 
 [sub_resource type="BTSequence" id="BTSequence_e4ek4"]
 custom_name = "Flee"
@@ -350,13 +351,11 @@ collision_layer = 2
 script = ExtResource("1_rl5um")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
+path_max_distance = 200.0
 path_postprocessing = 1
 simplify_path = true
 simplify_epsilon = 5.064
-radius = 0.01
-debug_enabled = true
-debug_use_custom = true
-debug_path_custom_color = Color(0, 0, 1, 1)
+avoidance_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 light_mask = 2
