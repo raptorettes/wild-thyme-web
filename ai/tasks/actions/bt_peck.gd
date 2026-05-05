@@ -10,7 +10,6 @@ func _enter() -> void:
 	var animal = scene_root
 	_duration = randf_range(min_time, max_time)
 	_timer = 0.0
-	animal.set_behaviour_state("peck")
 	animal.state_machine.travel(animal.get_anim("peck"))
 	animal.velocity = Vector2.ZERO
 

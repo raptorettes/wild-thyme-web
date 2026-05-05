@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://epvi6v6e0j6y"]
 
-[ext_resource type="Script" uid="uid://ct64h6v7jo7oo" path="res://characters/bb_cow_herdable.gd" id="1_ukr8t"]
+[ext_resource type="Script" path="res://characters/bb_cow_herdable.gd" id="1_ukr8t"]
 [ext_resource type="Texture2D" uid="uid://bkp4wkr1blkd0" path="res://assets/Animals/Cow_Baby/baby purple cow animations sprites.png" id="2_jxnyl"]
 [ext_resource type="BehaviorTree" uid="uid://delb5mdr08qse" path="res://ai/trees/bst_basic_cow.tres" id="3_wbjck"]
 

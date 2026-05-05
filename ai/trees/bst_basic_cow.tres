@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c5f0dees6qgah" path="res://ai/tasks/conditions/bt_check_mouse_nearby.gd" id="1_kply4"]
 [ext_resource type="Script" uid="uid://bhie7s0yu5fhk" path="res://ai/tasks/actions/pick_flee_destination.gd" id="2_31j51"]
-[ext_resource type="Script" uid="uid://b22uf88petnxk" path="res://ai/tasks/actions/bt_herdable_flee.gd" id="3_qs0f7"]
+[ext_resource type="Script" path="res://ai/tasks/actions/bt_herdable_flee.gd" id="3_qs0f7"]
 [ext_resource type="Script" uid="uid://bnstdpl1kngws" path="res://ai/tasks/actions/pick_wander_destination.gd" id="4_3rh1n"]
 [ext_resource type="Script" uid="uid://bft2sbny71am5" path="res://ai/tasks/actions/walk_to_destination.gd" id="5_meec1"]
-[ext_resource type="Script" uid="uid://c5k3knxu5ibgh" path="res://ai/tasks/actions/bt_herdable_graze.gd" id="6_j4rqc"]
+[ext_resource type="Script" path="res://ai/tasks/actions/bt_herdable_graze.gd" id="6_j4rqc"]
 
 [sub_resource type="BTCondition" id="BTCondition_37re4"]
 script = ExtResource("1_kply4")

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dx6m8ghifwkfb"]
 
+[ext_resource type="Script" uid="uid://nxee41fwyr24" path="res://characters/chicken_herdable.gd" id="1_b7ce8"]
 [ext_resource type="Texture2D" uid="uid://b2mjxnisrnxsb" path="res://assets/Animals/Chicken/chicken default.png" id="1_gn1oa"]
-[ext_resource type="Script" uid="uid://cck1n23nhfsm3" path="res://characters/chicken.gd" id="1_hexpo"]
 [ext_resource type="BehaviorTree" uid="uid://q6thhx3cfc31" path="res://ai/trees/chicken.tres" id="3_b7ce8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hexpo"]
@@ -296,11 +296,9 @@ animations = [{
 
 [node name="Chicken" type="CharacterBody2D" unique_id=775685339]
 collision_layer = 2
+collision_mask = 7
 input_pickable = true
-script = ExtResource("1_hexpo")
-move_speed = 45.0
-flee_speed = 50.0
-player_flee_radius = 40.0
+script = ExtResource("1_b7ce8")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=355742702]
 position = Vector2(1, -6)
@@ -348,5 +346,7 @@ blackboard_plan = SubResource("BlackboardPlan_hexpo")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1669450514]
 path_postprocessing = 1
+avoidance_enabled = true
+debug_enabled = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

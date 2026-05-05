@@ -1,11 +1,11 @@
 [gd_resource type="BehaviorTree" format=3 uid="uid://q6thhx3cfc31"]
 
 [ext_resource type="Script" uid="uid://c5f0dees6qgah" path="res://ai/tasks/conditions/bt_check_mouse_nearby.gd" id="1_kbybk"]
-[ext_resource type="Script" uid="uid://y7533e26c1c6" path="res://ai/tasks/actions/bt_flee.gd" id="2_ik1sy"]
+[ext_resource type="Script" uid="uid://cm3do5okxp24r" path="res://ai/tasks/actions/chick_pick_flee_destination.gd" id="2_kbybk"]
 [ext_resource type="Script" uid="uid://bfb0saatjqd4x" path="res://ai/tasks/actions/bt_peck.gd" id="3_8px3q"]
-[ext_resource type="Script" uid="uid://rn5d413leyg1" path="res://ai/tasks/actions/bt_rest.gd" id="4_kbybk"]
-[ext_resource type="Script" uid="uid://4h50l5ftu0p1" path="res://ai/tasks/actions/bt_chicken_walk.gd" id="5_kbybk"]
-[ext_resource type="Script" uid="uid://6kafldyhiiqk" path="res://ai/tasks/actions/bt_play_idle.gd" id="6_kbybk"]
+[ext_resource type="Script" uid="uid://u5j0ydibw5ye" path="res://ai/tasks/actions/bt_chick_herdable_flee.gd" id="3_kbybk"]
+[ext_resource type="Script" uid="uid://bnstdpl1kngws" path="res://ai/tasks/actions/pick_wander_destination.gd" id="4_bh75p"]
+[ext_resource type="Script" uid="uid://bft2sbny71am5" path="res://ai/tasks/actions/walk_to_destination.gd" id="5_04b4u"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_b7ce8"]
 var/nav_region/name = &"nav_region"
@@ -14,37 +14,55 @@ var/nav_region/value = NodePath("")
 var/nav_region/hint = 0
 var/nav_region/hint_string = ""
 
-[sub_resource type="BTCondition" id="BTCondition_608vt"]
+[sub_resource type="BTCondition" id="BTCondition_k88l5"]
 script = ExtResource("1_kbybk")
-
-[sub_resource type="BTAction" id="BTAction_k88l5"]
-script = ExtResource("2_ik1sy")
-
-[sub_resource type="BTSequence" id="BTSequence_rw7pm"]
-custom_name = "flee"
-children = [SubResource("BTCondition_608vt"), SubResource("BTAction_k88l5")]
-
-[sub_resource type="BTAction" id="BTAction_pftmv"]
-script = ExtResource("3_8px3q")
+mouse_flee_radius = 80.0
 
 [sub_resource type="BTAction" id="BTAction_ik1sy"]
-script = ExtResource("4_kbybk")
-
-[sub_resource type="BTAction" id="BTAction_sre4h"]
-script = ExtResource("5_kbybk")
+script = ExtResource("2_kbybk")
 
 [sub_resource type="BTAction" id="BTAction_8px3q"]
-script = ExtResource("6_kbybk")
+script = ExtResource("3_kbybk")
+
+[sub_resource type="BTSequence" id="BTSequence_vyunw"]
+custom_name = "Flee"
+children = [SubResource("BTCondition_k88l5"), SubResource("BTAction_ik1sy"), SubResource("BTAction_8px3q")]
+
+[sub_resource type="BTAction" id="BTAction_svrbv"]
+script = ExtResource("4_bh75p")
+
+[sub_resource type="BTAction" id="BTAction_f7g07"]
+script = ExtResource("5_04b4u")
 
 [sub_resource type="BTSequence" id="BTSequence_kunnc"]
-custom_name = "wander"
-children = [SubResource("BTAction_sre4h"), SubResource("BTAction_8px3q")]
+custom_name = "Wander"
+children = [SubResource("BTAction_svrbv"), SubResource("BTAction_f7g07")]
+metadata/_weight_ = 0.25
 
-[sub_resource type="BTRandomSelector" id="BTRandomSelector_ixttl"]
-children = [SubResource("BTAction_pftmv"), SubResource("BTAction_ik1sy"), SubResource("BTSequence_kunnc")]
+[sub_resource type="BTDelay" id="BTDelay_ixttl"]
+seconds = 0.5
+children = [SubResource("BTSequence_kunnc")]
+metadata/_weight_ = 0.25
+
+[sub_resource type="BTAction" id="BTAction_uglsi"]
+script = ExtResource("3_8px3q")
+
+[sub_resource type="BTSequence" id="BTSequence_jyvj6"]
+custom_name = "Graze"
+children = [SubResource("BTAction_uglsi")]
+
+[sub_resource type="BTDelay" id="BTDelay_4iggr"]
+seconds = 0.5
+children = [SubResource("BTSequence_jyvj6")]
+
+[sub_resource type="BTProbabilitySelector" id="BTProbabilitySelector_faqsk"]
+children = [SubResource("BTDelay_ixttl"), SubResource("BTDelay_4iggr")]
+
+[sub_resource type="BTSequence" id="BTSequence_1rv4t"]
+children = [SubResource("BTProbabilitySelector_faqsk")]
 
 [sub_resource type="BTDynamicSelector" id="BTDynamicSelector_ips5s"]
-children = [SubResource("BTSequence_rw7pm"), SubResource("BTRandomSelector_ixttl")]
+children = [SubResource("BTSequence_vyunw"), SubResource("BTSequence_1rv4t")]
 
 [sub_resource type="BTRepeat" id="BTRepeat_uglsi"]
 forever = true
