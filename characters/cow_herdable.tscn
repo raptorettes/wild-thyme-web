@@ -305,11 +305,12 @@ radius = 15.033297
 
 [sub_resource type="BTCondition" id="BTCondition_2vl37"]
 script = ExtResource("3_whvud")
-mouse_flee_radius = 50.0
+mouse_flee_radius = 80.0
 
 [sub_resource type="BTAction" id="BTAction_e4ek4"]
 custom_name = "PickFleeDestination"
 script = ExtResource("4_2vl37")
+flee_distance = 70.0
 
 [sub_resource type="BTAction" id="BTAction_2vl37"]
 script = ExtResource("4_10l4l")
@@ -369,16 +370,16 @@ root_task = SubResource("BTRepeat_whvud")
 [node name="CowHerdable" type="CharacterBody2D" unique_id=1245950768 groups=["animals"]]
 light_mask = 2
 collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_rl5um")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1129224646]
 path_desired_distance = 10.0
 path_max_distance = 200.0
 path_postprocessing = 1
-simplify_path = true
-simplify_epsilon = 5.064
 avoidance_enabled = true
-debug_enabled = true
+radius = 30.83
+time_horizon_obstacles = 0.67
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 light_mask = 2
