@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://ddbngs5f38hye" path="res://ai/tasks/conditions/check_herd_panic.gd" id="3_u1mq5"]
 [ext_resource type="Script" uid="uid://bvxvgox0iubh0" path="res://ai/tasks/actions/bt_flee_from_panic.gd" id="4_aq1ci"]
 [ext_resource type="Script" uid="uid://rn5d413leyg1" path="res://ai/tasks/actions/bt_rest.gd" id="4_y616i"]
-[ext_resource type="Script" uid="uid://ddiqj5u563n26" path="res://ai/tasks/actions/bt_wander.gd" id="8_y616i"]
+[ext_resource type="Script" path="res://ai/tasks/actions/bt_wander.gd" id="8_y616i"]
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_ui7ju"]
 
