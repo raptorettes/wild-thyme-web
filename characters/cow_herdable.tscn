@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://4gpa0f74sqc1"]
+[gd_scene format=3 uid="uid://cl2oh1nhx1oj1"]
 
-[ext_resource type="Script" uid="uid://ocgxy6xwd55j" path="res://characters/cow_herdable.gd" id="1_rl5um"]
+[ext_resource type="Script" path="res://characters/cow_herdable.gd" id="1_rl5um"]
 [ext_resource type="Texture2D" uid="uid://cc10qlxyphodn" path="res://assets/Animals/Cow/purple-cow-sprites.png" id="2_bkqrt"]
 [ext_resource type="BehaviorTree" uid="uid://delb5mdr08qse" path="res://ai/trees/bst_basic_cow.tres" id="3_rl5um"]
 [ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="4_whvud"]

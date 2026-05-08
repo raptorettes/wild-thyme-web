@@ -7,6 +7,8 @@
 [ext_resource type="Script" uid="uid://bft2sbny71am5" path="res://ai/tasks/actions/walk_to_destination.gd" id="5_meec1"]
 [ext_resource type="Script" path="res://ai/tasks/actions/bt_herdable_graze.gd" id="6_j4rqc"]
 
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_kply4"]
+
 [sub_resource type="BTCondition" id="BTCondition_37re4"]
 script = ExtResource("1_kply4")
 mouse_flee_radius = 80.0
@@ -63,4 +65,5 @@ children = [SubResource("BTProbabilitySelector_il4qt")]
 children = [SubResource("BTSequence_qqu62"), SubResource("BTSequence_a2sip")]
 
 [resource]
+blackboard_plan = SubResource("BlackboardPlan_kply4")
 root_task = SubResource("BTDynamicSelector_p1ebh")

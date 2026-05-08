@@ -28,7 +28,8 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="25_ujje3"]
 [ext_resource type="PackedScene" uid="uid://epvi6v6e0j6y" path="res://characters/bb_cow.tscn" id="25_vgcik"]
 [ext_resource type="PackedScene" uid="uid://dx6m8ghifwkfb" path="res://characters/chicken.tscn" id="28_52gom"]
-[ext_resource type="PackedScene" uid="uid://4gpa0f74sqc1" path="res://characters/cow_herdable.tscn" id="32_hrrti"]
+[ext_resource type="Script" uid="uid://c5aue6uernut" path="res://characters/bb_cow_chew.gd" id="30_643jo"]
+[ext_resource type="PackedScene" uid="uid://cl2oh1nhx1oj1" path="res://characters/cow_herdable.tscn" id="32_hrrti"]
 [ext_resource type="PackedScene" uid="uid://buqc5p6cimpad" path="res://objects/pear.tscn" id="33_hrrti"]
 [ext_resource type="PackedScene" uid="uid://bq7xp2uc66oil" path="res://objects/yellow-fleur.tscn" id="34_txx3f"]
 
@@ -848,13 +849,31 @@ position = Vector2(-482, -140)
 [node name="Pear6" parent="." unique_id=1051815590 instance=ExtResource("33_hrrti")]
 position = Vector2(98, 28)
 
-[node name="bb_cow" parent="." unique_id=1332065716 instance=ExtResource("25_vgcik")]
+[node name="bb_cow" parent="." unique_id=1332065716 groups=["animals", "baby", "cows"] instance=ExtResource("25_vgcik")]
 position = Vector2(246, 65)
+script = ExtResource("30_643jo")
+is_secret = true
+move_speed = 35.0
+flee_speed = 47.0
+mouse_flee_radius = 50.0
+player_flee_radius = 60.0
+happiness = 0.7
+happiness_gain_per_night = 0.3
+happiness_loss_per_night = 0.04
+happiness_chicken_penalty = 0.03
+favourite_spot = Vector2(0, 0)
+get_down_duration = 0.6
+get_up_duration = 0.8
+skittishness = 0.0
+days_in_herd = 0
+confidence = 0.5
+herd_cohesion = 0.0
+is_wanderer = false
+cow_name = ""
+color_variant = "purple"
 
 [node name="Chicken" parent="." unique_id=775685339 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(-183, -193)
-mouse_flee_radius = 150.0
-player_flee_radius = 100.0
 
 [node name="Chicken2" parent="." unique_id=373349891 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(205, -165)
