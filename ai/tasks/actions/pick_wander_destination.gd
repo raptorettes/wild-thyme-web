@@ -4,6 +4,7 @@ extends BTAction
 
 func _tick(_delta: float) -> int:
 	var cow = scene_root
+	cow.nav_agent.target_position = cow.global_position
 	
 	var random_offset = Vector2(
 		randf_range(-wander_radius, wander_radius),

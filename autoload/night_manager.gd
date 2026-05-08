@@ -303,8 +303,6 @@ func _spawn_baby_cow(parent_cow):
 	baby.happiness = 0.7
 	baby.herd_cohesion = 0.6
 	get_tree().current_scene.add_child(baby)
-	
-	# Wait for full initialisation then swap texture
 	await get_tree().process_frame
 	await get_tree().process_frame
 	var baby_textures = [

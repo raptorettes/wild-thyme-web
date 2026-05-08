@@ -33,6 +33,8 @@ func _calculate_lead_cow() -> Node:
 	var best_cow = null
 	var best_score = -1.0
 	for cow in cows:
+		if cow.get("is_wanderer") == null:
+			continue
 		if cow.is_wanderer:
 			continue
 		if cow.is_in_group("baby"):

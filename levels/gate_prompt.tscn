@@ -24,10 +24,10 @@ mouse_filter = 2
 
 [node name="Label" type="Label" parent="Control" unique_id=197933314]
 layout_mode = 0
-offset_left = 160.5
-offset_top = -115.0
-offset_right = 585.5
-offset_bottom = -53.0
+offset_left = 148.0
+offset_top = -58.0
+offset_right = 573.0
+offset_bottom = 4.0
 theme_override_colors/font_outline_color = Color(0.8509804, 0.5294118, 0.48235294, 1)
 theme_override_constants/outline_size = 10
 theme_override_fonts/font = ExtResource("2_s7bcd")

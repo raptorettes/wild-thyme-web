@@ -1,34 +1,47 @@
 extends Node
 
-@export var cursor_speed: float = 800.0
-var cursor_pos: Vector2 = Vector2.ZERO
+var herding_cursor = preload("res://assets/UI/Sprite sheets/Mouse sprites/catpaw_mouse_big.png")
+var default_cursor = preload("res://assets/UI/Sprite sheets/Mouse sprites/catpaw_pointing_big.png")
+var is_herding_cursor: bool = false
 
 func _ready():
-	cursor_pos = get_viewport().get_visible_rect().size / 2.0
-	Input.warp_mouse(Vector2(200, 200))
+	Input.set_custom_mouse_cursor(default_cursor, Input.CURSOR_ARROW, Vector2(24, 0))
 
-func _process(delta):
-	if Input.get_connected_joypads().is_empty():
+func _process(_delta):
+	var player = get_tree().get_first_node_in_group("player")
+	if player == null:
+		_set_default_cursor()
 		return
 	
-	var joy_input = Vector2(
-		Input.get_action_strength("cursor_right") - Input.get_action_strength("cursor_left"),
-		Input.get_action_strength("cursor_down") - Input.get_action_strength("cursor_up")
-	)
+	var mouse_pos = player.world_mouse_pos
+	var all_animals = []
+	all_animals.append_array(get_tree().get_nodes_in_group("cows"))
+	all_animals.append_array(get_tree().get_nodes_in_group("baby"))
+	all_animals.append_array(get_tree().get_nodes_in_group("chickens"))
 	
-	if joy_input.length() < 0.15:
+	for animal in all_animals:
+		if animal.get("player_flee_radius") == null:
+			continue
+		if animal.get("mouse_flee_radius") == null:
+			continue
+
+		var dist_to_player = animal.global_position.distance_to(player.global_position)
+		var dist_to_mouse = animal.global_position.distance_to(mouse_pos)
+		if dist_to_player > animal.player_flee_radius:
+			continue
+
+		if dist_to_mouse < animal.mouse_flee_radius:
+			_set_herding_cursor()
 		return
-	
-	cursor_pos += joy_input * cursor_speed * delta
-	cursor_pos = cursor_pos.clamp(Vector2.ZERO, get_viewport().get_visible_rect().size)
-	
-	# Convert viewport coords to screen coords
-	var transform = get_viewport().get_screen_transform()
-	var screen_pos = transform * cursor_pos
-	
-	var mouse_event = InputEventMouseMotion.new()
-	mouse_event.position = cursor_pos
-	mouse_event.relative = joy_input * cursor_speed * delta
-	Input.parse_input_event(mouse_event)
-	
-	Input.warp_mouse(screen_pos)
+
+	_set_default_cursor()
+
+func _set_herding_cursor():
+	if not is_herding_cursor:
+		is_herding_cursor = true
+		Input.set_custom_mouse_cursor(herding_cursor, Input.CURSOR_ARROW, Vector2(24, 24))
+
+func _set_default_cursor():
+	if is_herding_cursor:
+		is_herding_cursor = false
+		Input.set_custom_mouse_cursor(default_cursor, Input.CURSOR_ARROW, Vector2(24, 0))
