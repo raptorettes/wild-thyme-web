@@ -243,6 +243,7 @@ transitions = ["Idle", "Walk", SubResource("AnimationNodeStateMachineTransition_
 y_sort_enabled = true
 collision_layer = 4
 script = ExtResource("1_dkbiv")
+move_speed = 60.0
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=814850010]
 position = Vector2(0, -7)
