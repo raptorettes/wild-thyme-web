@@ -252,6 +252,7 @@ hframes = 8
 vframes = 24
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1532849389]
+visible = false
 y_sort_enabled = true
 position = Vector2(0, -3.625)
 shape = SubResource("RectangleShape2D_4gien")

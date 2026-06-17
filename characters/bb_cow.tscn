@@ -352,6 +352,7 @@ hframes = 8
 vframes = 9
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=235545710]
+visible = false
 position = Vector2(0, -5)
 shape = SubResource("RectangleShape2D_5wucx")
 
@@ -378,6 +379,5 @@ blackboard_plan = SubResource("BlackboardPlan_wbjck")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=127740589]
 path_postprocessing = 1
-debug_enabled = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

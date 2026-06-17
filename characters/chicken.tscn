@@ -308,6 +308,7 @@ hframes = 8
 vframes = 27
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=629315722]
+visible = false
 position = Vector2(0, -2.875)
 shape = SubResource("RectangleShape2D_hexpo")
 
@@ -322,6 +323,7 @@ libraries/ = SubResource("AnimationLibrary_b7ce8")
 [node name="Timer" type="Timer" parent="." unique_id=2059353436]
 
 [node name="CowDetector" type="Area2D" parent="." unique_id=2054371249]
+visible = false
 position = Vector2(1, -6)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CowDetector" unique_id=914103000]
@@ -329,6 +331,7 @@ position = Vector2(-2, 0)
 shape = SubResource("CircleShape2D_hexpo")
 
 [node name="PickupArea" type="Area2D" parent="." unique_id=1012196709]
+visible = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PickupArea" unique_id=2011395488]
 position = Vector2(0, -8)
@@ -348,6 +351,5 @@ blackboard_plan = SubResource("BlackboardPlan_hexpo")
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1669450514]
 path_postprocessing = 1
 avoidance_enabled = true
-debug_enabled = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
