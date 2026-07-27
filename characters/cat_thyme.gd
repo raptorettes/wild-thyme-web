@@ -3,6 +3,7 @@ extends CharacterBody2D
 @export var move_speed: float = 100
 @export var starting_direction: Vector2 = Vector2(0, 1)
 @export var interact_distance: float = 35.0
+@export var current_tool: DataTypes.Tools = DataTypes.Tools.None
 
 @onready var animation_tree = $AnimationTree
 @onready var state_machine = animation_tree.get("parameters/playback")
@@ -99,3 +100,7 @@ func _on_night_started():
 func _on_morning_started(message: String, baby_born: bool, cow_grown_up: bool):
 	set_physics_process(true)
 	set_process_input(true)
+
+
+func _on_idle_state_entered() -> void:
+	state_machine.travel("idle")

@@ -1,6 +1,11 @@
 [gd_scene format=3 uid="uid://duh4dqmehsp4y"]
 
 [ext_resource type="Script" uid="uid://cnmvup87yr4ut" path="res://characters/cat_thyme.gd" id="1_dkbiv"]
+[ext_resource type="Script" uid="uid://baicy7scabbe0" path="res://scripts/statemachine/node_state_machine.gd" id="2_0ok1x"]
+[ext_resource type="Script" uid="uid://chg3ka7ebt5ia" path="res://characters/states/idle_state.gd" id="3_iqyji"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_an7t8"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_u3s6h"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_1u45o"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4gien"]
 load_path = "res://.godot/imported/Premium Charakter Spritesheet.png-080407d5c428d197f3601c1e16fa25f5.ctex"
@@ -267,3 +272,27 @@ tree_root = SubResource("AnimationNodeStateMachine_ehmik")
 anim_player = NodePath("../AnimationPlayer")
 parameters/Idle/blend_position = Vector2(0.2029581, 0.2483871)
 parameters/Walk/blend_position = Vector2(0.19802797, 0.29907835)
+
+[node name="StateMachine" type="Node" parent="." unique_id=1882501092]
+script = ExtResource("2_0ok1x")
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1405016330 node_paths=PackedStringArray("player", "sprite2D")]
+script = ExtResource("3_iqyji")
+player = NodePath("../..")
+sprite2D = NodePath("../../Sprite2D")
+
+[node name="StateChart" type="Node" parent="." unique_id=395080459]
+script = ExtResource("4_an7t8")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=2110017143]
+script = ExtResource("5_u3s6h")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root" unique_id=1911309706]
+script = ExtResource("6_1u45o")
+
+[node name="AxeWood" type="Node" parent="StateChart/Root" unique_id=1737624443]
+script = ExtResource("6_1u45o")
+
+[connection signal="state_entered" from="StateChart/Root/Idle" to="." method="_on_idle_state_entered"]
