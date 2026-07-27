@@ -32,6 +32,7 @@ Inventory="*uid://dcvmrm3ml03ux"
 MessageBox="*uid://xxn6xbwbrxe0"
 GatePrompt="*uid://ul8oiq86jiox"
 PhantomCameraManager="*uid://duq6jhf6unyis"
+JsBridge="*uid://dpe1mg2j0yyt7"
 
 [display]
 

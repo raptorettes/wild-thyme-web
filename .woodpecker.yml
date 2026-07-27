@@ -1,0 +1,89 @@
+steps:
+  - name: export-web
+    image: docker.io/barichello/godot-ci:4.6.3
+    commands:
+      - mkdir -p exports/web
+      - godot --headless --export-release "Web" exports/web/index.html
+
+  - name: export-linux
+    image: docker.io/barichello/godot-ci:4.6.3
+    commands:
+      - mkdir -p exports/linux
+      - godot --headless --export-release "Linux" ./exports/linux/wild-thyme_linux_x64
+
+  - name: export-windows
+    image: docker.io/barichello/godot-ci:4.6.3
+    commands:
+      - mkdir -p exports/windows
+      - godot --headless --export-release "Windows Desktop" ./exports/windows/wild-thyme_windows.exe
+
+  # - name: verify-release
+  #   image: alpine
+  #   commands:
+  #     - |
+  #       if ls exports/web/*.wasm 2>/dev/null | grep -q "\.editor\."; then
+  #         echo "ERROR: Debug/editor wasm files found in release export."
+  #         exit 1
+  #       fi
+  #       echo "Release export verified."
+
+  - name: generate-manifest
+    image: alpine
+    commands:
+      - apk add --no-cache python3 py3-yaml git
+      - python3 ci/generate-manifest.py --export-dir exports
+
+  - name: upload-and-index
+    image: rclone/rclone:latest
+    environment:
+      PROJECT: wild-thyme
+      # These define the [r2] remote automatically — no file needed
+      RCLONE_CONFIG_R2_TYPE: s3
+      RCLONE_CONFIG_R2_PROVIDER: Cloudflare
+      RCLONE_CONFIG_R2_REGION: auto
+      RCLONE_CONFIG_R2_NO_CHECK_BUCKET: "true"
+      RCLONE_CONFIG_R2_ACCESS_KEY_ID:
+        from_secret: r2_access_key_id
+      RCLONE_CONFIG_R2_SECRET_ACCESS_KEY:
+        from_secret: r2_secret_access_key
+      RCLONE_CONFIG_R2_ENDPOINT:
+        from_secret: r2_endpoint
+      POSTHOG_KEY:
+        from_secret: posthog_key
+    commands:
+      - apk add --no-cache python3 py3-yaml git
+      - |
+        set -e
+        cd "${CI_WORKSPACE:-/woodpecker/src}"
+
+        DATE=$(date -u +%Y-%m-%d)
+        EPOCH=$(git log -1 --format=%ct)
+        REV=$(git rev-parse --short HEAD)
+        R2_BASE="https://games-media.noetic.work/builds/$PROJECT/$DATE/$REV"
+
+        echo "DATE=$DATE REV=$REV"
+
+        # Verify rclone sees the remote
+        rclone listremotes | grep -q "^r2:$" || { echo "r2 remote missing"; exit 1; }
+        rclone ls r2:noetic-games --max-depth 1 || echo "R2 bucket empty or unreachable"
+
+        python3 ci/generate-manifest.py \
+          --project "$PROJECT" \
+          --export-dir exports \
+          --shell-config shell.json \
+          --date "$DATE" \
+          --rev "$REV" \
+          --epoch "$EPOCH" \
+          --r2-base "$R2_BASE" \
+          --out-dir "manifests/$DATE/$REV" \
+          --telemetry-key "${POSTHOG_KEY:-}"
+
+        rclone copy exports/web "r2:noetic-games/builds/$PROJECT/$DATE/$REV/web"
+        rclone copy exports/linux "r2:noetic-games/builds/$PROJECT/$DATE/$REV/linux"
+        rclone copy exports/windows "r2:noetic-games/builds/$PROJECT/$DATE/$REV/windows"
+        rclone copy "manifests/$DATE/$REV" "r2:noetic-games/builds/$PROJECT/$DATE/$REV"
+
+        python3 ci/update-index.py \
+          --summary "manifests/$DATE/$REV/summary.json" \
+          --r2-remote "r2:noetic-games" \
+          --project "$PROJECT"

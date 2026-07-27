@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "title": "Wild Thyme",
+  "executableName": "wild-thyme",
+  "template": {
+    "version": "2026-07-24/0c57d8f"
+  },
+  "theme": {
+    "background": "#111111",
+    "accent": "#eda3c4"
+  },
+  "features": {
+    "threads": true,
+    "serviceWorker": false
+  }
+}
