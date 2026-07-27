@@ -3,3 +3,5 @@
 /android/
 /export/
 .direnv/
+/exports
+/manifests
