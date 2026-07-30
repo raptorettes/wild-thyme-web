@@ -88,7 +88,7 @@ func _input(event):
 				pause_menu.close()
 			else:
 				pause_menu.open()
-		if event.keycode == KEY_E:
+		if event.is_action_pressed("interact"):
 			if _player_in_area(night_trigger1):
 				_rest_message("Everyone's settling down for the night...", $Enclosure1, $Enclosure1/CollisionShape2D)
 			elif _player_in_area(night_trigger2):

@@ -14,7 +14,7 @@ func _enter() -> void:
 	animal.nav_agent.target_position = animal.global_position
 	_timer = 0.0
 	_chewing = false
-	animal.state_machine.travel("graze_right")
+	animal.state_machine.travel("graze")
 	animal.velocity = Vector2.ZERO
 
 func _tick(delta: float) -> int:

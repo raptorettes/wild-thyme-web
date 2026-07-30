@@ -303,20 +303,22 @@ func _spawn_baby_cow(parent_cow):
 	baby.happiness = 0.7
 	baby.herd_cohesion = 0.6
 	get_tree().current_scene.add_child(baby)
-	
+
 	# Wait for full initialisation then swap texture
 	await get_tree().process_frame
 	await get_tree().process_frame
-	var baby_textures = [
-		load("res://assets/Animals/Cow_Baby/baby-cow-blue.png"),
-		load("res://assets/Animals/Cow_Baby/baby-cow-green.png"),
-		load("res://assets/Animals/Cow_Baby/baby-cow-pink.png"),
-		load("res://assets/Animals/Cow_Baby/baby-cow-yellow.png"),
-		load("res://assets/Animals/Cow_Baby/baby purple cow animations sprites.png"),
+
+	var baby_variants = [
+		{"texture": "res://assets/Animals/Cow_Baby/baby-cow-blue.png", "color_variant": "blue"},
+		{"texture": "res://assets/Animals/Cow_Baby/baby-cow-green.png", "color_variant": "green"},
+		{"texture": "res://assets/Animals/Cow_Baby/baby-cow-pink.png", "color_variant": "pink"},
+		{"texture": "res://assets/Animals/Cow_Baby/baby-cow-yellow.png", "color_variant": "yellow"},
+		{"texture": "res://assets/Animals/Cow_Baby/baby purple cow animations sprites.png", "color_variant": "purple"},
 	]
-	var tex = baby_textures[randi() % baby_textures.size()]
-	baby.sprite.texture = tex
-	
+	var pick = baby_variants[randi() % baby_variants.size()]
+	baby.sprite.texture = load(pick.texture)
+	baby.color_variant = pick.color_variant
+		
 func get_nearest_node_in_group(group, position):
 	var nodes = get_tree().get_nodes_in_group(group)
 	nodes.sort_custom( func(a,b): return a.global_position.distance_to(position)<b.global_position.distance_to(position) )

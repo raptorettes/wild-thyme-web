@@ -96,7 +96,7 @@ func _input(event):
 		is_showing = false
 		_show_next()
 	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_F:
+		if event.is_action_pressed("interact"):
 			is_showing = false
 			_show_next()
 

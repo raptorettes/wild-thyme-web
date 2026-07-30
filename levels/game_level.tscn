@@ -28,6 +28,7 @@
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="25_ujje3"]
 [ext_resource type="PackedScene" uid="uid://epvi6v6e0j6y" path="res://characters/bb_cow.tscn" id="25_vgcik"]
 [ext_resource type="PackedScene" uid="uid://dx6m8ghifwkfb" path="res://characters/chicken.tscn" id="28_52gom"]
+[ext_resource type="Script" uid="uid://djuhf2uo3k4rx" path="res://addons/virtual_joystick_DX/vjdx_core_script.gd" id="32_643jo"]
 [ext_resource type="PackedScene" uid="uid://4gpa0f74sqc1" path="res://characters/cow_herdable.tscn" id="32_hrrti"]
 [ext_resource type="PackedScene" uid="uid://buqc5p6cimpad" path="res://objects/pear.tscn" id="33_hrrti"]
 [ext_resource type="PackedScene" uid="uid://bq7xp2uc66oil" path="res://objects/yellow-fleur.tscn" id="34_txx3f"]
@@ -848,9 +849,6 @@ position = Vector2(-482, -140)
 [node name="Pear6" parent="." unique_id=1051815590 instance=ExtResource("33_hrrti")]
 position = Vector2(98, 28)
 
-[node name="bb_cow" parent="." unique_id=1332065716 instance=ExtResource("25_vgcik")]
-position = Vector2(246, 65)
-
 [node name="Chicken" parent="." unique_id=775685339 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
 position = Vector2(-183, -193)
 mouse_flee_radius = 150.0
@@ -908,3 +906,33 @@ navigation_region = NodePath("../NavigationRegion2D")
 [node name="CowHerdable5" parent="." unique_id=1208513473 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
 position = Vector2(-388, -172)
 navigation_region = NodePath("../NavigationRegion2D")
+
+[node name="bb_cow" parent="." unique_id=1076217618 node_paths=PackedStringArray("navigation_region") instance=ExtResource("25_vgcik")]
+position = Vector2(-363, -200)
+navigation_region = NodePath("../NavigationRegion2D")
+move_speed = 37.0
+flee_speed = 45.0
+
+[node name="bb_cow2" parent="." unique_id=997581389 node_paths=PackedStringArray("navigation_region") instance=ExtResource("25_vgcik")]
+position = Vector2(-308, -233)
+navigation_region = NodePath("../NavigationRegion2D")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1993395477]
+
+[node name="VirtualJoystickDX" type="Control" parent="CanvasLayer" unique_id=589722652]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 105.0
+offset_top = 503.0
+offset_right = 145.0
+offset_bottom = 543.0
+pivot_offset = Vector2(20, 20)
+mouse_filter = 2
+script = ExtResource("32_643jo")
+color_js_base = Color(0.57254905, 0.69803923, 0.83137256, 1)
+color_js_thumb_active = Color(0.9098039, 0.70980394, 0.6745098, 1)
+"Colors - D-Pad" = null
+"Textures - D-Pad" = null
+Cardinals = null
+Diagonals = null
+metadata/_custom_type_script = "uid://djuhf2uo3k4rx"

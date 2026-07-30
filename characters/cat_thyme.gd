@@ -31,9 +31,8 @@ func _physics_process(_delta):
 	pick_new_state()
 
 func _input(event):
-	if event is InputEventKey and event.pressed:
-		if event.keycode == KEY_F:
-			_try_interact()
+	if event.is_action_pressed("interact"):
+		_try_interact()
 
 func _try_interact():
 	# Find best interactable in facing direction

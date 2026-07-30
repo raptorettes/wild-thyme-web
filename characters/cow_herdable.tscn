@@ -73,7 +73,7 @@ tracks/0/keys = {
 }
 
 [sub_resource type="Animation" id="Animation_t8fki"]
-resource_name = "graze_right"
+resource_name = "graze"
 length = 3.0
 loop_mode = 1
 tracks/0/type = "value"
@@ -197,7 +197,7 @@ _data = {
 &"chew": SubResource("Animation_0h17f"),
 &"get_down": SubResource("Animation_fh3vp"),
 &"get_up": SubResource("Animation_rg7hg"),
-&"graze_right": SubResource("Animation_t8fki"),
+&"graze": SubResource("Animation_t8fki"),
 &"idle": SubResource("Animation_5wucx"),
 &"idle_right": SubResource("Animation_t8qks"),
 &"love": SubResource("Animation_s32nw"),
@@ -288,7 +288,7 @@ states/sleep/position = Vector2(1253, 87)
 states/walk_right/node = SubResource("AnimationNodeAnimation_t8fki")
 states/walk_right/position = Vector2(480, 100)
 transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_t8qks"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_unut8"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_0h17f"), "walk_right", "graze_right", SubResource("AnimationNodeStateMachineTransition_s32nw"), "graze_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_3j5tr"), "graze_right", "chew", SubResource("AnimationNodeStateMachineTransition_fh3vp"), "chew", "graze_right", SubResource("AnimationNodeStateMachineTransition_rg7hg"), "chew", "rest", SubResource("AnimationNodeStateMachineTransition_r3n4y"), "rest", "chew", SubResource("AnimationNodeStateMachineTransition_b66ct"), "rest", "love", SubResource("AnimationNodeStateMachineTransition_3l2yh"), "love", "rest", SubResource("AnimationNodeStateMachineTransition_87ri1"), "love", "get_down", SubResource("AnimationNodeStateMachineTransition_wfo2c"), "get_down", "love", SubResource("AnimationNodeStateMachineTransition_y4opc"), "get_down", "sleep", SubResource("AnimationNodeStateMachineTransition_pfofr"), "sleep", "get_down", SubResource("AnimationNodeStateMachineTransition_owtl3"), "sleep", "get_up", SubResource("AnimationNodeStateMachineTransition_q7cx5"), "get_up", "sleep", SubResource("AnimationNodeStateMachineTransition_mdegj")]
-graph_offset = Vector2(-25.892906, 58.13407)
+graph_offset = Vector2(101.71294, 58.13407)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5wucx"]
 radius = 24.0
@@ -314,7 +314,7 @@ root_task = SubResource("BTRepeat_whvud")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_t8qks"]
 
-[node name="CowHerdable" type="CharacterBody2D" unique_id=1245950768]
+[node name="CowHerdable" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
 light_mask = 2
 collision_layer = 2
 collision_mask = 7
