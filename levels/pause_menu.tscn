@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bjjkiv45k1a1s"]
 
 [ext_resource type="Script" uid="uid://dnvawyl0bm055" path="res://scripts/pause_menu.gd" id="1_e7fsp"]
+[ext_resource type="Theme" uid="uid://biqr17lijabhr" path="res://assets/UI/sproutlands/sprout_lands_theme.tres" id="2_3jqdk"]
 [ext_resource type="FontFile" uid="uid://bp48q5jn6sunb" path="res://assets/UI/fonts/MonsterFriendFore.otf" id="2_qlm62"]
 
 [node name="PauseMenu" type="CanvasLayer" unique_id=334462023]
@@ -18,6 +19,7 @@ mouse_filter = 2
 [node name="PanelContainer" type="PanelContainer" parent="CenterContainer" unique_id=1942478811]
 layout_mode = 2
 mouse_filter = 2
+theme = ExtResource("2_3jqdk")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/PanelContainer" unique_id=1364850104]
 layout_mode = 2

@@ -849,87 +849,86 @@ position = Vector2(-482, -140)
 [node name="Pear6" parent="." unique_id=1051815590 instance=ExtResource("33_hrrti")]
 position = Vector2(98, 28)
 
-[node name="Chicken" parent="." unique_id=775685339 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken" parent="." unique_id=775685339 instance=ExtResource("28_52gom")]
 position = Vector2(-183, -193)
 mouse_flee_radius = 150.0
 player_flee_radius = 100.0
 
-[node name="Chicken2" parent="." unique_id=373349891 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken2" parent="." unique_id=373349891 instance=ExtResource("28_52gom")]
 position = Vector2(205, -165)
 
-[node name="Chicken3" parent="." unique_id=803197160 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken3" parent="." unique_id=803197160 instance=ExtResource("28_52gom")]
 position = Vector2(270, -189)
 
-[node name="Chicken4" parent="." unique_id=808460597 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken4" parent="." unique_id=808460597 instance=ExtResource("28_52gom")]
 position = Vector2(215, 219)
 
-[node name="Chicken5" parent="." unique_id=1254964099 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken5" parent="." unique_id=1254964099 instance=ExtResource("28_52gom")]
 position = Vector2(36, 78)
 
-[node name="Chicken6" parent="." unique_id=1222131190 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken6" parent="." unique_id=1222131190 instance=ExtResource("28_52gom")]
 position = Vector2(167, -42)
 
-[node name="Chicken7" parent="." unique_id=1241778839 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken7" parent="." unique_id=1241778839 instance=ExtResource("28_52gom")]
 position = Vector2(-364, -240)
 
-[node name="Chicken8" parent="." unique_id=1110045203 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken8" parent="." unique_id=1110045203 instance=ExtResource("28_52gom")]
 position = Vector2(-232, -27)
 
-[node name="Chicken9" parent="." unique_id=1994150509 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken9" parent="." unique_id=1994150509 instance=ExtResource("28_52gom")]
 position = Vector2(168, 339)
 
-[node name="Chicken10" parent="." unique_id=1054337965 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken10" parent="." unique_id=1054337965 instance=ExtResource("28_52gom")]
 position = Vector2(365, 327)
 
-[node name="Chicken11" parent="." unique_id=1331313043 groups=["animals", "chickens"] instance=ExtResource("28_52gom")]
+[node name="Chicken11" parent="." unique_id=1331313043 instance=ExtResource("28_52gom")]
 position = Vector2(462, 64)
 
-[node name="CowHerdable" parent="." unique_id=171070726 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1558688391]
+position = Vector2(3, 3)
+navigation_polygon = SubResource("NavigationPolygon_643jo")
+
+[node name="CowHerdable" parent="." unique_id=171070726 node_paths=PackedStringArray("navigation_region") groups=["nav_group"] instance=ExtResource("32_hrrti")]
 position = Vector2(-376, -88)
 navigation_region = NodePath("../NavigationRegion2D")
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1558688391]
-navigation_polygon = SubResource("NavigationPolygon_643jo")
-
-[node name="CowHerdable2" parent="." unique_id=1245950768 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
+[node name="CowHerdable2" parent="." unique_id=1245950768 node_paths=PackedStringArray("navigation_region") groups=["nav_group"] instance=ExtResource("32_hrrti")]
 position = Vector2(-395, -116)
 navigation_region = NodePath("../NavigationRegion2D")
 
-[node name="CowHerdable3" parent="." unique_id=1145862563 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
+[node name="CowHerdable3" parent="." unique_id=1145862563 node_paths=PackedStringArray("navigation_region") groups=["nav_group"] instance=ExtResource("32_hrrti")]
 position = Vector2(-374, -139)
 navigation_region = NodePath("../NavigationRegion2D")
 
-[node name="CowHerdable4" parent="." unique_id=1320082858 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
+[node name="CowHerdable4" parent="." unique_id=1320082858 node_paths=PackedStringArray("navigation_region") groups=["nav_group"] instance=ExtResource("32_hrrti")]
 position = Vector2(-341, -100)
 navigation_region = NodePath("../NavigationRegion2D")
 
-[node name="CowHerdable5" parent="." unique_id=1208513473 node_paths=PackedStringArray("navigation_region") instance=ExtResource("32_hrrti")]
+[node name="CowHerdable5" parent="." unique_id=1208513473 node_paths=PackedStringArray("navigation_region") groups=["nav_group"] instance=ExtResource("32_hrrti")]
 position = Vector2(-388, -172)
 navigation_region = NodePath("../NavigationRegion2D")
 
-[node name="bb_cow" parent="." unique_id=1076217618 node_paths=PackedStringArray("navigation_region") instance=ExtResource("25_vgcik")]
+[node name="bb_cow" parent="." unique_id=1076217618 instance=ExtResource("25_vgcik")]
 position = Vector2(-363, -200)
-navigation_region = NodePath("../NavigationRegion2D")
 move_speed = 37.0
 flee_speed = 45.0
 
-[node name="bb_cow2" parent="." unique_id=997581389 node_paths=PackedStringArray("navigation_region") instance=ExtResource("25_vgcik")]
+[node name="bb_cow2" parent="." unique_id=997581389 instance=ExtResource("25_vgcik")]
 position = Vector2(-308, -233)
-navigation_region = NodePath("../NavigationRegion2D")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1993395477]
 
 [node name="VirtualJoystickDX" type="Control" parent="CanvasLayer" unique_id=589722652]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 105.0
-offset_top = 503.0
-offset_right = 145.0
-offset_bottom = 543.0
+offset_left = 104.0
+offset_top = 518.0
+offset_right = 144.0
+offset_bottom = 558.0
 pivot_offset = Vector2(20, 20)
 mouse_filter = 2
 script = ExtResource("32_643jo")
-color_js_base = Color(0.57254905, 0.69803923, 0.83137256, 1)
+color_js_base = Color(0.57254905, 0.69803923, 0.83137256, 0.6862745)
 color_js_thumb_active = Color(0.9098039, 0.70980394, 0.6745098, 1)
 "Colors - D-Pad" = null
 "Textures - D-Pad" = null

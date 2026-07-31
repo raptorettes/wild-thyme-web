@@ -336,7 +336,7 @@ root_task = SubResource("BTRepeat_dqo3j")
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_wbjck"]
 
-[node name="bb_cow" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "baby", "cows"]]
+[node name="bb_cow" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "baby", "cows", "nav_group"]]
 light_mask = 2
 collision_layer = 2
 input_pickable = true
@@ -378,6 +378,6 @@ blackboard_plan = SubResource("BlackboardPlan_wbjck")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=127740589]
 path_postprocessing = 1
-debug_enabled = true
+avoidance_enabled = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

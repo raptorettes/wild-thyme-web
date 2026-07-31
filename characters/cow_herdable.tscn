@@ -216,7 +216,7 @@ animation = &"get_down"
 animation = &"get_up"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_t8qks"]
-animation = &"graze_right"
+animation = &"graze"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5wucx"]
 animation = &"idle_right"
@@ -275,8 +275,8 @@ states/get_down/node = SubResource("AnimationNodeAnimation_3j5tr")
 states/get_down/position = Vector2(1104, 95)
 states/get_up/node = SubResource("AnimationNodeAnimation_fh3vp")
 states/get_up/position = Vector2(1415, 87)
-states/graze_right/node = SubResource("AnimationNodeAnimation_t8qks")
-states/graze_right/position = Vector2(628, 100)
+states/graze/node = SubResource("AnimationNodeAnimation_t8qks")
+states/graze/position = Vector2(628, 100.159996)
 states/idle_right/node = SubResource("AnimationNodeAnimation_5wucx")
 states/idle_right/position = Vector2(326, 100)
 states/love/node = SubResource("AnimationNodeAnimation_s32nw")
@@ -287,8 +287,8 @@ states/sleep/node = SubResource("AnimationNodeAnimation_rg7hg")
 states/sleep/position = Vector2(1253, 87)
 states/walk_right/node = SubResource("AnimationNodeAnimation_t8fki")
 states/walk_right/position = Vector2(480, 100)
-transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_t8qks"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_unut8"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_0h17f"), "walk_right", "graze_right", SubResource("AnimationNodeStateMachineTransition_s32nw"), "graze_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_3j5tr"), "graze_right", "chew", SubResource("AnimationNodeStateMachineTransition_fh3vp"), "chew", "graze_right", SubResource("AnimationNodeStateMachineTransition_rg7hg"), "chew", "rest", SubResource("AnimationNodeStateMachineTransition_r3n4y"), "rest", "chew", SubResource("AnimationNodeStateMachineTransition_b66ct"), "rest", "love", SubResource("AnimationNodeStateMachineTransition_3l2yh"), "love", "rest", SubResource("AnimationNodeStateMachineTransition_87ri1"), "love", "get_down", SubResource("AnimationNodeStateMachineTransition_wfo2c"), "get_down", "love", SubResource("AnimationNodeStateMachineTransition_y4opc"), "get_down", "sleep", SubResource("AnimationNodeStateMachineTransition_pfofr"), "sleep", "get_down", SubResource("AnimationNodeStateMachineTransition_owtl3"), "sleep", "get_up", SubResource("AnimationNodeStateMachineTransition_q7cx5"), "get_up", "sleep", SubResource("AnimationNodeStateMachineTransition_mdegj")]
-graph_offset = Vector2(101.71294, 58.13407)
+transitions = ["Start", "idle_right", SubResource("AnimationNodeStateMachineTransition_t8qks"), "idle_right", "walk_right", SubResource("AnimationNodeStateMachineTransition_unut8"), "walk_right", "idle_right", SubResource("AnimationNodeStateMachineTransition_0h17f"), "walk_right", "graze", SubResource("AnimationNodeStateMachineTransition_s32nw"), "graze", "walk_right", SubResource("AnimationNodeStateMachineTransition_3j5tr"), "graze", "chew", SubResource("AnimationNodeStateMachineTransition_fh3vp"), "chew", "graze", SubResource("AnimationNodeStateMachineTransition_rg7hg"), "chew", "rest", SubResource("AnimationNodeStateMachineTransition_r3n4y"), "rest", "chew", SubResource("AnimationNodeStateMachineTransition_b66ct"), "rest", "love", SubResource("AnimationNodeStateMachineTransition_3l2yh"), "love", "rest", SubResource("AnimationNodeStateMachineTransition_87ri1"), "love", "get_down", SubResource("AnimationNodeStateMachineTransition_wfo2c"), "get_down", "love", SubResource("AnimationNodeStateMachineTransition_y4opc"), "get_down", "sleep", SubResource("AnimationNodeStateMachineTransition_pfofr"), "sleep", "get_down", SubResource("AnimationNodeStateMachineTransition_owtl3"), "sleep", "get_up", SubResource("AnimationNodeStateMachineTransition_q7cx5"), "get_up", "sleep", SubResource("AnimationNodeStateMachineTransition_mdegj")]
+graph_offset = Vector2(316.2754, 54.13407)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_5wucx"]
 radius = 24.0
@@ -312,9 +312,9 @@ children = [SubResource("BTSubtree_whvud")]
 blackboard_plan = SubResource("BlackboardPlan_bkqrt")
 root_task = SubResource("BTRepeat_whvud")
 
-[sub_resource type="BlackboardPlan" id="BlackboardPlan_t8qks"]
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_rl5um"]
 
-[node name="CowHerdable" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows"]]
+[node name="CowHerdable" type="CharacterBody2D" unique_id=1245950768 groups=["animals", "cows", "nav_group"]]
 light_mask = 2
 collision_layer = 2
 collision_mask = 7
@@ -327,7 +327,6 @@ path_postprocessing = 1
 avoidance_enabled = true
 radius = 30.83
 time_horizon_obstacles = 0.67
-debug_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1824355626]
 light_mask = 2
@@ -367,7 +366,7 @@ shape = SubResource("CircleShape2D_t8fki")
 
 [node name="BTPlayer" type="BTPlayer" parent="." unique_id=29846508]
 behavior_tree = SubResource("BehaviorTree_2vl37")
-blackboard_plan = SubResource("BlackboardPlan_t8qks")
+blackboard_plan = SubResource("BlackboardPlan_rl5um")
 
 [node name="Label" type="Label" parent="." unique_id=1122131045]
 offset_left = 2.0

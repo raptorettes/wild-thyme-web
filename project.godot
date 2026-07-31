@@ -45,7 +45,7 @@ mouse_cursor/custom_image="uid://1oq333hy4p1"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/virtual_joystick_DX/plugin.cfg")
+enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg", "res://addons/sprout_lands_ui/plugin.cfg", "res://addons/virtual_joystick_DX/plugin.cfg")
 
 [global_group]
 
@@ -60,6 +60,10 @@ attraction_point=""
 pickup_item=""
 chests=""
 nav_group=""
+
+[gui]
+
+theme/custom="res://assets/UI/sproutlands/sprout_lands_theme.tres"
 
 [input]
 
@@ -175,3 +179,8 @@ renderer/rendering_method.mobile="gl_compatibility"
 viewport/hdr_2d=true
 anti_aliasing/quality/msaa_2d=2
 anti_aliasing/quality/use_debanding=true
+
+[sprout_lands_ui]
+
+disable_plugin_dialogues=true
+copy_path="res://assets/UI/sproutlands"
